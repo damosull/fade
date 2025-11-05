@@ -1,0 +1,248 @@
+import { test, expect } from '@playwright/test';
+import fs from 'node:fs';
+import path from 'node:path';
+import { navigateToHome } from '../src/seed/auth';
+import { HeaderAndHamburgerPage } from '../pages/headerAndHamburger';
+import { CompliancePage } from '../pages/compliancePage';
+import { IndividualPage } from '../pages/individualAccount';
+import { FinanceTabPage } from '../pages/financeTabPage';
+import AssetModal from '../pages/assetModal';
+import { AddPolicyModalPage } from '../pages/addPolicyModal';
+
+const stamp = () => new Date().toISOString().replace(/[:.]/g, '-');
+const policyNumber = () => `Policy-${stamp()}`;
+const getSeedOutputDir = (projectName: string) =>
+  process.env.SEED_OUTPUT_DIR ? process.env.SEED_OUTPUT_DIR : `.seed-cache/${projectName}`;
+
+if (process.env.CI) test.slow();
+
+test.beforeEach(async ({ page }, testInfo) => {
+  console.log('────────────────────────────────────────────');
+  console.log(`[seed] beforeEach: project=${testInfo.project.name}`);
+  await navigateToHome(page, process.env.CI ? testInfo.project.name : 'chromium', { quiet: true });
+  console.log('[seed] beforeEach: navigateToHome done →', page.url());
+  console.log('────────────────────────────────────────────');
+});
+
+test.describe('Fade seeded flows', () => {
+  test('Introducers + account + assets + protection', async ({ page }, testInfo) => {
+    const outDir = getSeedOutputDir(testInfo.project.name);
+
+    console.log('──────────────────────────────');
+    console.log('[seed] START createOneSeed()');
+    console.log('──────────────────────────────');
+
+    const header = new HeaderAndHamburgerPage(page);
+    const compliance = new CompliancePage(page);
+    const individual = new IndividualPage(page);
+    const finance = new FinanceTabPage(page);
+    const assetModal = new AssetModal(page);
+    const addPolicy = new AddPolicyModalPage(page);
+
+    const ownerTag = `e2e-${stamp()}`;
+    console.log(`[seed] Using ownerTag: ${ownerTag}`);
+    console.log('[seed] Current URL:', page.url());
+
+    let introducerAdviserName = '';
+    let introducerFirmName = '';
+    let accountSurname = '';
+    let isaPolicyName = '';
+    let giaPolicyName = '';
+    let protectionPolicyNumber = '';
+
+    await test.step('Open Compliance via hamburger', async () => {
+      console.log('[seed] Opening hamburger…');
+      await header.clickOnHamburgerMenu();
+      console.log('[seed] ✅ Hamburger clicked.');
+      console.log('[seed] Clicking Compliance…');
+      await header.clickOnCompliance();
+      console.log('[seed] ✅ Compliance clicked, waiting for heading…');
+      await compliance.compliancePageHeading();
+      console.log('[seed] ✅ Compliance heading present.');
+      console.log('[seed] Waiting for Add Introducer button…');
+      await expect(compliance.addIntroducerButton).toBeVisible({ timeout: 60000 });
+      await compliance.addIntroducerButton.scrollIntoViewIfNeeded();
+      await expect(compliance.addIntroducerButton).toBeEnabled({ timeout: 60000 });
+      console.log('[seed] ✅ Add Introducer button is visible & enabled.');
+    });
+
+    await test.step('Create Adviser introducer', async () => {
+      console.log('[seed] Clicking Add Introducer for Adviser…');
+      await compliance.clickAddIntroducerButton();
+      console.log('[seed] ✅ Add Introducer modal opened (Adviser).');
+
+      introducerAdviserName = `Adviser-${ownerTag}`;
+      console.log('[seed] Filling Adviser introducer form…');
+      await compliance.addIntroducer(
+        introducerAdviserName,
+        `adviser.${ownerTag}@test.co.uk`,
+        '01234567890'
+      );
+      console.log('[seed] ✅ Basic details entered.');
+      await compliance.addIntroducerSource('Adviser', 'Approved');
+      console.log('[seed] ✅ Source set.');
+      await compliance.addAdviser('Test Superadmin');
+      console.log('[seed] ✅ Adviser assigned.');
+      await compliance.addIntroducerFeeSplit('25', 'initial advice fee', 'net');
+      await compliance.addIntroducerFeeSplit('43', 'ongoing advice fee', 'gross');
+      console.log('[seed] ✅ Fee splits added.');
+      await compliance.addIntroducerSaveButton.click();
+      console.log('[seed] ✅ Save clicked, waiting for settle…');
+      try {
+        await expect(
+          page.getByText('Introducer fee splits created successfully', { exact: false }).first()
+        ).toBeVisible({ timeout: 20_000 });
+      } catch {
+        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+        await page.waitForLoadState('networkidle');
+      }
+      console.log(`[seed] ✅ Adviser introducer created: ${introducerAdviserName}`);
+    });
+
+    await test.step('Create Firm introducer', async () => {
+      console.log('[seed] Preparing to add Firm introducer…');
+      await expect(compliance.addIntroducerButton).toBeVisible({ timeout: 60000 });
+      await compliance.addIntroducerButton.scrollIntoViewIfNeeded();
+      await expect(compliance.addIntroducerButton).toBeEnabled({ timeout: 60000 });
+      await compliance.clickAddIntroducerButton();
+      console.log('[seed] ✅ Add Introducer modal opened (Firm).');
+
+      introducerFirmName = `Firm-${ownerTag}`;
+      console.log('[seed] Filling Firm introducer form…');
+      await compliance.addIntroducer(
+        introducerFirmName,
+        `firm.${ownerTag}@test.co.uk`,
+        '01234567890'
+      );
+      console.log('[seed] ✅ Firm details entered.');
+      await compliance.addIntroducerSource('Firm generated', 'Approved');
+      console.log('[seed] ✅ Firm source set.');
+      await compliance.addIntroducerFeeSplit('30', 'initial advice fee', 'gross');
+      await compliance.addIntroducerFeeSplit('13', 'ongoing advice fee', 'net');
+      console.log('[seed] ✅ Firm fee splits added.');
+      await compliance.addIntroducerSaveButton.click();
+      console.log('[seed] ✅ Save clicked (Firm), waiting…');
+      try {
+        await expect(
+          page.getByText('Introducer fee splits created successfully', { exact: false }).first()
+        ).toBeVisible({ timeout: 20_000 });
+      } catch {
+        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+        await page.waitForLoadState('networkidle');
+      }
+      console.log(`[seed] ✅ Firm introducer created: ${introducerFirmName}`);
+    });
+
+    await test.step('Create Individual account', async () => {
+      accountSurname = `Rec-${ownerTag}`;
+      console.log('[seed] Creating Individual account:', accountSurname);
+      await individual.createIndividualAccount(
+        'Account & Service Case',
+        'individual',
+        'income',
+        accountSurname,
+        `test${ownerTag}@test.co.uk`,
+        'personal',
+        'professional introducer',
+        'Test Superadmin',
+        introducerFirmName // use the actual created firm
+      );
+      console.log('[seed] ✅ Account details entered.');
+      await individual.newAccountServiceCaseDetails('1000');
+      await individual.saveNewAccount();
+      console.log('[seed] ✅ Individual account save clicked.');
+      try {
+        await expect(
+          page.getByText('The Individual has been created', { exact: true }).first()
+        ).toBeVisible({ timeout: 20_000 });
+      } catch {
+        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+        await page.waitForLoadState('networkidle');
+      }
+      console.log(`[seed] ✅ Individual account created: ${accountSurname}`);
+    });
+
+    await test.step('Create ISA + valuation', async () => {
+      console.log('[seed] Navigating to Finances tab…');
+      await header.clickOnFinancesTab();
+      console.log('[seed] ✅ Finances tab open.');
+
+      isaPolicyName = `ISA-${ownerTag}`;
+      console.log('[seed] Adding ISA asset:', isaPolicyName);
+      await finance.addAssetButton.click();
+      await assetModal.addAssetOverview('isa');
+      await assetModal.addAssetAgencyStatus('under agency');
+      await assetModal.addAssetPolicyDetails(isaPolicyName, 'Aviva', policyNumber(), 'in force');
+      await assetModal.saveAsset();
+      console.log('[seed] ✅ ISA asset saved.');
+
+      await assetModal.addValuationButton.first().scrollIntoViewIfNeeded();
+      await expect(assetModal.addValuationButton.first()).toBeVisible({ timeout: 20_000 });
+      await expect(assetModal.addValuationButton.first()).toBeEnabled();
+      await assetModal.addValuationButton.first().click();
+      await assetModal.addAssetValuation('2000000');
+      await assetModal.saveAssetValuation();
+      console.log('[seed] ✅ ISA valuation saved.');
+    });
+
+    await test.step('Create GIA + valuation', async () => {
+      giaPolicyName = `GIA-${ownerTag}`;
+      console.log('[seed] Adding GIA asset:', giaPolicyName);
+      await finance.addAssetButton.click();
+      await assetModal.addAssetOverview('gia');
+      await assetModal.addAssetAgencyStatus('under agency');
+      await assetModal.addAssetPolicyDetails(giaPolicyName, 'Aviva', policyNumber(), 'in force');
+      await assetModal.saveAsset();
+      console.log('[seed] ✅ GIA asset saved.');
+
+      await assetModal.addValuationButton.last().scrollIntoViewIfNeeded();
+      await expect(assetModal.addValuationButton.last()).toBeVisible({ timeout: 20_000 });
+      await expect(assetModal.addValuationButton.last()).toBeEnabled();
+      await assetModal.addValuationButton.last().click();
+      await assetModal.addAssetValuation('5000000');
+      await assetModal.saveAssetValuation();
+      console.log('[seed] ✅ GIA valuation saved.');
+    });
+
+    await test.step('Create protection policy', async () => {
+      console.log('[seed] Adding protection policy…');
+      await finance.page
+        .getByRole('heading', { name: 'protection policies' })
+        .scrollIntoViewIfNeeded();
+      await finance.addPolicyButton.click();
+      protectionPolicyNumber = policyNumber();
+      await addPolicy.addPolicyBasics(
+        protectionPolicyNumber,
+        'new',
+        'key man',
+        'Aviva',
+        'under agency',
+        'non-advised'
+      );
+      await page.waitForLoadState('networkidle');
+      console.log(`[seed] ✅ Protection policy created (${protectionPolicyNumber}).`);
+    });
+
+    fs.mkdirSync(outDir, { recursive: true });
+    const seedsFile = path.join(outDir, 'seeds.json');
+    const payload = {
+      project: testInfo.project.name,
+      createdAt: new Date().toISOString(),
+      data: {
+        ownerTag,
+        introducerAdviserName,
+        introducerFirmName,
+        accountSurname,
+        isaPolicyName,
+        giaPolicyName,
+        protectionPolicyNumber,
+      },
+    };
+    fs.writeFileSync(seedsFile, JSON.stringify(payload, null, 2), 'utf8');
+    console.log(`[seed] wrote ${seedsFile}`);
+
+    console.log('──────────────────────────────');
+    console.log('[seed] ✅ Single seed creation completed and saved.');
+    console.log('──────────────────────────────');
+  });
+});
