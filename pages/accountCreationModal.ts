@@ -15,6 +15,7 @@ export class AccountCreationModalPage {
   readonly highLevelSourceInput: Locator;
   readonly introducerInput: Locator;
   readonly dateOfEnquiryInput: Locator;
+  readonly indicativeValueInput: Locator;
   readonly addAccountButton: Locator;
 
   //constructor
@@ -37,6 +38,7 @@ export class AccountCreationModalPage {
       .filter({ hasText: 'IntroducerSelect' })
       .locator('svg');
     this.dateOfEnquiryInput = page.locator('input[name="startDate"]');
+    this.indicativeValueInput = page.locator('input[aria-label="Indicative Value"]');
     this.addAccountButton = page.getByRole('button', { name: 'Add Account' });
   }
 
@@ -98,6 +100,11 @@ export class AccountCreationModalPage {
   async fillDateOfEnquiry(date: string) {
     await expect(this.dateOfEnquiryInput).toBeVisible({ timeout: 5000 });
     await this.dateOfEnquiryInput.fill(date);
+  }
+
+  async fillIndicativeValue(value: string) {
+    await expect(this.indicativeValueInput).toBeVisible({ timeout: 5000 });
+    await this.indicativeValueInput.fill(value);
   }
 
   async clickAddAccount() {
