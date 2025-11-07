@@ -8,7 +8,7 @@ test.beforeEach(async ({ page }, testInfo) => {
   await navigateToHome(page, process.env.CI ? testInfo.project.name : 'chromium');
 });
 
-test.describe('Account Creation - Individual Account & Service Case', () => {
+test.describe('Account Creation', () => {
   test('WM-105 - Account Creation - Create Individual Account', async ({ page }) => {
     const { accountCreation, accountDetails } = pages(page);
 
