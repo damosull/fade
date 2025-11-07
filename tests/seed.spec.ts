@@ -1,13 +1,7 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../src/fixtures/baseTest';
 import fs from 'node:fs';
 import path from 'node:path';
 import { navigateToHome } from '../src/seed/auth';
-import { HeaderAndHamburgerPage } from '../pages/headerAndHamburger';
-import { CompliancePage } from '../pages/compliancePage';
-import { IndividualPage } from '../pages/individualAccount';
-import { FinanceTabPage } from '../pages/financeTabPage';
-import AssetModal from '../pages/assetModal';
-import { AddPolicyModalPage } from '../pages/addPolicyModal';
 
 const stamp = () => new Date().toISOString().replace(/[:.]/g, '-');
 const policyNumber = () => `Policy-${stamp()}`;
@@ -25,19 +19,12 @@ test.beforeEach(async ({ page }, testInfo) => {
 });
 
 test.describe('Fade seeded flows', () => {
-  test('Introducers + account + assets + protection', async ({ page }, testInfo) => {
+  test('Introducers + account + assets + protection', async ({ app, page }, testInfo) => {
     const outDir = getSeedOutputDir(testInfo.project.name);
 
     console.log('──────────────────────────────');
     console.log('[seed] START createOneSeed()');
     console.log('──────────────────────────────');
-
-    const header = new HeaderAndHamburgerPage(page);
-    const compliance = new CompliancePage(page);
-    const individual = new IndividualPage(page);
-    const finance = new FinanceTabPage(page);
-    const assetModal = new AssetModal(page);
-    const addPolicy = new AddPolicyModalPage(page);
 
     const ownerTag = `e2e-${stamp()}`;
     console.log(`[seed] Using ownerTag: ${ownerTag}`);
@@ -52,41 +39,41 @@ test.describe('Fade seeded flows', () => {
 
     await test.step('Open Compliance via hamburger', async () => {
       console.log('[seed] Opening hamburger…');
-      await header.clickOnHamburgerMenu();
+      await app.actions.header.openHamburgerMenu();
       console.log('[seed] ✅ Hamburger clicked.');
       console.log('[seed] Clicking Compliance…');
-      await header.clickOnCompliance();
+      await app.actions.header.navigateToCompliance();
       console.log('[seed] ✅ Compliance clicked, waiting for heading…');
-      await compliance.compliancePageHeading();
+      await app.actions.compliance.compliancePageHeading();
       console.log('[seed] ✅ Compliance heading present.');
       console.log('[seed] Waiting for Add Introducer button…');
-      await expect(compliance.addIntroducerButton).toBeVisible({ timeout: 60000 });
-      await compliance.addIntroducerButton.scrollIntoViewIfNeeded();
-      await expect(compliance.addIntroducerButton).toBeEnabled({ timeout: 60000 });
+      await expect(app.pages.compliance.addIntroducerButton()).toBeVisible({ timeout: 120000 });
+      await app.pages.compliance.addIntroducerButton().scrollIntoViewIfNeeded();
+      await expect(app.pages.compliance.addIntroducerButton()).toBeEnabled({ timeout: 120000 });
       console.log('[seed] ✅ Add Introducer button is visible & enabled.');
     });
 
     await test.step('Create Adviser introducer', async () => {
       console.log('[seed] Clicking Add Introducer for Adviser…');
-      await compliance.clickAddIntroducerButton();
+      await app.actions.compliance.clickAddIntroducerButton();
       console.log('[seed] ✅ Add Introducer modal opened (Adviser).');
 
       introducerAdviserName = `Adviser-${ownerTag}`;
       console.log('[seed] Filling Adviser introducer form…');
-      await compliance.addIntroducer(
+      await app.actions.compliance.addIntroducer(
         introducerAdviserName,
         `adviser.${ownerTag}@test.co.uk`,
         '01234567890'
       );
       console.log('[seed] ✅ Basic details entered.');
-      await compliance.addIntroducerSource('Adviser', 'Approved');
+      await app.actions.compliance.addIntroducerSource('Adviser', 'Approved');
       console.log('[seed] ✅ Source set.');
-      await compliance.addAdviser('Test Superadmin');
+      await app.actions.compliance.addAdviser('Test Superadmin');
       console.log('[seed] ✅ Adviser assigned.');
-      await compliance.addIntroducerFeeSplit('25', 'initial advice fee', 'net');
-      await compliance.addIntroducerFeeSplit('43', 'ongoing advice fee', 'gross');
+      await app.actions.compliance.addIntroducerFeeSplit('25', 'initial advice fee', 'net');
+      await app.actions.compliance.addIntroducerFeeSplit('43', 'ongoing advice fee', 'gross');
       console.log('[seed] ✅ Fee splits added.');
-      await compliance.addIntroducerSaveButton.click();
+      await app.pages.compliance.addIntroducerSaveButton().click();
       console.log('[seed] ✅ Save clicked, waiting for settle…');
       try {
         await expect(
@@ -101,26 +88,26 @@ test.describe('Fade seeded flows', () => {
 
     await test.step('Create Firm introducer', async () => {
       console.log('[seed] Preparing to add Firm introducer…');
-      await expect(compliance.addIntroducerButton).toBeVisible({ timeout: 60000 });
-      await compliance.addIntroducerButton.scrollIntoViewIfNeeded();
-      await expect(compliance.addIntroducerButton).toBeEnabled({ timeout: 60000 });
-      await compliance.clickAddIntroducerButton();
+      await expect(app.pages.compliance.addIntroducerButton()).toBeVisible({ timeout: 120000 });
+      await app.pages.compliance.addIntroducerButton().scrollIntoViewIfNeeded();
+      await expect(app.pages.compliance.addIntroducerButton()).toBeEnabled({ timeout: 120000 });
+      await app.actions.compliance.clickAddIntroducerButton();
       console.log('[seed] ✅ Add Introducer modal opened (Firm).');
 
       introducerFirmName = `Firm-${ownerTag}`;
       console.log('[seed] Filling Firm introducer form…');
-      await compliance.addIntroducer(
+      await app.actions.compliance.addIntroducer(
         introducerFirmName,
         `firm.${ownerTag}@test.co.uk`,
         '01234567890'
       );
       console.log('[seed] ✅ Firm details entered.');
-      await compliance.addIntroducerSource('Firm generated', 'Approved');
+      await app.actions.compliance.addIntroducerSource('Firm generated', 'Approved');
       console.log('[seed] ✅ Firm source set.');
-      await compliance.addIntroducerFeeSplit('30', 'initial advice fee', 'gross');
-      await compliance.addIntroducerFeeSplit('13', 'ongoing advice fee', 'net');
+      await app.actions.compliance.addIntroducerFeeSplit('30', 'initial advice fee', 'gross');
+      await app.actions.compliance.addIntroducerFeeSplit('13', 'ongoing advice fee', 'net');
       console.log('[seed] ✅ Firm fee splits added.');
-      await compliance.addIntroducerSaveButton.click();
+      await app.pages.compliance.addIntroducerSaveButton().click();
       console.log('[seed] ✅ Save clicked (Firm), waiting…');
       try {
         await expect(
@@ -136,7 +123,7 @@ test.describe('Fade seeded flows', () => {
     await test.step('Create Individual account', async () => {
       accountSurname = `Rec-${ownerTag}`;
       console.log('[seed] Creating Individual account:', accountSurname);
-      await individual.createIndividualAccount(
+      await app.actions.individual.createIndividualAccount(
         'Account & Service Case',
         'individual',
         'income',
@@ -148,8 +135,8 @@ test.describe('Fade seeded flows', () => {
         introducerFirmName // use the actual created firm
       );
       console.log('[seed] ✅ Account details entered.');
-      await individual.newAccountServiceCaseDetails('1000');
-      await individual.saveNewAccount();
+      await app.actions.individual.newAccountServiceCaseDetails('1000');
+      await app.actions.individual.saveNewAccount();
       console.log('[seed] ✅ Individual account save clicked.');
       try {
         await expect(
@@ -164,54 +151,66 @@ test.describe('Fade seeded flows', () => {
 
     await test.step('Create ISA + valuation', async () => {
       console.log('[seed] Navigating to Finances tab…');
-      await header.clickOnFinancesTab();
+      await app.actions.header.openFinancesTab();
       console.log('[seed] ✅ Finances tab open.');
 
       isaPolicyName = `ISA-${ownerTag}`;
       console.log('[seed] Adding ISA asset:', isaPolicyName);
-      await finance.addAssetButton.click();
-      await assetModal.addAssetOverview('isa');
-      await assetModal.addAssetAgencyStatus('under agency');
-      await assetModal.addAssetPolicyDetails(isaPolicyName, 'Aviva', policyNumber(), 'in force');
-      await assetModal.saveAsset();
+      await app.pages.finance.addAssetButton().click();
+      await app.actions.assetModal.addAssetOverview('isa');
+      await app.actions.assetModal.addAssetAgencyStatus('under agency');
+      await app.actions.assetModal.addAssetPolicyDetails(
+        isaPolicyName,
+        'Aviva',
+        policyNumber(),
+        'in force'
+      );
+      await app.actions.assetModal.saveAsset();
       console.log('[seed] ✅ ISA asset saved.');
 
-      await assetModal.addValuationButton.first().scrollIntoViewIfNeeded();
-      await expect(assetModal.addValuationButton.first()).toBeVisible({ timeout: 20_000 });
-      await expect(assetModal.addValuationButton.first()).toBeEnabled();
-      await assetModal.addValuationButton.first().click();
-      await assetModal.addAssetValuation('2000000');
-      await assetModal.saveAssetValuation();
+      await app.pages.assetModal.addValuationButton().first().scrollIntoViewIfNeeded();
+      await expect(app.pages.assetModal.addValuationButton().first()).toBeVisible({
+        timeout: 20_000,
+      });
+      await expect(app.pages.assetModal.addValuationButton().first()).toBeEnabled();
+      await app.pages.assetModal.addValuationButton().first().click();
+      await app.actions.assetModal.addAssetValuation('2000000');
+      await app.actions.assetModal.saveAssetValuation();
       console.log('[seed] ✅ ISA valuation saved.');
     });
 
     await test.step('Create GIA + valuation', async () => {
       giaPolicyName = `GIA-${ownerTag}`;
       console.log('[seed] Adding GIA asset:', giaPolicyName);
-      await finance.addAssetButton.click();
-      await assetModal.addAssetOverview('gia');
-      await assetModal.addAssetAgencyStatus('under agency');
-      await assetModal.addAssetPolicyDetails(giaPolicyName, 'Aviva', policyNumber(), 'in force');
-      await assetModal.saveAsset();
+      await app.pages.finance.addAssetButton().click();
+      await app.actions.assetModal.addAssetOverview('gia');
+      await app.actions.assetModal.addAssetAgencyStatus('under agency');
+      await app.actions.assetModal.addAssetPolicyDetails(
+        giaPolicyName,
+        'Aviva',
+        policyNumber(),
+        'in force'
+      );
+      await app.actions.assetModal.saveAsset();
       console.log('[seed] ✅ GIA asset saved.');
 
-      await assetModal.addValuationButton.last().scrollIntoViewIfNeeded();
-      await expect(assetModal.addValuationButton.last()).toBeVisible({ timeout: 20_000 });
-      await expect(assetModal.addValuationButton.last()).toBeEnabled();
-      await assetModal.addValuationButton.last().click();
-      await assetModal.addAssetValuation('5000000');
-      await assetModal.saveAssetValuation();
+      await app.pages.assetModal.addValuationButton().last().scrollIntoViewIfNeeded();
+      await expect(app.pages.assetModal.addValuationButton().last()).toBeVisible({
+        timeout: 20_000,
+      });
+      await expect(app.pages.assetModal.addValuationButton().last()).toBeEnabled();
+      await app.pages.assetModal.addValuationButton().last().click();
+      await app.actions.assetModal.addAssetValuation('5000000');
+      await app.actions.assetModal.saveAssetValuation();
       console.log('[seed] ✅ GIA valuation saved.');
     });
 
     await test.step('Create protection policy', async () => {
       console.log('[seed] Adding protection policy…');
-      await finance.page
-        .getByRole('heading', { name: 'protection policies' })
-        .scrollIntoViewIfNeeded();
-      await finance.addPolicyButton.click();
+      await page.getByRole('heading', { name: 'protection policies' }).scrollIntoViewIfNeeded();
+      await app.pages.finance.addPolicyButton().click();
       protectionPolicyNumber = policyNumber();
-      await addPolicy.addPolicyBasics(
+      await app.actions.addPolicy.addPolicyBasics(
         protectionPolicyNumber,
         'new',
         'key man',

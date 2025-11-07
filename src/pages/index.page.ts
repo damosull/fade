@@ -1,0 +1,10 @@
+export { default as HeaderAndHamburgerPage } from './headerAndHamburger.page';
+export { default as FinanceTabPage } from './financeTab.page';
+export { default as IndividualPage } from './individualAccount.page';
+export { default as AddPolicyModalPage } from './addPolicyModal.page';
+export { default as FeesTabPage } from './feesTab.page';
+export { default as CompliancePage } from './compliance.page';
+export { default as ProviderPage } from './providerPage.page';
+export { default as IncomeReconciliationPage } from './incomeReconciliation.page';
+export { default as SigninPage } from './signin.page';
+export { default as AssetModalPage } from './assetModal.page';
