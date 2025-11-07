@@ -5,6 +5,8 @@ import { IndividualPage } from '../../pages/individualAccount';
 import { FinanceTabPage } from '../../pages/financeTabPage';
 import { AddPolicyModalPage } from '../../pages/addPolicyModal';
 import { FeesTabPage } from '../../pages/feesTabPage';
+import { AccountCreationModalPage } from '../../pages/accountCreationModal';
+import { AccountDetailsPage } from '../../pages/accountDetailsPage';
 
 export type PageObjects = {
   header: HeaderAndHamburgerPage;
@@ -13,6 +15,8 @@ export type PageObjects = {
   finance: FinanceTabPage;
   addPolicy: AddPolicyModalPage;
   fees: FeesTabPage;
+  accountCreation: AccountCreationModalPage;
+  accountDetails: AccountDetailsPage;
 };
 
 export function pages(page: Page): PageObjects {
@@ -23,5 +27,7 @@ export function pages(page: Page): PageObjects {
     finance: new FinanceTabPage(page),
     addPolicy: new AddPolicyModalPage(page),
     fees: new FeesTabPage(page),
+    accountCreation: new AccountCreationModalPage(page),
+    accountDetails: new AccountDetailsPage(page),
   };
 }
