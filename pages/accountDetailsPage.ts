@@ -19,6 +19,10 @@ export class AccountDetailsPage {
     return this.page.locator('h1').filter({ hasText: expectedName });
   }
 
+  getTrustNameHeading(name: string): Locator {
+    return this.page.locator('h1').filter({ hasText: name });
+  }
+
   getEmailLink(email: string): Locator {
     return this.page.locator(`a[href="mailto:${email}"]`);
   }
@@ -30,6 +34,11 @@ export class AccountDetailsPage {
 
   async assertAccountName(firstName: string, lastName: string) {
     const heading = this.getAccountNameHeading(firstName, lastName);
+    await expect(heading).toBeVisible({ timeout: 5000 });
+  }
+
+  async assertTrustName(name: string) {
+    const heading = this.getTrustNameHeading(name);
     await expect(heading).toBeVisible({ timeout: 5000 });
   }
 

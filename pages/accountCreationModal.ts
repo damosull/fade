@@ -9,6 +9,7 @@ export class AccountCreationModalPage {
   readonly accountTypeInput: Locator;
   readonly firstNameInput: Locator;
   readonly lastNameInput: Locator;
+  readonly nameInput: Locator;
   readonly emailInput: Locator;
   readonly emailTypeInput: Locator;
   readonly adviserInput: Locator;
@@ -27,6 +28,7 @@ export class AccountCreationModalPage {
     this.accountTypeInput = page.locator('label:has-text("Account Type") input[role="combobox"]');
     this.firstNameInput = page.locator('input[name="firstName"]');
     this.lastNameInput = page.locator('input[name="lastName"]');
+    this.nameInput = page.locator('input[name="name"]');
     this.emailInput = page.locator('input[name="email"]');
     this.emailTypeInput = page.locator('label:has-text("Email type") input[role="combobox"]');
     this.adviserInput = page.locator('label:has-text("Adviser") input[role="combobox"]');
@@ -52,7 +54,6 @@ export class AccountCreationModalPage {
     await this.accountTypeDropdown.click();
     await this.accountTypeDropdown.fill('Account & Service');
     await this.page.keyboard.press('Enter');
-    await this.page.waitForTimeout(500);
   }
 
   async selectAccountType(accountType: string) {
@@ -64,6 +65,10 @@ export class AccountCreationModalPage {
   async fillName(firstName: string, lastName: string) {
     await this.firstNameInput.fill(firstName);
     await this.lastNameInput.fill(lastName);
+  }
+
+  async fillTrustName(name: string) {
+    await this.nameInput.fill(name);
   }
 
   async fillEmail(email: string) {
@@ -86,7 +91,6 @@ export class AccountCreationModalPage {
     await this.highLevelSourceInput.click();
     await this.highLevelSourceInput.fill(source);
     await this.page.keyboard.press('Enter');
-    await this.page.waitForTimeout(500);
   }
 
   async selectFirstIntroducer() {

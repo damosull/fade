@@ -60,4 +60,30 @@ test.describe('Account Creation', () => {
     await accountDetails.assertAccountNumberExists();
     await accountDetails.assertEmailDisplayed(email);
   });
+
+  test('WM-103 - Account Creation - Create Trust Account', async ({ page }) => {
+    const { accountCreation, accountDetails } = pages(page);
+
+    const trustName = `ACTest Trust-${stamp()}`;
+    const email = `actest.trust.${stamp()}@fadetest.com`;
+    const today = new Date().toLocaleDateString('en-GB');
+
+    await accountCreation.clickCreateNew();
+    await accountCreation.selectAccountAndServiceCase();
+    await accountCreation.selectAccountType('Trust');
+    await accountCreation.fillTrustName(trustName);
+    await accountCreation.fillEmail(email);
+    await accountCreation.selectEmailType('solicitor');
+    await accountCreation.selectAdviser('Finance Hub');
+    await accountCreation.selectHighLevelSource('Professional Introducer');
+    await accountCreation.selectFirstIntroducer();
+    await accountCreation.fillDateOfEnquiry(today);
+    await accountCreation.clickAddAccount();
+
+    await accountCreation.assertModalClosed();
+    await accountDetails.assertOnDetailsTab();
+    await accountDetails.assertTrustName(trustName);
+    await accountDetails.assertAccountNumberExists();
+    await accountDetails.assertEmailDisplayed(email);
+  });
 });
