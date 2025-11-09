@@ -8,3 +8,5 @@ export { default as ProviderPage } from './providerPage.page';
 export { default as IncomeReconciliationPage } from './incomeReconciliation.page';
 export { default as SigninPage } from './signin.page';
 export { default as AssetModalPage } from './assetModal.page';
+export { default as AccountCreationModalPage } from './accountCreationModal.page';
+export { default as AccountDetailsPage } from './accountDetails.page';
