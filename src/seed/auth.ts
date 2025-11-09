@@ -2,8 +2,8 @@ import { config as loadEnv } from 'dotenv';
 import { type Page } from '@playwright/test';
 import path from 'node:path';
 import { existsSync, mkdirSync } from 'node:fs';
-import { SigninPage } from '../../pages/signin';
-import { HeaderAndHamburgerPage } from '../../pages/headerAndHamburger';
+import { SigninActions } from '../actions/index.actions';
+import { HeaderAndHamburgerPage } from '../pages/index.page';
 
 if (!process.env.CI) {
   loadEnv();
@@ -69,16 +69,18 @@ export async function navigateToHome(
     await page.waitForLoadState('networkidle');
 
     const header = new HeaderAndHamburgerPage(page);
-    const isLoggedIn = await header.hamburgerMenu
+
+    const isLoggedIn = await header
+      .hamburgerMenu()
       .waitFor({ state: 'visible', timeout: 2000 })
       .then(() => true)
       .catch(() => false);
 
     if (!isLoggedIn) {
       if (!quiet) console.log('[auth] Logging in...');
-      const signin = new SigninPage(page);
+      const signin = new SigninActions(page);
       await signin.loginToFade(SUPER_ADMIN_USER!, SUPER_ADMIN_PASSWORD!);
-      await header.hamburgerMenu.waitFor({ state: 'visible', timeout: 15000 });
+      await header.hamburgerMenu().waitFor({ state: 'visible', timeout: 15000 });
       if (!quiet) console.log('[auth] ✅ Login successful.');
     } else if (!quiet) {
       console.log('[auth] ✅ Already logged in.');

@@ -1,7 +1,6 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../src/fixtures/baseTest';
 import { navigateToHome } from '../src/seed/auth';
 import { getSeed } from '../src/seed/seedClient';
-import { pages } from '../src/seed/pages';
 
 const stamp = () => new Date().toISOString().replace(/[:.]/g, '-');
 const makeEmail = () => `qatest${stamp()}@fadesystems.co.uk`;
@@ -16,16 +15,15 @@ test.describe('Individual account creation & details', () => {
     await expect(page.getByRole('heading', { name: 'Dashboard' })).toHaveText('Dashboard');
   });
 
-  test('Create new individual account & update details sections', async ({ page }) => {
+  test('Create new individual account & update details sections', async ({ app, page }) => {
     test.slow();
     const seed = getSeed();
-    const { individual } = pages(page);
 
     const userEmail = makeEmail();
     const userSurname = makeSurname();
 
     // Create new account
-    await individual.createIndividualAccount(
+    await app.actions.individual.createIndividualAccount(
       'Account',
       'individual',
       'Kiran',
@@ -36,7 +34,7 @@ test.describe('Individual account creation & details', () => {
       'Test Superadmin',
       seed.introducerFirmName
     );
-    await individual.saveNewAccount();
+    await app.actions.individual.saveNewAccount();
 
     try {
       await expect(
@@ -48,7 +46,7 @@ test.describe('Individual account creation & details', () => {
     }
 
     // Add address
-    await individual.addManualAddress('136', 'dersingham avenue', 'london', 'e12 5qg');
+    await app.actions.individual.addManualAddress('136', 'dersingham avenue', 'london', 'e12 5qg');
     try {
       await expect(page.getByText('Address added', { exact: true }).first()).toBeVisible();
       await expect(
@@ -60,8 +58,8 @@ test.describe('Individual account creation & details', () => {
     }
 
     // Update service detail, employment, and income
-    await individual.individualServiceDetail('ZYPP');
-    await individual.addEmploymentDetails('Fade', 'Software Engineer');
+    await app.actions.individual.individualServiceDetail('ZYPP');
+    await app.actions.individual.addEmploymentDetails('Fade', 'Software Engineer');
     try {
       await expect(
         page.getByText('Employment has been saved successfully', { exact: true }).first()
@@ -71,7 +69,7 @@ test.describe('Individual account creation & details', () => {
       await page.waitForLoadState('networkidle');
     }
 
-    await individual.addIncomeDetails('Fade', '5000', 'dividends');
+    await app.actions.individual.addIncomeDetails('Fade', '5000', 'dividends');
     try {
       await expect(
         page.getByText('Income saved successfully', { exact: true }).first()
