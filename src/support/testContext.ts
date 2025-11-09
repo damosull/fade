@@ -14,6 +14,8 @@ export type TestContext = {
     incomeRec: actions.IncomeReconciliationActions;
     signin: actions.SigninActions;
     assetModal: actions.AssetModalActions;
+    accountCreation: actions.AccountCreationModalActions;
+    accountDetails: actions.AccountDetailsActions;
   };
   pages: {
     header: pages.HeaderAndHamburgerPage;
@@ -26,6 +28,8 @@ export type TestContext = {
     incomeRec: pages.IncomeReconciliationPage;
     signin: pages.SigninPage;
     assetModal: pages.AssetModalPage;
+    accountCreation: pages.AccountCreationModalPage;
+    accountDetails: pages.AccountDetailsPage;
   };
 };
 
@@ -41,6 +45,8 @@ export const createTestContext = (page: Page): TestContext => ({
     incomeRec: new actions.IncomeReconciliationActions(page),
     signin: new actions.SigninActions(page),
     assetModal: new actions.AssetModalActions(page),
+    accountCreation: new actions.AccountCreationModalActions(page),
+    accountDetails: new actions.AccountDetailsActions(page),
   },
   pages: {
     header: new pages.HeaderAndHamburgerPage(page),
@@ -53,5 +59,7 @@ export const createTestContext = (page: Page): TestContext => ({
     incomeRec: new pages.IncomeReconciliationPage(page),
     signin: new pages.SigninPage(page),
     assetModal: new pages.AssetModalPage(page),
+    accountCreation: new pages.AccountCreationModalPage(page),
+    accountDetails: new pages.AccountDetailsPage(page),
   },
 });
