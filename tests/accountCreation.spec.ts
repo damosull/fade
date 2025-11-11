@@ -120,4 +120,28 @@ test.describe('Account Creation', () => {
     await app.actions.accountDetails.assertAccountNumberExists();
     await app.actions.accountDetails.assertEmailDisplayed(email);
   });
+
+  test('WM-100 - Account Creation - Create Corporation Account & Service Case', async ({ app }) => {
+    const corporationName = `ACTest CorporationSC-${stamp()}`;
+    const email = `actest.corpsc.${stamp()}@fadetest.com`;
+
+    await app.actions.accountCreation.clickCreateNew();
+    await app.actions.accountCreation.selectAccountAndServiceCase();
+    await app.actions.accountCreation.selectAccountType('Corporation');
+    await app.actions.accountCreation.fillTrustName(corporationName);
+    await app.actions.accountCreation.fillEmail(email);
+    await app.actions.accountCreation.selectEmailType('accountant');
+    await app.actions.accountCreation.selectAdviser('Finance Hub');
+    await app.actions.accountCreation.selectHighLevelSource('professional introducer');
+    await app.actions.accountCreation.selectFirstIntroducer();
+    await app.actions.accountCreation.fillDateOfEnquiry();
+    await app.actions.accountCreation.fillIndicativeValue('1000');
+    await app.actions.accountCreation.clickAddAccount();
+
+    await app.actions.accountCreation.assertModalClosed();
+    await app.actions.accountDetails.assertOnDetailsTab();
+    await app.actions.accountDetails.assertTrustName(corporationName);
+    await app.actions.accountDetails.assertAccountNumberExists();
+    await app.actions.accountDetails.assertEmailDisplayed(email);
+  });
 });
