@@ -60,9 +60,13 @@ export class AccountCreationModalActions {
   }
 
   async selectFirstIntroducer() {
-    await expect(this.view.introducerInput()).toBeVisible();
-    await this.view.introducerInput().click();
-    await this.page.waitForSelector('div[role="option"]', { state: 'visible', timeout: 10000 });
+    const introducerInput = this.view.introducerInput();
+    await expect(introducerInput).toBeVisible();
+    await introducerInput.click();
+
+    const option = this.page.locator('div[role="option"]');
+    await expect(option.first()).toBeVisible({ timeout: 10000 });
+
     await this.page.keyboard.press('ArrowDown');
     await this.page.keyboard.press('Enter');
   }

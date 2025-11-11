@@ -15,7 +15,6 @@ export type TestContext = {
     signin: actions.SigninActions;
     assetModal: actions.AssetModalActions;
     accountCreation: actions.AccountCreationModalActions;
-    accountDetails: actions.AccountDetailsActions;
   };
   pages: {
     header: pages.HeaderAndHamburgerPage;
@@ -46,7 +45,6 @@ export const createTestContext = (page: Page): TestContext => ({
     signin: new actions.SigninActions(page),
     assetModal: new actions.AssetModalActions(page),
     accountCreation: new actions.AccountCreationModalActions(page),
-    accountDetails: new actions.AccountDetailsActions(page),
   },
   pages: {
     header: new pages.HeaderAndHamburgerPage(page),
