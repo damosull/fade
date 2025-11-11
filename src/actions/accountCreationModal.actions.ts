@@ -15,11 +15,6 @@ export class AccountCreationModalActions {
     await expect(this.view.modal()).toBeVisible();
   }
 
-  async selectAccountAndServiceCase() {
-    await this.view.accountTypeDropdown().click();
-    await this.page.getByRole('option', { name: 'Account & Service Case', exact: true }).click();
-  }
-
   async selectAccountType(accountType: string) {
     await this.view.accountTypeInput().click();
     await this.page.getByRole('option', { name: accountType }).click();
@@ -69,17 +64,6 @@ export class AccountCreationModalActions {
 
     await this.page.keyboard.press('ArrowDown');
     await this.page.keyboard.press('Enter');
-  }
-
-  async fillDateOfEnquiry() {
-    await expect(this.view.dateOfEnquiryInput()).toBeVisible();
-    await this.view.dateOfEnquiryInput().click();
-    await this.view.dateOfEnquiryPicker().click();
-  }
-
-  async fillIndicativeValue(value: string) {
-    await expect(this.view.indicativeValueInput()).toBeVisible();
-    await this.view.indicativeValueInput().fill(value);
   }
 
   async clickAddAccount() {
