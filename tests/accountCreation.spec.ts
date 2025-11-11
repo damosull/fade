@@ -60,7 +60,6 @@ test.describe('Account Creation', () => {
     const email = `actest.trust.${stamp()}@fadetest.com`;
 
     await app.actions.accountCreation.clickCreateNew();
-    await app.actions.accountCreation.selectAccountAndServiceCase();
     await app.actions.accountCreation.selectAccountType('Trust');
     await app.actions.accountCreation.fillTrustName(trustName);
     await app.actions.accountCreation.fillEmail(email);
@@ -68,7 +67,6 @@ test.describe('Account Creation', () => {
     await app.actions.accountCreation.selectAdviser('Finance Hub');
     await app.actions.accountCreation.selectHighLevelSource('professional introducer');
     await app.actions.accountCreation.selectFirstIntroducer();
-    await app.actions.accountCreation.fillDateOfEnquiry();
     await app.actions.accountCreation.clickAddAccount();
 
     await app.actions.accountCreation.assertModalClosed();
@@ -107,7 +105,6 @@ test.describe('Account Creation', () => {
     const email = `actest.corp.${stamp()}@fadetest.com`;
 
     await app.actions.accountCreation.clickCreateNew();
-    await app.actions.accountCreation.selectAccountAndServiceCase();
     await app.actions.accountCreation.selectAccountType('Corporation');
     await app.actions.accountCreation.fillTrustName(corporationName);
     await app.actions.accountCreation.fillEmail(email);
@@ -115,7 +112,6 @@ test.describe('Account Creation', () => {
     await app.actions.accountCreation.selectAdviser('Finance Hub');
     await app.actions.accountCreation.selectHighLevelSource('professional introducer');
     await app.actions.accountCreation.selectFirstIntroducer();
-    await app.actions.accountCreation.fillDateOfEnquiry();
     await app.actions.accountCreation.clickAddAccount();
 
     await app.actions.accountCreation.assertModalClosed();
