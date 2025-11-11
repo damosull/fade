@@ -85,10 +85,6 @@ export class AccountCreationModalActions {
   async clickAddAccount() {
     await this.view.addAccountButton().click();
   }
-
-  async assertModalClosed() {
-    await expect(this.view.modal()).not.toBeVisible({ timeout: 10000 });
-  }
 }
 
 export default AccountCreationModalActions;
