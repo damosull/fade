@@ -157,6 +157,7 @@ export class IndividualActions {
   }
 
   async clickServiceCase(selectServiceCase: string): Promise<void> {
+    await this.view.searchServiceCasesInput().fill(selectServiceCase);
     const link = findServiceCaseLink(this.page, selectServiceCase);
     await link.click();
   }
