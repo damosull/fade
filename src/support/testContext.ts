@@ -22,6 +22,7 @@ const actionConstructors = {
   incomeRec: actions.IncomeReconciliationActions,
   signin: actions.SigninActions,
   assetModal: actions.AssetModalActions,
+  accountDetails: actions.AccountDetailsActions,
 } as const;
 
 /**

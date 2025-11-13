@@ -106,6 +106,10 @@ export class HeaderAndHamburgerPage {
   objectivesTab() {
     return this.page.getByRole('link', { name: 'Objectives' });
   }
+
+  resultsDropdown() {
+    return this.page.locator('div.absolute.overflow-y-scroll');
+  }
 }
 
 export default HeaderAndHamburgerPage;

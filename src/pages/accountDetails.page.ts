@@ -27,6 +27,101 @@ export class AccountDetailsPage {
   getEmailLink(email: string) {
     return this.page.locator(`a[href="mailto:${email}"]`);
   }
+
+  titleInput() {
+    return this.page.locator('label').filter({ hasText: 'Title' }).locator('svg');
+  }
+
+  firstNameInput() {
+    return this.page.getByRole('textbox', { name: 'First Name' });
+  }
+
+  middleNamesInput() {
+    return this.page.getByRole('textbox', { name: 'Middle Names' });
+  }
+
+  lastNameInput() {
+    return this.page.getByRole('textbox', { name: 'Last Name' });
+  }
+
+  genderInput() {
+    return this.page.locator('label').filter({ hasText: 'Gender' }).locator('svg');
+  }
+
+  maritalStatusInput() {
+    return this.page.locator('label').filter({ hasText: 'Marital Status' }).locator('svg');
+  }
+
+  maidenNameInput() {
+    return this.page.getByRole('textbox', { name: 'Maiden Name' });
+  }
+
+  employmentStatusInput() {
+    return this.page.locator('label').filter({ hasText: 'Employment Status' }).locator('svg');
+  }
+
+  niNumberInput() {
+    return this.page.getByRole('textbox', { name: 'NI Number' });
+  }
+
+  nationalityInput() {
+    return this.page.locator('label').filter({ hasText: 'Nationality' }).locator('svg');
+  }
+
+  ukResidentForTaxCheckbox() {
+    return this.page.getByRole('checkbox', { name: 'UK Resident For Tax Purposes' });
+  }
+
+  ukDomicileCheckbox() {
+    return this.page.getByRole('checkbox', { name: 'UK Domicile' });
+  }
+
+  inGoodHealthInput() {
+    return this.page.locator('label').filter({ hasText: 'In Good Health' }).locator('svg');
+  }
+
+  hasSmokedInput() {
+    return this.page
+      .locator('label')
+      .filter({ hasText: 'Has Smoked In Last 12 Months' })
+      .locator('svg');
+  }
+
+  hasWillCheckbox() {
+    return this.page.getByRole('checkbox', { name: 'Has Will' });
+  }
+
+  isWillUpToDateCheckbox() {
+    return this.page.getByRole('checkbox', { name: 'Is Will Up To Date' });
+  }
+
+  viewMoreButton() {
+    return this.page.getByRole('button', { name: 'View more' });
+  }
+
+  maritalStatusLabel() {
+    return this.page.locator('label').filter({ hasText: 'Marital Status' });
+  }
+
+  employmentStatusLabel() {
+    return this.page.locator('label').filter({ hasText: 'Employment Status' });
+  }
+
+  nationalityLabel() {
+    return this.page.locator('label').filter({ hasText: 'Nationality' });
+  }
+
+  inGoodHealthLabel() {
+    return this.page.locator('label').filter({ hasText: 'In Good Health' });
+  }
+
+  personalDetailsSaveButton() {
+    return this.page.locator('button:has-text("Save")').first();
+  }
+
+  successMessage() {
+    return this.page.locator('text=Account has been updated!');
+  }
 }
 
 export default AccountDetailsPage;
