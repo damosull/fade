@@ -1,65 +1,59 @@
+/* eslint-disable no-unused-vars */
 import type { Page } from '@playwright/test';
 import * as actions from '../actions/index.actions';
 import * as pages from '../pages/index.page';
 
-export type TestContext = {
-  actions: {
-    header: actions.HeaderAndHamburgerActions;
-    finance: actions.FinanceTabActions;
-    individual: actions.IndividualActions;
-    addPolicy: actions.AddPolicyModalActions;
-    fees: actions.FeesTabActions;
-    compliance: actions.ComplianceActions;
-    provider: actions.ProviderActions;
-    incomeRec: actions.IncomeReconciliationActions;
-    signin: actions.SigninActions;
-    assetModal: actions.AssetModalActions;
-    accountCreation: actions.AccountCreationModalActions;
-    accountDetails: actions.AccountDetailsActions;
-  };
-  pages: {
-    header: pages.HeaderAndHamburgerPage;
-    finance: pages.FinanceTabPage;
-    individual: pages.IndividualPage;
-    addPolicy: pages.AddPolicyModalPage;
-    fees: pages.FeesTabPage;
-    compliance: pages.CompliancePage;
-    provider: pages.ProviderPage;
-    incomeRec: pages.IncomeReconciliationPage;
-    signin: pages.SigninPage;
-    assetModal: pages.AssetModalPage;
-    accountCreation: pages.AccountCreationModalPage;
-    accountDetails: pages.AccountDetailsPage;
-  };
+const actionConstructors = {
+  header: actions.HeaderAndHamburgerActions,
+  finance: actions.FinanceTabActions,
+  individual: actions.IndividualActions,
+  addPolicy: actions.AddPolicyModalActions,
+  fees: actions.FeesTabActions,
+  compliance: actions.ComplianceActions,
+  provider: actions.ProviderActions,
+  incomeRec: actions.IncomeReconciliationActions,
+  signin: actions.SigninActions,
+  assetModal: actions.AssetModalActions,
+  accountCreation: actions.AccountCreationModalActions,
+} as const;
+
+const pageConstructors = {
+  header: pages.HeaderAndHamburgerPage,
+  finance: pages.FinanceTabPage,
+  individual: pages.IndividualPage,
+  addPolicy: pages.AddPolicyModalPage,
+  fees: pages.FeesTabPage,
+  compliance: pages.CompliancePage,
+  provider: pages.ProviderPage,
+  incomeRec: pages.IncomeReconciliationPage,
+  signin: pages.SigninPage,
+  assetModal: pages.AssetModalPage,
+  accountCreation: pages.AccountCreationModalPage,
+  accountDetails: pages.AccountDetailsPage,
+} as const;
+
+type InstancesOf<T extends Record<string, new (...args: any[]) => any>> = {
+  [K in keyof T]: InstanceType<T[K]>;
 };
 
+export type TestContext = {
+  actions: InstancesOf<typeof actionConstructors>;
+  pages: InstancesOf<typeof pageConstructors>;
+};
+
+function buildInstances<T extends Record<string, new (...args: any[]) => any>>(
+  ctors: T,
+  page: Page
+): InstancesOf<T> {
+  const entries = Object.entries(ctors).map(([key, Ctor]) => [
+    key,
+    new (Ctor as new (...args: any[]) => any)(page),
+  ]);
+
+  return Object.fromEntries(entries) as InstancesOf<T>;
+}
+
 export const createTestContext = (page: Page): TestContext => ({
-  actions: {
-    header: new actions.HeaderAndHamburgerActions(page),
-    finance: new actions.FinanceTabActions(page),
-    individual: new actions.IndividualActions(page),
-    addPolicy: new actions.AddPolicyModalActions(page),
-    fees: new actions.FeesTabActions(page),
-    compliance: new actions.ComplianceActions(page),
-    provider: new actions.ProviderActions(page),
-    incomeRec: new actions.IncomeReconciliationActions(page),
-    signin: new actions.SigninActions(page),
-    assetModal: new actions.AssetModalActions(page),
-    accountCreation: new actions.AccountCreationModalActions(page),
-    accountDetails: new actions.AccountDetailsActions(page),
-  },
-  pages: {
-    header: new pages.HeaderAndHamburgerPage(page),
-    finance: new pages.FinanceTabPage(page),
-    individual: new pages.IndividualPage(page),
-    addPolicy: new pages.AddPolicyModalPage(page),
-    fees: new pages.FeesTabPage(page),
-    compliance: new pages.CompliancePage(page),
-    provider: new pages.ProviderPage(page),
-    incomeRec: new pages.IncomeReconciliationPage(page),
-    signin: new pages.SigninPage(page),
-    assetModal: new pages.AssetModalPage(page),
-    accountCreation: new pages.AccountCreationModalPage(page),
-    accountDetails: new pages.AccountDetailsPage(page),
-  },
+  actions: buildInstances(actionConstructors, page),
+  pages: buildInstances(pageConstructors, page),
 });

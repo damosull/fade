@@ -9,4 +9,3 @@ export { default as IncomeReconciliationActions } from './incomeReconciliation.a
 export { default as SigninActions } from './signin.actions';
 export { default as AssetModalActions } from './assetModal.actions';
 export { default as AccountCreationModalActions } from './accountCreationModal.actions';
-export { default as AccountDetailsActions } from './accountDetails.actions';

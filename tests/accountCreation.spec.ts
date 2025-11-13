@@ -1,4 +1,4 @@
-import { test } from '../src/fixtures/baseTest';
+import { expect, test } from '../src/fixtures/baseTest';
 import { navigateToHome } from '../src/seed/auth';
 
 const stamp = () => new Date().toISOString().replace(/[:.]/g, '-');
@@ -8,7 +8,7 @@ test.beforeEach(async ({ page }, testInfo) => {
 });
 
 test.describe('Account Creation', () => {
-  test('WM-105 - Account Creation - Create Individual Account', async ({ app }) => {
+  test('Create Individual Account', async ({ app, page }) => {
     const firstName = 'ACTest';
     const lastName = `Account-${stamp()}`;
     const email = `actest.account.${stamp()}@fadetest.com`;
@@ -23,14 +23,17 @@ test.describe('Account Creation', () => {
     await app.actions.accountCreation.selectFirstIntroducer();
     await app.actions.accountCreation.clickAddAccount();
 
-    await app.actions.accountCreation.assertModalClosed();
-    await app.actions.accountDetails.assertOnDetailsTab();
-    await app.actions.accountDetails.assertAccountName(firstName, lastName);
-    await app.actions.accountDetails.assertAccountNumberExists();
-    await app.actions.accountDetails.assertEmailDisplayed(email);
+    await expect(app.pages.accountCreation.modal()).not.toBeVisible({ timeout: 10_000 });
+    await expect(page).toHaveURL(/\/accounts\/\d+$/);
+    await expect(app.pages.accountDetails.detailsTab()).toBeVisible();
+    await expect(app.pages.accountDetails.getAccountNameHeading(firstName, lastName)).toBeVisible();
+    expect(await app.pages.accountDetails.accountNumberHeading().textContent()!).toMatch(
+      /ACC\d{7}/
+    );
+    await expect(app.pages.accountDetails.getEmailLink(email)).toHaveText(email);
   });
 
-  test('WM-104 - Account Creation - Create Individual Account & Service Case', async ({ app }) => {
+  test('Create Individual Account & Service Case', async ({ app, page }) => {
     const firstName = 'ACTest';
     const lastName = `AccountCreation-${stamp()}`;
     const email = `actest.${stamp()}@fadetest.com`;
@@ -48,10 +51,13 @@ test.describe('Account Creation', () => {
     await app.actions.accountCreation.fillIndicativeValue('1000');
     await app.actions.accountCreation.clickAddAccount();
 
-    await app.actions.accountCreation.assertModalClosed();
-    await app.actions.accountDetails.assertOnDetailsTab();
-    await app.actions.accountDetails.assertAccountName(firstName, lastName);
-    await app.actions.accountDetails.assertAccountNumberExists();
-    await app.actions.accountDetails.assertEmailDisplayed(email);
+    await expect(app.pages.accountCreation.modal()).not.toBeVisible({ timeout: 10_000 });
+    await expect(page).toHaveURL(/\/accounts\/\d+$/);
+    await expect(app.pages.accountDetails.detailsTab()).toBeVisible();
+    await expect(app.pages.accountDetails.getAccountNameHeading(firstName, lastName)).toBeVisible();
+    expect(await app.pages.accountDetails.accountNumberHeading().textContent()!).toMatch(
+      /ACC\d{7}/
+    );
+    await expect(app.pages.accountDetails.getEmailLink(email)).toHaveText(email);
   });
 });
