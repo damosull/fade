@@ -13,7 +13,6 @@ const actionConstructors = {
   incomeRec: actions.IncomeReconciliationActions,
   signin: actions.SigninActions,
   assetModal: actions.AssetModalActions,
-  accountCreation: actions.AccountCreationModalActions,
 } as const;
 
 const pageConstructors = {
@@ -27,7 +26,6 @@ const pageConstructors = {
   incomeRec: pages.IncomeReconciliationPage,
   signin: pages.SigninPage,
   assetModal: pages.AssetModalPage,
-  accountCreation: pages.AccountCreationModalPage,
   accountDetails: pages.AccountDetailsPage,
 } as const;
 

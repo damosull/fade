@@ -7,6 +7,10 @@ export class IndividualPage {
     this.page = page;
   }
 
+  modal() {
+    return this.page.locator('div[role="dialog"]');
+  }
+
   createNewButton() {
     return this.page.getByRole('button', { name: 'Create New' });
   }
