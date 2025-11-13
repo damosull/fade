@@ -7,6 +7,10 @@ export class IndividualPage {
     this.page = page;
   }
 
+  modal() {
+    return this.page.locator('div[role="dialog"]');
+  }
+
   createNewButton() {
     return this.page.getByRole('button', { name: 'Create New' });
   }
@@ -41,6 +45,10 @@ export class IndividualPage {
 
   lastName() {
     return this.page.getByRole('textbox', { name: 'Last Name' });
+  }
+
+  trustName() {
+    return this.page.getByRole('textbox', { name: 'Name' });
   }
 
   email() {
@@ -342,6 +350,14 @@ export class IndividualPage {
 
   postCode() {
     return this.page.getByRole('textbox', { name: 'Post code' });
+  }
+
+  myServiceCasesCard() {
+    return this.page.getByRole('heading', { name: 'My Service Cases' }).locator('..').locator('..');
+  }
+
+  searchServiceCasesInput() {
+    return this.myServiceCasesCard().getByPlaceholder('Account Name');
   }
 }
 

@@ -123,20 +123,21 @@ test.describe('Fade seeded flows', () => {
     await test.step('Create Individual account', async () => {
       accountSurname = `Rec-${ownerTag}`;
       console.log('[seed] Creating Individual account:', accountSurname);
-      await app.actions.individual.createIndividualAccount(
+      await app.actions.account.createAccount(
         'Account & Service Case',
-        'individual',
-        'income',
+        'Individual',
+        'Test Superadmin',
         accountSurname,
+        undefined,
         `test${ownerTag}@test.co.uk`,
         'personal',
-        'professional introducer',
         'Test Superadmin',
-        introducerFirmName // use the actual created firm
+        'professional introducer',
+        introducerFirmName, // use the actual created firm
+        '1000'
       );
       console.log('[seed] ✅ Account details entered.');
-      await app.actions.individual.newAccountServiceCaseDetails('1000');
-      await app.actions.individual.saveNewAccount();
+      await app.actions.account.saveNewAccount();
       console.log('[seed] ✅ Individual account save clicked.');
       try {
         await expect(
