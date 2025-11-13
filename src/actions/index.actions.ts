@@ -1,6 +1,6 @@
 export { default as HeaderAndHamburgerActions } from './headerAndHamburger.actions';
 export { default as FinanceTabActions } from './financeTab.actions';
-export { default as IndividualActions } from './individualAccount.actions';
+export { default as AccountActions } from './account.actions';
 export { default as AddPolicyModalActions } from './addPolicyModal.actions';
 export { default as FeesTabActions } from './feesTab.actions';
 export { default as ComplianceActions } from './compliance.actions';

@@ -5,6 +5,7 @@ import { getSeed } from '../src/seed/seedClient';
 const stamp = () => new Date().toISOString().replace(/[:.]/g, '-');
 const makeEmail = () => `qatest${stamp()}@fadesystems.co.uk`;
 const makeSurname = () => `Surname${stamp()}`;
+const makeFirstName = () => `FirstName${stamp()}`;
 
 test.describe('Individual account creation & details', () => {
   test.beforeEach(async ({ page }, testInfo) => {
@@ -21,20 +22,23 @@ test.describe('Individual account creation & details', () => {
 
     const userEmail = makeEmail();
     const userSurname = makeSurname();
+    const userFirstName = makeFirstName();
 
     // Create new account
-    await app.actions.individual.createIndividualAccount(
+    await app.actions.account.createAccount(
       'Account',
-      'individual',
-      'Kiran',
+      'Individual',
+      userFirstName,
       userSurname,
+      undefined,
       userEmail,
       'personal',
-      'professional introducer',
       'Test Superadmin',
-      seed.introducerFirmName
+      'professional introducer',
+      seed.introducerFirmName,
+      undefined
     );
-    await app.actions.individual.saveNewAccount();
+    await app.actions.account.saveNewAccount();
 
     try {
       await expect(
@@ -46,7 +50,7 @@ test.describe('Individual account creation & details', () => {
     }
 
     // Add address
-    await app.actions.individual.addManualAddress('136', 'dersingham avenue', 'london', 'e12 5qg');
+    await app.actions.account.addManualAddress('136', 'dersingham avenue', 'london', 'e12 5qg');
     try {
       await expect(page.getByText('Address added', { exact: true }).first()).toBeVisible();
       await expect(
@@ -58,8 +62,8 @@ test.describe('Individual account creation & details', () => {
     }
 
     // Update service detail, employment, and income
-    await app.actions.individual.individualServiceDetail('ZYPP');
-    await app.actions.individual.addEmploymentDetails('Fade', 'Software Engineer');
+    await app.actions.account.individualServiceDetail('ZYPP');
+    await app.actions.account.addEmploymentDetails('Fade', 'Software Engineer');
     try {
       await expect(
         page.getByText('Employment has been saved successfully', { exact: true }).first()
@@ -69,7 +73,7 @@ test.describe('Individual account creation & details', () => {
       await page.waitForLoadState('networkidle');
     }
 
-    await app.actions.individual.addIncomeDetails('Fade', '5000', 'dividends');
+    await app.actions.account.addIncomeDetails('Fade', '5000', 'dividends');
     try {
       await expect(
         page.getByText('Income saved successfully', { exact: true }).first()

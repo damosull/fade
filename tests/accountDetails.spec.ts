@@ -1,5 +1,6 @@
 import { expect, test } from '../src/fixtures/baseTest';
 import { navigateToHome } from '../src/seed/auth';
+import { getSeed } from '../src/seed/seedClient';
 
 const stamp = () => new Date().toISOString().replace(/[:.]/g, '-');
 
@@ -7,13 +8,12 @@ test.beforeEach(async ({ page }, testInfo) => {
   await navigateToHome(page, process.env.CI ? testInfo.project.name : 'chromium');
 });
 
-test.describe('Account Details - Personal Details Updates', () => {
-  test('WM-99 - Details Tab - Updating Personal Details Section', async ({ app, page }) => {
+test.describe('Account Details', () => {
+  test('Details Tab - Updating Personal Details Section', async ({ app, page }) => {
+    const seed = getSeed();
     const middleNames = `MiddleName-${stamp()}`;
 
-    await app.pages.individual.firstListItem().click();
-    await expect(page).toHaveURL(/\/accounts\/\d+$/);
-    await expect(app.pages.accountDetails.detailsTab()).toBeVisible();
+    await app.actions.header.searchForAccount(seed.accountSurname);
 
     await app.pages.accountDetails.viewMoreButton().click();
 

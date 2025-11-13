@@ -15,9 +15,20 @@ export class HeaderAndHamburgerActions {
     await expect(this.view.searchBox()).toBeVisible({ timeout: SHORT_WAIT });
     await this.view.searchBox().click();
     await this.view.searchBox().fill(search);
-    const result = this.page.getByRole('link', { name: search, exact: true });
+
+    await expect(this.view.resultsDropdown()).toBeVisible({ timeout: SHORT_WAIT });
+
+    const result = this.view
+      .resultsDropdown()
+      .locator('a[href^="/accounts/"]')
+      .filter({ hasText: search })
+      .first();
+
     await expect(result).toBeVisible({ timeout: SHORT_WAIT });
     await result.click();
+
+    await expect(this.page).toHaveURL(/\/accounts\/\d+$/);
+    await expect(this.view.detailsTab()).toBeVisible();
   }
 
   async openHamburgerMenu() {

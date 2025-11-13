@@ -37,6 +37,7 @@ export default [
       ...playwright.configs['flat/recommended'].rules,
       'prettier/prettier': 'error',
       'playwright/no-networkidle': 'off',
+      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     },
   },
   {
