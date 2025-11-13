@@ -91,9 +91,7 @@ test.describe('Account Creation', () => {
     await expect(
       app.pages.accountDetails.getAccountNameHeading(userFirstName, userSurname)
     ).toBeVisible();
-    expect(await app.pages.accountDetails.accountNumberHeading().textContent()!).toMatch(
-      /ACC\d{7}/
-    );
+    expect(await app.pages.accountDetails.accountNumberHeading().textContent()).toMatch(/ACC\d{7}/);
     await expect(app.pages.accountDetails.getEmailLink(userEmail)).toHaveText(userEmail);
   });
 });
