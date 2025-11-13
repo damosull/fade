@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import type { Page } from '@playwright/test';
 import * as actions from '../actions/index.actions';
 import * as pages from '../pages/index.page';
@@ -32,7 +31,7 @@ const pageConstructors = {
   accountDetails: pages.AccountDetailsPage,
 } as const;
 
-type InstancesOf<T extends Record<string, new (...args: any[]) => any>> = {
+type InstancesOf<T extends Record<string, new (..._args: any[]) => any>> = {
   [K in keyof T]: InstanceType<T[K]>;
 };
 
@@ -41,13 +40,13 @@ export type TestContext = {
   pages: InstancesOf<typeof pageConstructors>;
 };
 
-function buildInstances<T extends Record<string, new (...args: any[]) => any>>(
+function buildInstances<T extends Record<string, new (..._args: any[]) => any>>(
   ctors: T,
   page: Page
 ): InstancesOf<T> {
   const entries = Object.entries(ctors).map(([key, Ctor]) => [
     key,
-    new (Ctor as new (...args: any[]) => any)(page),
+    new (Ctor as new (..._args: any[]) => any)(page),
   ]);
 
   return Object.fromEntries(entries) as InstancesOf<T>;
