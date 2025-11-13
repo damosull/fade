@@ -5,6 +5,7 @@ import { getSeed } from '../src/seed/seedClient';
 const stamp = () => new Date().toISOString().replace(/[:.]/g, '-');
 const makeEmail = () => `qatest${stamp()}@fadesystems.co.uk`;
 const makeSurname = () => `Surname${stamp()}`;
+const makeFirstName = () => `FirstName${stamp()}`;
 
 test.describe('Individual account creation & details', () => {
   test.beforeEach(async ({ page }, testInfo) => {
@@ -21,12 +22,13 @@ test.describe('Individual account creation & details', () => {
 
     const userEmail = makeEmail();
     const userSurname = makeSurname();
+    const userFirstName = makeFirstName();
 
     // Create new account
     await app.actions.individual.createIndividualAccount(
       'Account',
       'individual',
-      'Kiran',
+      userFirstName,
       userSurname,
       userEmail,
       'personal',
