@@ -1,6 +1,6 @@
 export { default as HeaderAndHamburgerActions } from './headerAndHamburger.actions';
 export { default as FinanceTabActions } from './financeTab.actions';
-export { default as IndividualActions } from './individualAccount.actions';
+export { default as AccountActions } from './account.actions';
 export { default as AddPolicyModalActions } from './addPolicyModal.actions';
 export { default as FeesTabActions } from './feesTab.actions';
 export { default as ComplianceActions } from './compliance.actions';
@@ -8,3 +8,4 @@ export { default as ProviderActions } from './providerPage.actions';
 export { default as IncomeReconciliationActions } from './incomeReconciliation.actions';
 export { default as SigninActions } from './signin.actions';
 export { default as AssetModalActions } from './assetModal.actions';
+export { default as AccountDetailsActions } from './accountDetails.actions';

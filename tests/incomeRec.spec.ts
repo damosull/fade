@@ -56,7 +56,7 @@ test.describe('Fade seeded flows', () => {
   test('Individual: seeded account shows ISA & GIA with valuations', async ({ app, page }) => {
     const seed = getSeed();
 
-    await app.actions.individual.clickServiceCase(seed.accountSurname);
+    await app.actions.account.clickServiceCase(seed.accountSurname);
     await app.actions.header.openFinancesTab();
 
     await expect(page.getByText(seed.isaPolicyName)).toBeVisible();
@@ -75,7 +75,7 @@ test.describe('Fade seeded flows', () => {
   test('Finances: add contributions to ISA & GIA', async ({ app, page }) => {
     const seed = getSeed();
 
-    await app.actions.individual.clickServiceCase(seed.accountSurname);
+    await app.actions.account.clickServiceCase(seed.accountSurname);
     await app.actions.header.openFinancesTab();
 
     await app.actions.finance.expandAsset(seed.isaPolicyName);
@@ -115,7 +115,7 @@ test.describe('Fade seeded flows', () => {
     const seed = getSeed();
     const newPolicy = policyNumber();
 
-    await app.actions.individual.clickServiceCase(seed.accountSurname);
+    await app.actions.account.clickServiceCase(seed.accountSurname);
     await app.actions.header.openFinancesTab();
 
     await page.getByRole('heading', { name: 'protection policies' }).scrollIntoViewIfNeeded();

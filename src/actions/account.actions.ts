@@ -1,5 +1,5 @@
 import { type Page, expect } from '@playwright/test';
-import IndividualPage from '../pages/individualAccount.page';
+import IndividualPage from '../pages/account.page';
 import { waitForNonBlockingUI, findServiceCaseLink } from '../support/helpers';
 import { SHORT_WAIT } from '../support/helpers';
 
@@ -12,39 +12,51 @@ export class IndividualActions {
     this.view = new IndividualPage(page);
   }
 
-  async createIndividualAccount(
-    accountOptionSelect: string,
-    accountSubType: string,
-    firstName: string,
-    lastName: string,
+  async createAccount(
+    accountOption: 'Account' | 'Account & Service Case',
+    accountSubType: 'Individual' | 'Trust' | 'Corporation',
+    firstName: string | undefined,
+    lastName: string | undefined,
+    trustName: string | undefined,
     email: string,
     emailTypeSelect: string,
-    sourceTypeSelect: string,
-    newAdviserSelect: string,
-    introducerSelect: string
+    adviserSelect: string,
+    sourceTypeSelect: string | undefined,
+    introducerSelect: string | undefined,
+    serviceCaseIndicativeValue?: string
   ): Promise<void> {
     await this.view.createNewButton().click();
+
     await this.view.accountOption().click();
-    await this.page.getByRole('option', { name: accountOptionSelect, exact: true }).click();
+    await this.page.getByRole('option', { name: accountOption, exact: true }).click();
 
     await this.view.accountTypeSelect().click();
     await this.page.getByRole('option', { name: accountSubType }).click();
 
-    await this.view.firstName().fill(firstName);
-    await this.view.lastName().fill(lastName);
+    if (accountSubType === 'Individual') {
+      await this.view.firstName().fill(firstName!);
+      await this.view.lastName().fill(lastName!);
+    } else {
+      await this.view.trustName().fill(trustName!);
+    }
+
     await this.view.email().fill(email);
 
     await this.view.emailType().click();
     await this.page.getByRole('option', { name: emailTypeSelect }).click();
 
+    await this.view.newAdviserDropdown().click();
+    await this.page.getByRole('option', { name: adviserSelect }).click();
+
     await this.view.sourceType().click();
     await this.page.getByRole('option', { name: sourceTypeSelect }).click();
 
-    await this.view.newAdviserDropdown().click();
-    await this.page.getByRole('option', { name: newAdviserSelect }).click();
-
     await this.view.introducerSelectDropdown().click();
     await this.page.getByRole('option', { name: introducerSelect }).click();
+
+    if (accountOption === 'Account & Service Case' && serviceCaseIndicativeValue) {
+      await this.newAccountServiceCaseDetails(serviceCaseIndicativeValue);
+    }
   }
 
   async newAccountServiceCaseDetails(serviceCaseIndicativeValue: string): Promise<void> {

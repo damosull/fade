@@ -14,7 +14,7 @@ import * as pages from '../pages/index.page';
 const actionConstructors = {
   header: actions.HeaderAndHamburgerActions,
   finance: actions.FinanceTabActions,
-  individual: actions.IndividualActions,
+  account: actions.AccountActions,
   addPolicy: actions.AddPolicyModalActions,
   fees: actions.FeesTabActions,
   compliance: actions.ComplianceActions,
@@ -32,7 +32,7 @@ const actionConstructors = {
 const pageConstructors = {
   header: pages.HeaderAndHamburgerPage,
   finance: pages.FinanceTabPage,
-  individual: pages.IndividualPage,
+  account: pages.AccountPage,
   addPolicy: pages.AddPolicyModalPage,
   fees: pages.FeesTabPage,
   compliance: pages.CompliancePage,
