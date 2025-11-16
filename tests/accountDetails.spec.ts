@@ -43,4 +43,28 @@ test.describe('Account Details', () => {
     await expect(app.pages.accountDetails.inGoodHealthLabel()).toContainText('yes');
     await expect(app.pages.accountDetails.hasWillCheckbox()).toBeChecked();
   });
+
+  test('Details Tab - Adding Address', async ({ app, page }) => {
+    const seed = getSeed();
+    const unique = stamp();
+    const addressLine1 = `${Math.floor(Math.random() * 900 + 100)} Test Street`;
+    const addressLine2 = `Suite ${unique.slice(-4)}`;
+    const city = `TestCity-${unique}`;
+    const postCode = `TC${unique.slice(-6)}`;
+
+    await app.actions.header.searchForAccount(seed.accountSurname);
+
+    await app.actions.account.addManualAddress(addressLine1, addressLine2, city, postCode);
+
+    await expect(app.pages.accountDetails.addressRowByCity(city)).toBeVisible();
+    await expect(app.pages.accountDetails.addressRowByCity(city)).toContainText(postCode);
+    await expect(app.pages.accountDetails.addressRowByCity(city)).toContainText(addressLine1);
+
+    await page.reload();
+    await expect(page).toHaveURL(/\/accounts\/\d+$/);
+
+    await expect(app.pages.accountDetails.addressRowByCity(city)).toBeVisible();
+    await expect(app.pages.accountDetails.addressRowByCity(city)).toContainText(postCode);
+    await expect(app.pages.accountDetails.addressRowByCity(city)).toContainText(addressLine1);
+  });
 });

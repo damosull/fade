@@ -122,6 +122,14 @@ export class AccountDetailsPage {
   successMessage() {
     return this.page.locator('text=Account has been updated!');
   }
+
+  addressesSection() {
+    return this.page.getByRole('group', { name: 'Addresses' });
+  }
+
+  addressRowByCity(city: string) {
+    return this.addressesSection().locator('tr', { hasText: city });
+  }
 }
 
 export default AccountDetailsPage;
