@@ -114,4 +114,37 @@ test.describe('Account Details', () => {
     await expect(app.pages.accountDetails.addressRowByCity(city)).toContainText(county);
     await expect(app.pages.accountDetails.correspondenceIndicatorInRow(city)).toBeVisible();
   });
+
+  test('Details Tab - Adding Correspondence Method', async ({ app, page }) => {
+    const seed = getSeed();
+    const unique = stamp().replace(/\D/g, '').slice(-6);
+    const phoneNumber = `07123${unique}`;
+
+    await app.actions.header.searchForAccount(seed.accountSurname);
+
+    await app.actions.accountDetails.addCorrespondenceMethod('phone', 'home', phoneNumber);
+
+    await expect(
+      app.pages.accountDetails.correspondenceRowByPhoneNumber(phoneNumber)
+    ).toBeVisible();
+    await expect(
+      app.pages.accountDetails.correspondenceRowByPhoneNumber(phoneNumber)
+    ).toContainText(phoneNumber);
+    await expect(
+      app.pages.accountDetails.correspondenceRowByPhoneNumber(phoneNumber)
+    ).toContainText('home');
+
+    await page.reload();
+    await expect(page).toHaveURL(/\/accounts\/\d+$/);
+
+    await expect(
+      app.pages.accountDetails.correspondenceRowByPhoneNumber(phoneNumber)
+    ).toBeVisible();
+    await expect(
+      app.pages.accountDetails.correspondenceRowByPhoneNumber(phoneNumber)
+    ).toContainText(phoneNumber);
+    await expect(
+      app.pages.accountDetails.correspondenceRowByPhoneNumber(phoneNumber)
+    ).toContainText('home');
+  });
 });

@@ -126,6 +126,31 @@ export class AccountDetailsActions {
 
     return await responsePromise;
   }
+
+  async selectCorrespondenceMethod(method: string) {
+    await this.view.correspondenceMethodInput().click();
+    await this.page.getByRole('option', { name: method }).click();
+  }
+
+  async selectCorrespondenceType(type: string) {
+    await this.view.correspondenceTypeInput().click();
+    await this.page.getByRole('option', { name: type }).click();
+  }
+
+  async fillCorrespondencePhoneNumber(phoneNumber: string) {
+    await this.view.correspondencePhoneNumberInput().fill(phoneNumber);
+  }
+
+  async clickAddCorrespondenceMethod() {
+    await this.view.correspondenceAddButton().click();
+  }
+
+  async addCorrespondenceMethod(method: string, type: string, phoneNumber: string) {
+    await this.selectCorrespondenceMethod(method);
+    await this.selectCorrespondenceType(type);
+    await this.fillCorrespondencePhoneNumber(phoneNumber);
+    await this.clickAddCorrespondenceMethod();
+  }
 }
 
 export default AccountDetailsActions;

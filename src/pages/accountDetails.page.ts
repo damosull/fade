@@ -138,6 +138,38 @@ export class AccountDetailsPage {
   correspondenceIndicatorInRow(city: string) {
     return this.addressRowByCity(city).getByRole('button', { name: 'Correspondence Address' });
   }
+
+  correspondenceMethodsSection() {
+    return this.page.locator('div').filter({ hasText: 'Correspondence Methods' }).first();
+  }
+
+  correspondenceMethodInput() {
+    return this.correspondenceMethodsSection()
+      .locator('label')
+      .filter({ hasText: 'Method' })
+      .locator('svg');
+  }
+
+  correspondenceTypeInput() {
+    return this.correspondenceMethodsSection()
+      .locator('label')
+      .filter({ hasText: 'Type' })
+      .locator('svg');
+  }
+
+  correspondencePhoneNumberInput() {
+    return this.correspondenceMethodsSection().getByRole('textbox', { name: 'Phone number' });
+  }
+
+  correspondenceAddButton() {
+    return this.correspondenceMethodsSection()
+      .locator('form[data-sentry-component="CorrespondenceForm"]')
+      .getByRole('button', { name: 'Add' });
+  }
+
+  correspondenceRowByPhoneNumber(phoneNumber: string) {
+    return this.correspondenceMethodsSection().locator('tr').filter({ hasText: phoneNumber });
+  }
 }
 
 export default AccountDetailsPage;
