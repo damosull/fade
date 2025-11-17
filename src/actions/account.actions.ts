@@ -98,6 +98,7 @@ export class IndividualActions {
     addressLine1: string,
     addressLine2: string,
     city: string,
+    county: string,
     postCode: string
   ): Promise<void> {
     await expect(this.view.addNewAddressButton()).toBeVisible({ timeout: SHORT_WAIT });
@@ -107,6 +108,7 @@ export class IndividualActions {
     await this.view.addressLine1().fill(addressLine1);
     await this.view.addressLine2().fill(addressLine2);
     await this.view.city().fill(city);
+    await this.view.county().fill(county);
     await this.view.postCode().fill(postCode);
     await this.view.addAddressButton().click();
   }

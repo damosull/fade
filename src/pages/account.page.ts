@@ -348,6 +348,10 @@ export class IndividualPage {
     return this.page.getByRole('textbox', { name: 'City' });
   }
 
+  county() {
+    return this.page.getByRole('textbox', { name: 'County' });
+  }
+
   postCode() {
     return this.page.getByRole('textbox', { name: 'Post code' });
   }

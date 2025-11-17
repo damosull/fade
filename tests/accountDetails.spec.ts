@@ -50,17 +50,19 @@ test.describe('Account Details', () => {
     const addressLine1 = `${Math.floor(Math.random() * 900 + 100)} Test Street`;
     const addressLine2 = `Suite ${unique.slice(-4)}`;
     const city = `TestCity-${unique}`;
+    const county = `TestCounty-${unique}`;
     const postCode = `TC${unique.slice(-6)}`;
 
     await app.actions.header.searchForAccount(seed.accountSurname);
 
-    await app.actions.account.addManualAddress(addressLine1, addressLine2, city, postCode);
+    await app.actions.account.addManualAddress(addressLine1, addressLine2, city, county, postCode);
 
     await app.pages.accountDetails.addressesViewMoreButton().click();
 
     await expect(app.pages.accountDetails.addressRowByCity(city)).toBeVisible();
     await expect(app.pages.accountDetails.addressRowByCity(city)).toContainText(postCode);
     await expect(app.pages.accountDetails.addressRowByCity(city)).toContainText(addressLine1);
+    await expect(app.pages.accountDetails.addressRowByCity(city)).toContainText(county);
 
     await page.reload();
     await expect(page).toHaveURL(/\/accounts\/\d+$/);
@@ -70,5 +72,6 @@ test.describe('Account Details', () => {
     await expect(app.pages.accountDetails.addressRowByCity(city)).toBeVisible();
     await expect(app.pages.accountDetails.addressRowByCity(city)).toContainText(postCode);
     await expect(app.pages.accountDetails.addressRowByCity(city)).toContainText(addressLine1);
+    await expect(app.pages.accountDetails.addressRowByCity(city)).toContainText(county);
   });
 });
