@@ -56,12 +56,16 @@ test.describe('Account Details', () => {
 
     await app.actions.account.addManualAddress(addressLine1, addressLine2, city, postCode);
 
+    await app.pages.accountDetails.addressesViewMoreButton().click();
+
     await expect(app.pages.accountDetails.addressRowByCity(city)).toBeVisible();
     await expect(app.pages.accountDetails.addressRowByCity(city)).toContainText(postCode);
     await expect(app.pages.accountDetails.addressRowByCity(city)).toContainText(addressLine1);
 
     await page.reload();
     await expect(page).toHaveURL(/\/accounts\/\d+$/);
+
+    await app.pages.accountDetails.addressesViewMoreButton().click();
 
     await expect(app.pages.accountDetails.addressRowByCity(city)).toBeVisible();
     await expect(app.pages.accountDetails.addressRowByCity(city)).toContainText(postCode);

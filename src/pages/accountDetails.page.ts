@@ -124,11 +124,15 @@ export class AccountDetailsPage {
   }
 
   addressesSection() {
-    return this.page.getByRole('group', { name: 'Addresses' });
+    return this.page.locator('#addresses');
+  }
+
+  addressesViewMoreButton() {
+    return this.addressesSection().getByRole('button', { name: 'View more' });
   }
 
   addressRowByCity(city: string) {
-    return this.addressesSection().locator('tr', { hasText: city });
+    return this.addressesSection().locator('tr').filter({ hasText: city });
   }
 }
 
