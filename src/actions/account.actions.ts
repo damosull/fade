@@ -17,12 +17,12 @@ export class IndividualActions {
     accountSubType: 'Individual' | 'Trust' | 'Corporation',
     firstName: string | undefined,
     lastName: string | undefined,
-    name: string | undefined,
+    trustName: string | undefined,
     email: string,
     emailTypeSelect: string,
     adviserSelect: string,
-    sourceTypeSelect: string,
-    introducerSelect: string,
+    sourceTypeSelect: string | undefined,
+    introducerSelect: string | undefined,
     serviceCaseIndicativeValue?: string
   ): Promise<void> {
     await this.view.createNewButton().click();
@@ -37,7 +37,7 @@ export class IndividualActions {
       await this.view.firstName().fill(firstName!);
       await this.view.lastName().fill(lastName!);
     } else {
-      await this.view.name().fill(name!);
+      await this.view.trustName().fill(trustName!);
     }
 
     await this.view.email().fill(email);
@@ -98,7 +98,9 @@ export class IndividualActions {
     addressLine1: string,
     addressLine2: string,
     city: string,
-    postCode: string
+    county: string,
+    postCode: string,
+    useForCorrespondence: boolean = false
   ): Promise<void> {
     await expect(this.view.addNewAddressButton()).toBeVisible({ timeout: SHORT_WAIT });
     await this.view.addNewAddressButton().click();
@@ -107,7 +109,11 @@ export class IndividualActions {
     await this.view.addressLine1().fill(addressLine1);
     await this.view.addressLine2().fill(addressLine2);
     await this.view.city().fill(city);
+    await this.view.county().fill(county);
     await this.view.postCode().fill(postCode);
+    if (useForCorrespondence) {
+      await this.view.useForCorrespondenceCheckbox().check();
+    }
     await this.view.addAddressButton().click();
   }
 

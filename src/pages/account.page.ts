@@ -47,7 +47,7 @@ export class IndividualPage {
     return this.page.getByRole('textbox', { name: 'Last Name' });
   }
 
-  name() {
+  trustName() {
     return this.page.getByRole('textbox', { name: 'Name' });
   }
 
@@ -348,8 +348,16 @@ export class IndividualPage {
     return this.page.getByRole('textbox', { name: 'City' });
   }
 
+  county() {
+    return this.page.getByRole('textbox', { name: 'County' });
+  }
+
   postCode() {
     return this.page.getByRole('textbox', { name: 'Post code' });
+  }
+
+  useForCorrespondenceCheckbox() {
+    return this.page.getByRole('checkbox', { name: 'Use this address for correspondence?' });
   }
 
   myServiceCasesCard() {
