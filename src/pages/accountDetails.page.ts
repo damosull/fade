@@ -122,6 +122,18 @@ export class AccountDetailsPage {
   successMessage() {
     return this.page.locator('text=Account has been updated!');
   }
+
+  addressesSection() {
+    return this.page.locator('#addresses');
+  }
+
+  addressesViewMoreButton() {
+    return this.addressesSection().getByRole('button', { name: 'View more' });
+  }
+
+  addressRowByCity(city: string) {
+    return this.addressesSection().locator('tr').filter({ hasText: city });
+  }
 }
 
 export default AccountDetailsPage;
