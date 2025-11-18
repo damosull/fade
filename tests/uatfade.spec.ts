@@ -50,7 +50,13 @@ test.describe('Individual account creation & details', () => {
     }
 
     // Add address
-    await app.actions.account.addManualAddress('136', 'dersingham avenue', 'london', 'e12 5qg');
+    await app.actions.account.addManualAddress(
+      '136',
+      'dersingham avenue',
+      'london',
+      'Greater London',
+      'e12 5qg'
+    );
     try {
       await expect(page.getByText('Address added', { exact: true }).first()).toBeVisible();
       await expect(
