@@ -356,6 +356,10 @@ export class IndividualPage {
     return this.page.getByRole('textbox', { name: 'Post code' });
   }
 
+  useForCorrespondenceCheckbox() {
+    return this.page.getByRole('checkbox', { name: 'Use this address for correspondence?' });
+  }
+
   myServiceCasesCard() {
     return this.page.getByRole('heading', { name: 'My Service Cases' }).locator('..').locator('..');
   }

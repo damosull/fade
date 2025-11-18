@@ -134,6 +134,10 @@ export class AccountDetailsPage {
   addressRowByCity(city: string) {
     return this.addressesSection().locator('tr').filter({ hasText: city });
   }
+
+  correspondenceIndicatorInRow(city: string) {
+    return this.addressRowByCity(city).getByRole('button', { name: 'Correspondence Address' });
+  }
 }
 
 export default AccountDetailsPage;

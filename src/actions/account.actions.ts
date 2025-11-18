@@ -99,7 +99,8 @@ export class IndividualActions {
     addressLine2: string,
     city: string,
     county: string,
-    postCode: string
+    postCode: string,
+    useForCorrespondence: boolean = false
   ): Promise<void> {
     await expect(this.view.addNewAddressButton()).toBeVisible({ timeout: SHORT_WAIT });
     await this.view.addNewAddressButton().click();
@@ -110,6 +111,9 @@ export class IndividualActions {
     await this.view.city().fill(city);
     await this.view.county().fill(county);
     await this.view.postCode().fill(postCode);
+    if (useForCorrespondence) {
+      await this.view.useForCorrespondenceCheckbox().check();
+    }
     await this.view.addAddressButton().click();
   }
 
