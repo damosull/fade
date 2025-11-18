@@ -47,7 +47,7 @@ export class IndividualPage {
     return this.page.getByRole('textbox', { name: 'Last Name' });
   }
 
-  trustName() {
+  name() {
     return this.page.getByRole('textbox', { name: 'Name' });
   }
 
