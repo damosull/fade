@@ -7,6 +7,7 @@ const makeEmail = () => `qatest${stamp()}@fadesystems.co.uk`;
 const makeSurname = () => `Surname${stamp()}`;
 const makeFirstName = () => `FirstName${stamp()}`;
 const makeTrustName = () => `Trust${stamp()}`;
+const makeCorporationName = () => `Corporation${stamp()}`;
 
 test.beforeEach(async ({ page }, testInfo) => {
   await navigateToHome(page, process.env.CI ? testInfo.project.name : 'chromium');
@@ -111,7 +112,7 @@ test.describe('Account Creation', () => {
     await app.actions.account.createAccount(
       'Account',
       'Trust',
-      userEmail,
+      undefined,
       undefined,
       userTrustName,
       userEmail,
@@ -187,14 +188,14 @@ test.describe('Account Creation', () => {
     const seed = getSeed();
 
     const userEmail = makeEmail();
-    const userTrustName = makeTrustName();
+    const userCorporationName = makeCorporationName();
 
     await app.actions.account.createAccount(
       'Account',
       'Corporation',
       undefined,
       undefined,
-      userTrustName,
+      userCorporationName,
       userEmail,
       'solicitor',
       'Finance Hub',
@@ -215,7 +216,7 @@ test.describe('Account Creation', () => {
     await expect(app.pages.account.modal()).not.toBeVisible({ timeout: 10_000 });
     await expect(page).toHaveURL(/\/accounts\/\d+$/);
     await expect(app.pages.accountDetails.detailsTab()).toBeVisible();
-    await expect(app.pages.accountDetails.getTrustNameHeading(userTrustName)).toBeVisible();
+    await expect(app.pages.accountDetails.getTrustNameHeading(userCorporationName)).toBeVisible();
     expect(await app.pages.accountDetails.accountNumberHeading().textContent()!).toMatch(
       /ACC\d{7}/
     );
@@ -227,14 +228,14 @@ test.describe('Account Creation', () => {
     const seed = getSeed();
 
     const userEmail = makeEmail();
-    const userTrustName = makeTrustName();
+    const userCorporationName = makeCorporationName();
 
     await app.actions.account.createAccount(
       'Account & Service Case',
       'Corporation',
       undefined,
       undefined,
-      userTrustName,
+      userCorporationName,
       userEmail,
       'solicitor',
       'Finance Hub',
@@ -256,7 +257,7 @@ test.describe('Account Creation', () => {
     await expect(app.pages.account.modal()).not.toBeVisible({ timeout: 10_000 });
     await expect(page).toHaveURL(/\/accounts\/\d+$/);
     await expect(app.pages.accountDetails.detailsTab()).toBeVisible();
-    await expect(app.pages.accountDetails.getTrustNameHeading(userTrustName)).toBeVisible();
+    await expect(app.pages.accountDetails.getTrustNameHeading(userCorporationName)).toBeVisible();
     expect(await app.pages.accountDetails.accountNumberHeading().textContent()!).toMatch(
       /ACC\d{7}/
     );

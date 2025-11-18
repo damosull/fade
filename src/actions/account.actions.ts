@@ -17,12 +17,12 @@ export class IndividualActions {
     accountSubType: 'Individual' | 'Trust' | 'Corporation',
     firstName: string | undefined,
     lastName: string | undefined,
-    trustName: string | undefined,
+    name: string | undefined,
     email: string,
     emailTypeSelect: string,
     adviserSelect: string,
-    sourceTypeSelect: string | undefined,
-    introducerSelect: string | undefined,
+    sourceTypeSelect: string,
+    introducerSelect: string,
     serviceCaseIndicativeValue?: string
   ): Promise<void> {
     await this.view.createNewButton().click();
@@ -37,7 +37,7 @@ export class IndividualActions {
       await this.view.firstName().fill(firstName!);
       await this.view.lastName().fill(lastName!);
     } else {
-      await this.view.trustName().fill(trustName!);
+      await this.view.name().fill(name!);
     }
 
     await this.view.email().fill(email);
