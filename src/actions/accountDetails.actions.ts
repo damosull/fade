@@ -129,12 +129,12 @@ export class AccountDetailsActions {
 
   async selectCorrespondenceMethod(method: string) {
     await this.view.correspondenceMethodInput().click();
-    await this.page.getByRole('option', { name: method }).click();
+    await this.view.correspondenceMethodOption(method).click();
   }
 
   async selectCorrespondenceType(type: string) {
     await this.view.correspondenceTypeInput().click();
-    await this.page.getByRole('option', { name: type }).click();
+    await this.view.correspondenceTypeOption(type).click();
   }
 
   async fillCorrespondencePhoneNumber(phoneNumber: string) {

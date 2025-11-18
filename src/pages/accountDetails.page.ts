@@ -170,6 +170,14 @@ export class AccountDetailsPage {
   correspondenceRowByPhoneNumber(phoneNumber: string) {
     return this.correspondenceMethodsSection().locator('tr').filter({ hasText: phoneNumber });
   }
+
+  correspondenceMethodOption(method: string) {
+    return this.page.getByRole('option', { name: method });
+  }
+
+  correspondenceTypeOption(type: string) {
+    return this.page.getByRole('option', { name: type });
+  }
 }
 
 export default AccountDetailsPage;
