@@ -147,4 +147,25 @@ test.describe('Account Details', () => {
       app.pages.accountDetails.correspondenceRowByPhoneNumber(phoneNumber)
     ).toContainText('home');
   });
+
+  test('Details Tab - Adding Relationship', async ({ app }) => {
+    const seed = getSeed();
+
+    await app.actions.header.searchForAccount(seed.accountSurname);
+
+    const accountName = await app.actions.accountDetails.addRelationship('Test', 'spouse');
+
+    await expect(app.pages.accountDetails.relationshipSuccessMessage()).toBeVisible({
+      timeout: 5000,
+    });
+
+    await app.pages.accountDetails.relationshipsViewMoreButton().click();
+
+    const relationshipRow = app.pages.accountDetails.relationshipRowByAccountName(
+      accountName,
+      'spouse'
+    );
+
+    await expect(relationshipRow).toContainText('spouse');
+  });
 });

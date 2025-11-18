@@ -178,6 +178,48 @@ export class AccountDetailsPage {
   correspondenceTypeOption(type: string) {
     return this.page.getByRole('option', { name: type });
   }
+
+  relationshipsSection() {
+    return this.page.locator('div').filter({ hasText: 'Relationships' }).first();
+  }
+
+  relationshipsViewMoreButton() {
+    return this.page
+      .locator('div[data-sentry-component="RelationshipsView"]')
+      .locator('table tfoot')
+      .getByRole('button', { name: 'View more' });
+  }
+
+  relationshipAccountInput() {
+    return this.relationshipsSection()
+      .locator('form[data-sentry-component="RelationshipForm"]')
+      .locator('[role="combobox"]')
+      .first();
+  }
+
+  relationshipTypeInput() {
+    return this.relationshipsSection()
+      .locator('form[data-sentry-component="RelationshipForm"]')
+      .locator('div[class*="control"]')
+      .nth(1)
+      .locator('svg');
+  }
+
+  relationshipAddButton() {
+    return this.relationshipsSection()
+      .locator('form[data-sentry-component="RelationshipForm"]')
+      .getByRole('button', { name: 'Add' });
+  }
+
+  relationshipRowByAccountName(accountName: string, relationType: string) {
+    const relationshipsTable = this.relationshipsSection().locator('table tbody');
+    const descriptionText = `${accountName} is the ${relationType} of`;
+    return relationshipsTable.locator('tr').filter({ hasText: descriptionText }).last();
+  }
+
+  relationshipSuccessMessage() {
+    return this.page.getByText('Relationship added successfully', { exact: true });
+  }
 }
 
 export default AccountDetailsPage;

@@ -1,5 +1,6 @@
-import { type Page, expect } from '@playwright/test';
+import { expect, type Page } from '@playwright/test';
 import AccountDetailsPage from '../pages/accountDetails.page';
+import { SHORT_WAIT } from '../support/helpers';
 
 export class AccountDetailsActions {
   private readonly page: Page;
@@ -8,34 +9,6 @@ export class AccountDetailsActions {
   constructor(page: Page) {
     this.page = page;
     this.view = new AccountDetailsPage(page);
-  }
-
-  async assertOnDetailsTab() {
-    await expect(this.page).toHaveURL(/\/accounts\/\d+$/);
-    await expect(this.view.detailsTab()).toBeVisible();
-  }
-
-  async assertAccountName(firstName: string, lastName: string) {
-    const heading = this.view.getAccountNameHeading(firstName, lastName);
-    await expect(heading).toBeVisible();
-  }
-
-  async assertTrustName(name: string) {
-    const heading = this.view.getTrustNameHeading(name);
-    await expect(heading).toBeVisible();
-  }
-
-  async assertAccountNumberExists() {
-    await expect(this.view.accountNumberHeading()).toBeVisible();
-    const accountNumber = await this.view.accountNumberHeading().textContent();
-    expect(accountNumber).toMatch(/ACC\d{7}/);
-    return accountNumber;
-  }
-
-  async assertEmailDisplayed(email: string) {
-    const emailLink = this.view.getEmailLink(email);
-    await expect(emailLink).toBeVisible();
-    await expect(emailLink).toHaveText(email);
   }
 
   async selectTitle(title: string) {
@@ -150,6 +123,47 @@ export class AccountDetailsActions {
     await this.selectCorrespondenceType(type);
     await this.fillCorrespondencePhoneNumber(phoneNumber);
     await this.clickAddCorrespondenceMethod();
+  }
+
+  async selectRelationshipAccount(searchText: string): Promise<string> {
+    const input = this.view.relationshipAccountInput();
+    await input.click();
+    await input.fill(searchText);
+
+    const listbox = this.page.locator('[role="listbox"]').first();
+    await expect(listbox).toBeVisible({ timeout: SHORT_WAIT });
+
+    await this.page.waitForFunction(
+      () => {
+        // eslint-disable-next-line no-undef
+        const listbox = document.querySelector('[role="listbox"]');
+        if (!listbox) return false;
+        const options = listbox.querySelectorAll('[role="option"]');
+        return options.length > 0;
+      },
+      { timeout: 10000 }
+    );
+
+    const firstOption = this.page.locator('[role="listbox"] [role="option"]').first();
+    const accountName = await firstOption.textContent();
+    await firstOption.click();
+    return accountName?.trim() || searchText;
+  }
+
+  async selectRelationshipType(relationType: string) {
+    await this.view.relationshipTypeInput().click();
+    await this.page.getByRole('option', { name: relationType }).click();
+  }
+
+  async clickAddRelationship() {
+    await this.view.relationshipAddButton().click();
+  }
+
+  async addRelationship(searchText: string, relationType: string): Promise<string> {
+    const accountName = await this.selectRelationshipAccount(searchText);
+    await this.selectRelationshipType(relationType);
+    await this.clickAddRelationship();
+    return accountName;
   }
 }
 
