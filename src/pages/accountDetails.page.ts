@@ -116,7 +116,9 @@ export class AccountDetailsPage {
   }
 
   personalDetailsSaveButton() {
-    return this.page.locator('button:has-text("Save")').first();
+    return this.page
+      .locator('form[data-sentry-component="IndividualDetailsForm"]')
+      .getByRole('button', { name: 'Save' });
   }
 
   successMessage() {
