@@ -180,6 +180,41 @@ export class AccountDetailsPage {
   correspondenceTypeOption(type: string) {
     return this.page.getByRole('option', { name: type });
   }
+
+  relationshipsSection() {
+    return this.page.locator('form[data-sentry-component="RelationshipForm"]');
+  }
+
+  relationshipsViewMoreButton() {
+    return this.page
+      .locator('div[data-sentry-component="RelationshipsView"]')
+      .locator('table tfoot')
+      .getByRole('button', { name: 'View more' });
+  }
+
+  relationshipAccountInput() {
+    return this.relationshipsSection().getByRole('combobox').first();
+  }
+
+  relationshipTypeInput() {
+    return this.relationshipsSection().getByRole('combobox').nth(1);
+  }
+
+  relationshipAddButton() {
+    return this.relationshipsSection().getByRole('button', { name: 'Add' });
+  }
+
+  relationshipRowByAccountName(accountName: string, relationType: string) {
+    const relationshipsTable = this.page.locator(
+      'div[data-sentry-component="RelationshipsView"] table tbody'
+    );
+    const descriptionText = `${accountName} is the ${relationType} of`;
+    return relationshipsTable.locator('tr').filter({ hasText: descriptionText }).last();
+  }
+
+  relationshipSuccessMessage() {
+    return this.page.getByText('Relationship added successfully', { exact: true });
+  }
 }
 
 export default AccountDetailsPage;

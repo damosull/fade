@@ -1,5 +1,6 @@
-import { type Page, expect } from '@playwright/test';
+import { type Page } from '@playwright/test';
 import AccountDetailsPage from '../pages/accountDetails.page';
+import { clickWhenVisible, chooseDropdownOption } from '../support/helpers';
 
 export class AccountDetailsActions {
   private readonly page: Page;
@@ -8,34 +9,6 @@ export class AccountDetailsActions {
   constructor(page: Page) {
     this.page = page;
     this.view = new AccountDetailsPage(page);
-  }
-
-  async assertOnDetailsTab() {
-    await expect(this.page).toHaveURL(/\/accounts\/\d+$/);
-    await expect(this.view.detailsTab()).toBeVisible();
-  }
-
-  async assertAccountName(firstName: string, lastName: string) {
-    const heading = this.view.getAccountNameHeading(firstName, lastName);
-    await expect(heading).toBeVisible();
-  }
-
-  async assertTrustName(name: string) {
-    const heading = this.view.getTrustNameHeading(name);
-    await expect(heading).toBeVisible();
-  }
-
-  async assertAccountNumberExists() {
-    await expect(this.view.accountNumberHeading()).toBeVisible();
-    const accountNumber = await this.view.accountNumberHeading().textContent();
-    expect(accountNumber).toMatch(/ACC\d{7}/);
-    return accountNumber;
-  }
-
-  async assertEmailDisplayed(email: string) {
-    const emailLink = this.view.getEmailLink(email);
-    await expect(emailLink).toBeVisible();
-    await expect(emailLink).toHaveText(email);
   }
 
   async selectTitle(title: string) {
@@ -150,6 +123,31 @@ export class AccountDetailsActions {
     await this.selectCorrespondenceType(type);
     await this.fillCorrespondencePhoneNumber(phoneNumber);
     await this.clickAddCorrespondenceMethod();
+  }
+
+  async selectRelationshipAccount(searchText: string): Promise<string> {
+    const input = this.view.relationshipAccountInput();
+    await clickWhenVisible(input);
+    await input.fill(searchText);
+    await chooseDropdownOption(this.page, searchText, true);
+    const selectedText = (await input.textContent())?.trim() ?? searchText;
+    return selectedText;
+  }
+
+  async selectRelationshipType(relationType: string): Promise<void> {
+    await clickWhenVisible(this.view.relationshipTypeInput());
+    await chooseDropdownOption(this.page, relationType, true);
+  }
+
+  async clickAddRelationship() {
+    await this.view.relationshipAddButton().click();
+  }
+
+  async addRelationship(searchText: string, relationType: string): Promise<string> {
+    const accountName = await this.selectRelationshipAccount(searchText);
+    await this.selectRelationshipType(relationType);
+    await this.clickAddRelationship();
+    return accountName;
   }
 }
 
