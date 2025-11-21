@@ -23,6 +23,7 @@ export async function chooseDropdownOption(
 ): Promise<void> {
   const expandedCombos = page.locator('[role="combobox"][aria-expanded="true"]');
   const expandedCount = await expandedCombos.count();
+
   if (expandedCount === 0) {
     throw new Error(
       'No expanded combobox found. Click the dropdown trigger before calling chooseDropdownOption().'
@@ -36,26 +37,35 @@ export async function chooseDropdownOption(
   await expect(combo).toBeVisible();
 
   let listboxId = await combo.getAttribute('aria-controls');
-  let listbox;
+  let listbox: Locator;
+
   if (listboxId) {
     listbox = page.locator(`#${listboxId}`);
-    await expect(listbox).toBeVisible();
   } else {
     console.warn('No aria-controls found. Falling back to visible listbox…');
     listbox = page.locator('[role="listbox"]:visible').first();
-    await expect(listbox).toBeVisible();
   }
 
-  const option = listbox.getByRole('option', { name: optionName, exact });
+  await expect(listbox).toBeVisible();
 
-  try {
-    await expect(option).toBeVisible();
-  } catch (err) {
-    const allOptions = await listbox.getByRole('option').allInnerTexts();
-    console.warn('Option not immediately visible. Current listbox options:', allOptions);
-    throw err;
+  const allOptions = listbox.getByRole('option');
+  await expect(allOptions.first()).toBeVisible({ timeout: SHORT_WAIT });
+
+  const texts = await allOptions.allInnerTexts();
+
+  const matcher = (text: string) => {
+    const trimmed = text.trim();
+    return exact ? trimmed === optionName : trimmed.includes(optionName);
+  };
+
+  const index = texts.findIndex(matcher);
+
+  if (index === -1) {
+    console.warn('No option matched. Current listbox options:', texts);
+    throw new Error(`Could not find option with text "${optionName}" in dropdown.`);
   }
 
+  const option = allOptions.nth(index);
   await option.click();
 }
 

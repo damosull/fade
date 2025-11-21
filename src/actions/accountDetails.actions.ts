@@ -1,6 +1,6 @@
-import { expect, type Page } from '@playwright/test';
+import { type Page } from '@playwright/test';
 import AccountDetailsPage from '../pages/accountDetails.page';
-import { SHORT_WAIT } from '../support/helpers';
+import { clickWhenVisible, chooseDropdownOption } from '../support/helpers';
 
 export class AccountDetailsActions {
   private readonly page: Page;
@@ -127,32 +127,16 @@ export class AccountDetailsActions {
 
   async selectRelationshipAccount(searchText: string): Promise<string> {
     const input = this.view.relationshipAccountInput();
-    await input.click();
+    await clickWhenVisible(input);
     await input.fill(searchText);
-
-    const listbox = this.page.locator('[role="listbox"]').first();
-    await expect(listbox).toBeVisible({ timeout: SHORT_WAIT });
-
-    await this.page.waitForFunction(
-      () => {
-        // eslint-disable-next-line no-undef
-        const listbox = document.querySelector('[role="listbox"]');
-        if (!listbox) return false;
-        const options = listbox.querySelectorAll('[role="option"]');
-        return options.length > 0;
-      },
-      { timeout: 10000 }
-    );
-
-    const firstOption = this.page.locator('[role="listbox"] [role="option"]').first();
-    const accountName = await firstOption.textContent();
-    await firstOption.click();
-    return accountName?.trim() || searchText;
+    await chooseDropdownOption(this.page, searchText, true);
+    const selectedText = (await input.textContent())?.trim() ?? searchText;
+    return selectedText;
   }
 
-  async selectRelationshipType(relationType: string) {
-    await this.view.relationshipTypeInput().click();
-    await this.page.getByRole('option', { name: relationType }).click();
+  async selectRelationshipType(relationType: string): Promise<void> {
+    await clickWhenVisible(this.view.relationshipTypeInput());
+    await chooseDropdownOption(this.page, relationType, true);
   }
 
   async clickAddRelationship() {

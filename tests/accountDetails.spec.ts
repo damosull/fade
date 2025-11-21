@@ -153,7 +153,7 @@ test.describe('Account Details', () => {
 
     await app.actions.header.searchForAccount(seed.accountSurname);
 
-    const accountName = await app.actions.accountDetails.addRelationship('Test', 'spouse');
+    const accountName = await app.actions.accountDetails.addRelationship('Michael Test', 'spouse');
 
     await expect(app.pages.accountDetails.relationshipSuccessMessage()).toBeVisible({
       timeout: 5000,
