@@ -65,6 +65,11 @@ export class AssetModalActions {
     await this.view.policyStatusDateDropdown().click();
     await this.view.policyStatusDatePickerToday().click();
   }
+
+  async addPensionType(selectPensionType: string) {
+    await this.view.pensionTypeDropdown().click();
+    await this.view.selectPensionTypeOption(selectPensionType).click();
+  }
 }
 
 export default AssetModalActions;
