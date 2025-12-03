@@ -18,6 +18,13 @@ const storageFor = (p: string) =>
       ? localShared
       : undefined;
 
+const jsonReporter: [string, { outputFile: string }] = [
+  'json',
+  {
+    outputFile: process.env.PLAYWRIGHT_RESULTS_FILE ?? 'playwright-report/results.json',
+  },
+];
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -50,10 +57,12 @@ export default defineConfig({
         ['github'], // GH annotations on failures
         ['list'], // live progress in the Actions log
         ['html', { open: 'never' }],
+        jsonReporter,
       ]
     : [
         ['list'], // nice local progress
-        ['html'],
+        ['html', { open: 'never' }],
+        jsonReporter,
       ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {

@@ -30,7 +30,7 @@ test.describe('Account Creation', () => {
       undefined,
       userEmail,
       'personal',
-      'Test Superadmin',
+      'Finance Hub',
       'professional introducer',
       seed.introducerFirmName,
       undefined
@@ -74,7 +74,7 @@ test.describe('Account Creation', () => {
       undefined,
       userEmail,
       'personal',
-      'Test Superadmin',
+      'Finance Hub',
       'professional introducer',
       seed.introducerFirmName,
       '10000'

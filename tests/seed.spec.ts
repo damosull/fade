@@ -66,9 +66,9 @@ test.describe('Fade seeded flows', () => {
         '01234567890'
       );
       console.log('[seed] ✅ Basic details entered.');
-      await app.actions.compliance.addIntroducerSource('Adviser', 'Approved');
+      await app.actions.compliance.addIntroducerSource('adviser', 'approved');
       console.log('[seed] ✅ Source set.');
-      await app.actions.compliance.addAdviser('Test Superadmin');
+      await app.actions.compliance.addAdviser('Finance Hub');
       console.log('[seed] ✅ Adviser assigned.');
       await app.actions.compliance.addIntroducerFeeSplit('25', 'initial advice fee', 'net');
       await app.actions.compliance.addIntroducerFeeSplit('43', 'ongoing advice fee', 'gross');
@@ -102,7 +102,7 @@ test.describe('Fade seeded flows', () => {
         '01234567890'
       );
       console.log('[seed] ✅ Firm details entered.');
-      await app.actions.compliance.addIntroducerSource('Firm generated', 'Approved');
+      await app.actions.compliance.addIntroducerSource('firm generated', 'approved');
       console.log('[seed] ✅ Firm source set.');
       await app.actions.compliance.addIntroducerFeeSplit('30', 'initial advice fee', 'gross');
       await app.actions.compliance.addIntroducerFeeSplit('13', 'ongoing advice fee', 'net');
@@ -131,7 +131,7 @@ test.describe('Fade seeded flows', () => {
         undefined,
         `test${ownerTag}@test.co.uk`,
         'personal',
-        'Test Superadmin',
+        'Finance Hub',
         'professional introducer',
         introducerFirmName, // use the actual created firm
         '1000'

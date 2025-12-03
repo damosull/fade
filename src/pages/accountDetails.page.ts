@@ -116,9 +116,7 @@ export class AccountDetailsPage {
   }
 
   personalDetailsSaveButton() {
-    return this.page
-      .locator('form[data-sentry-component="IndividualDetailsForm"]')
-      .getByRole('button', { name: 'Save' });
+    return this.page.locator('button:has-text("Save")').first();
   }
 
   successMessage() {
@@ -133,6 +131,18 @@ export class AccountDetailsPage {
     return this.addressesSection().getByRole('button', { name: 'View more' });
   }
 
+  addressesViewLessButton() {
+    return this.addressesSection().getByRole('button', { name: 'View less' });
+  }
+
+  addressRows() {
+    return this.addressesSection().locator('tbody tr');
+  }
+
+  addressesLoadingSpinner() {
+    return this.addressesSection().locator('svg[data-sentry-element="ArrowPathIcon"]');
+  }
+
   addressRowByCity(city: string) {
     return this.addressesSection().locator('tr').filter({ hasText: city });
   }
@@ -142,7 +152,23 @@ export class AccountDetailsPage {
   }
 
   correspondenceMethodsSection() {
-    return this.page.locator('div').filter({ hasText: 'Correspondence Methods' }).first();
+    return this.page.locator('div[data-sentry-component="CorrespondenceDetail"]');
+  }
+
+  correspondenceLoadingSpinner() {
+    return this.correspondenceMethodsSection().locator('svg[data-sentry-element="ArrowPathIcon"]');
+  }
+
+  correspondenceRows() {
+    return this.correspondenceMethodsSection().locator('tbody tr');
+  }
+
+  correspondenceViewMoreButton() {
+    return this.correspondenceMethodsSection().getByRole('button', { name: 'View more' });
+  }
+
+  correspondenceViewLessButton() {
+    return this.correspondenceMethodsSection().getByRole('button', { name: 'View less' });
   }
 
   correspondenceMethodInput() {
@@ -185,35 +211,43 @@ export class AccountDetailsPage {
     return this.page.locator('form[data-sentry-component="RelationshipForm"]');
   }
 
-  relationshipsViewMoreButton() {
-    return this.page
-      .locator('div[data-sentry-component="RelationshipsView"]')
-      .locator('table tfoot')
-      .getByRole('button', { name: 'View more' });
+  relationshipsTable() {
+    return this.page.locator('table').filter({ hasText: ' is the ' });
   }
 
-  relationshipAccountInput() {
+  relationshipsViewMoreButton() {
+    return this.relationshipsTable().getByRole('button', { name: 'View more' });
+  }
+
+  relationshipsViewLessButton() {
+    return this.relationshipsTable().getByRole('button', { name: 'View less' });
+  }
+
+  relationshipsAccountInput() {
     return this.relationshipsSection().getByRole('combobox').first();
   }
 
-  relationshipTypeInput() {
+  relationshipsTypeInput() {
     return this.relationshipsSection().getByRole('combobox').nth(1);
   }
 
-  relationshipAddButton() {
+  relationshipsAddButton() {
     return this.relationshipsSection().getByRole('button', { name: 'Add' });
   }
 
-  relationshipRowByAccountName(accountName: string, relationType: string) {
-    const relationshipsTable = this.page.locator(
-      'div[data-sentry-component="RelationshipsView"] table tbody'
-    );
-    const descriptionText = `${accountName} is the ${relationType} of`;
-    return relationshipsTable.locator('tr').filter({ hasText: descriptionText }).last();
+  relationshipsRows() {
+    return this.relationshipsTable()
+      .locator('tbody tr')
+      .filter({ has: this.page.locator('a[href^="/accounts/"]'), hasText: /is the/i });
   }
 
-  relationshipSuccessMessage() {
-    return this.page.getByText('Relationship added successfully', { exact: true });
+  relationshipsLoadingSpinner() {
+    return this.relationshipsSection().locator('svg[data-sentry-element="ArrowPathIcon"]');
+  }
+
+  relationshipsRowByAccountName(accountName: string, relationType: string) {
+    const descriptionText = `${accountName} is the ${relationType} of`;
+    return this.relationshipsRows().filter({ hasText: descriptionText }).first();
   }
 }
 

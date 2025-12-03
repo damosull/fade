@@ -34,8 +34,8 @@ test.describe('Fade seeded flows', () => {
       `adviser.${stamp()}@test.co.uk`,
       '01234567890'
     );
-    await app.actions.compliance.addIntroducerSource('Adviser', 'Approved');
-    await app.actions.compliance.addAdviser('Test Superadmin');
+    await app.actions.compliance.addIntroducerSource('adviser', 'approved');
+    await app.actions.compliance.addAdviser('Finance Hub');
     await app.actions.compliance.addIntroducerFeeSplit('25', 'initial advice fee', 'net');
     await app.actions.compliance.addIntroducerFeeSplit('43', 'ongoing advice fee', 'gross');
 
@@ -56,7 +56,7 @@ test.describe('Fade seeded flows', () => {
   test('Individual: seeded account shows ISA & GIA with valuations', async ({ app, page }) => {
     const seed = getSeed();
 
-    await app.actions.account.clickServiceCase(seed.accountSurname);
+    await app.actions.header.searchForAccount(seed.accountSurname);
     await app.actions.header.openFinancesTab();
 
     await expect(page.getByText(seed.isaPolicyName)).toBeVisible();
@@ -75,7 +75,7 @@ test.describe('Fade seeded flows', () => {
   test('Finances: add contributions to ISA & GIA', async ({ app, page }) => {
     const seed = getSeed();
 
-    await app.actions.account.clickServiceCase(seed.accountSurname);
+    await app.actions.header.searchForAccount(seed.accountSurname);
     await app.actions.header.openFinancesTab();
 
     await app.actions.finance.expandAsset(seed.isaPolicyName);
@@ -115,7 +115,7 @@ test.describe('Fade seeded flows', () => {
     const seed = getSeed();
     const newPolicy = policyNumber();
 
-    await app.actions.account.clickServiceCase(seed.accountSurname);
+    await app.actions.header.searchForAccount(seed.accountSurname);
     await app.actions.header.openFinancesTab();
 
     await page.getByRole('heading', { name: 'protection policies' }).scrollIntoViewIfNeeded();
@@ -148,7 +148,7 @@ test.describe('Fade seeded flows', () => {
       'initial advice fee',
       'asset',
       'Aviva - ISA',
-      'new business',
+      'New Business',
       '1',
       'fixed',
       '30'

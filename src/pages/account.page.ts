@@ -305,10 +305,6 @@ export class IndividualPage {
     return this.page.locator('label').filter({ hasText: 'adviserSelect' }).locator('svg');
   }
 
-  newAdviserSelect() {
-    return this.page.getByRole('option', { name: 'Test Superadmin' });
-  }
-
   serviceCaseDate() {
     return this.page.getByRole('group', { name: 'Service Case' }).locator('svg');
   }

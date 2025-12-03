@@ -1,4 +1,4 @@
-import { type Page } from '@playwright/test';
+import { type Page, expect } from '@playwright/test';
 import AccountDetailsPage from '../pages/accountDetails.page';
 import { clickWhenVisible, chooseDropdownOption } from '../support/helpers';
 
@@ -9,6 +9,34 @@ export class AccountDetailsActions {
   constructor(page: Page) {
     this.page = page;
     this.view = new AccountDetailsPage(page);
+  }
+
+  async assertOnDetailsTab() {
+    await expect(this.page).toHaveURL(/\/accounts\/\d+$/);
+    await expect(this.view.detailsTab()).toBeVisible();
+  }
+
+  async assertAccountName(firstName: string, lastName: string) {
+    const heading = this.view.getAccountNameHeading(firstName, lastName);
+    await expect(heading).toBeVisible();
+  }
+
+  async assertTrustName(name: string) {
+    const heading = this.view.getTrustNameHeading(name);
+    await expect(heading).toBeVisible();
+  }
+
+  async assertAccountNumberExists() {
+    await expect(this.view.accountNumberHeading()).toBeVisible();
+    const accountNumber = await this.view.accountNumberHeading().textContent();
+    expect(accountNumber).toMatch(/ACC\d{7}/);
+    return accountNumber;
+  }
+
+  async assertEmailDisplayed(email: string) {
+    const emailLink = this.view.getEmailLink(email);
+    await expect(emailLink).toBeVisible();
+    await expect(emailLink).toHaveText(email);
   }
 
   async selectTitle(title: string) {
@@ -126,21 +154,21 @@ export class AccountDetailsActions {
   }
 
   async selectRelationshipAccount(searchText: string): Promise<string> {
-    const input = this.view.relationshipAccountInput();
+    const input = this.view.relationshipsAccountInput();
     await clickWhenVisible(input);
     await input.fill(searchText);
     await chooseDropdownOption(this.page, searchText, true);
-    const selectedText = (await input.textContent())?.trim() ?? searchText;
+    const selectedText = (await input.inputValue())?.trim() ?? searchText;
     return selectedText;
   }
 
   async selectRelationshipType(relationType: string): Promise<void> {
-    await clickWhenVisible(this.view.relationshipTypeInput());
+    await clickWhenVisible(this.view.relationshipsTypeInput());
     await chooseDropdownOption(this.page, relationType, true);
   }
 
   async clickAddRelationship() {
-    await this.view.relationshipAddButton().click();
+    await this.view.relationshipsAddButton().click();
   }
 
   async addRelationship(searchText: string, relationType: string): Promise<string> {
@@ -148,6 +176,69 @@ export class AccountDetailsActions {
     await this.selectRelationshipType(relationType);
     await this.clickAddRelationship();
     return accountName;
+  }
+
+  async expandAddressesIfMoreThanFive() {
+    const spinner = this.view.addressesLoadingSpinner();
+    const rows = this.view.addressRows();
+    const spinnerCount = await spinner.count();
+
+    if (spinnerCount > 0) {
+      await spinner.first().waitFor({ state: 'hidden' });
+    }
+
+    await rows.first().waitFor({ state: 'visible' });
+
+    const rowCount = await rows.count();
+
+    if (rowCount >= 5) {
+      await this.view.addressesViewMoreButton().click();
+      await expect(this.view.addressesViewLessButton()).toBeVisible();
+    } else {
+      await expect(this.view.addressesViewMoreButton()).toHaveCount(0);
+    }
+  }
+
+  async expandCorrespondenceMethodsIfMoreThanFive() {
+    const spinner = this.view.correspondenceLoadingSpinner();
+    const rows = this.view.correspondenceRows();
+    const spinnerCount = await spinner.count();
+
+    if (spinnerCount > 0) {
+      await spinner.first().waitFor({ state: 'hidden' });
+    }
+
+    await rows.first().waitFor({ state: 'visible' });
+
+    const rowCount = await rows.count();
+
+    if (rowCount >= 5) {
+      await this.view.correspondenceViewMoreButton().click();
+      await expect(this.view.correspondenceViewLessButton()).toBeVisible();
+    } else {
+      await expect(this.view.correspondenceViewMoreButton()).toHaveCount(0);
+    }
+  }
+
+  async expandRelationshipsIfMoreThanFive() {
+    const spinner = this.view.relationshipsLoadingSpinner();
+    const rows = this.view.relationshipsRows();
+    const spinnerCount = await spinner.count();
+
+    if (spinnerCount > 0) {
+      await spinner.first().waitFor({ state: 'hidden' });
+    }
+
+    await rows.first().waitFor({ state: 'visible' });
+
+    const rowCount = await rows.count();
+
+    if (rowCount >= 5) {
+      await this.view.relationshipsViewMoreButton().click();
+      await expect(this.view.relationshipsViewLessButton()).toBeVisible();
+    } else {
+      await expect(this.view.relationshipsViewMoreButton()).toHaveCount(0);
+    }
   }
 }
 

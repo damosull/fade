@@ -49,7 +49,7 @@ export async function chooseDropdownOption(
   await expect(listbox).toBeVisible();
 
   const allOptions = listbox.getByRole('option');
-  await expect(allOptions.first()).toBeVisible({ timeout: SHORT_WAIT });
+  await expect(allOptions.first()).toBeVisible();
 
   const texts = await allOptions.allInnerTexts();
 
