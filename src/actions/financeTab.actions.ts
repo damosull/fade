@@ -12,10 +12,8 @@ export class FinanceTabActions {
   }
 
   async expandAsset(assetName: string): Promise<void> {
-    const cell = this.page.getByRole('cell', { name: assetName, exact: true });
-    await expect(cell).toBeVisible();
-
-    const row = this.page.locator('tr').filter({ has: cell });
+    const row = this.view.assetRowByName(assetName);
+    await expect(row).toBeVisible();
     await row.scrollIntoViewIfNeeded();
 
     const clickableCell = row.locator('td.cursor-pointer').first();

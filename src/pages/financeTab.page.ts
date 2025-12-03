@@ -93,6 +93,10 @@ export class FinanceTabPage {
     return this.page.getByText('Withdrawals');
   }
 
+  addWithdrawalButton() {
+    return this.page.getByRole('button', { name: 'Add Withdrawal' });
+  }
+
   investmentDetailHeading() {
     return this.page.getByText('Investment Details');
   }
@@ -115,6 +119,16 @@ export class FinanceTabPage {
 
   assetRowByName(name: string) {
     return this.assetsSection().locator('tr').filter({ hasText: name });
+  }
+
+  withdrawalsSection() {
+    return this.page.getByRole('group', { name: 'Withdrawals' });
+  }
+
+  withdrawalRowByAmount(amount: number) {
+    return this.withdrawalsSection()
+      .locator('tr')
+      .filter({ hasText: `£${amount.toFixed(2)}` });
   }
 }
 

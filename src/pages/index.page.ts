@@ -10,3 +10,4 @@ export { default as SigninPage } from './signin.page';
 export { default as AssetModalPage } from './assetModal.page';
 export { default as AccountCreationModalPage } from './accountCreationModal.page';
 export { default as AccountDetailsPage } from './accountDetails.page';
+export { default as WithdrawalModalPage } from './withdrawalModal.page';

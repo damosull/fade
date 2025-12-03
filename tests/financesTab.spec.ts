@@ -294,4 +294,43 @@ test.describe('Finances Tab', () => {
     await expect(assetRow).toContainText('in force');
     await expect(assetRow).toContainText('under agency');
   });
+
+  test('Finances Tab - Verify successfully adding Withdrawal - Transfer Away', async ({ app }) => {
+    const ownerTag = `e2e-${stamp()}`;
+    const isaPolicyName = `ISA-${ownerTag}`;
+    const seed = getSeed();
+    const newPolicy = policyNumber();
+    const provider = 'Aviva';
+    const uniqueAmount = Math.floor(Math.random() * 8901) + 100;
+    const withdrawalType = 'cash withdrawal';
+    const frequency = 'monthly';
+
+    await app.actions.header.searchForAccount(seed.accountSurname);
+    await app.actions.header.openFinancesTab();
+
+    await app.pages.finance.addAssetButton().click();
+    await app.actions.assetModal.addAssetOverview('isa');
+    await app.actions.assetModal.addAssetSubType('Stocks & Shares ISA');
+    await app.actions.assetModal.addAssetPolicyDetails(
+      isaPolicyName,
+      provider,
+      newPolicy,
+      'in force'
+    );
+    await app.actions.assetModal.addPolicyStatusDate();
+    await app.actions.assetModal.saveAsset();
+
+    await app.actions.finance.expandAsset(isaPolicyName);
+    await app.pages.finance.addWithdrawalButton().click();
+    await app.actions.withdrawalModal.addWithdrawalType(withdrawalType);
+    await app.actions.withdrawalModal.addTargetAmount(uniqueAmount.toString());
+    await app.actions.withdrawalModal.addFrequency(frequency);
+    await app.actions.withdrawalModal.saveWithdrawal();
+
+    const withdrawalRow = app.pages.finance.withdrawalRowByAmount(uniqueAmount);
+    await expect(withdrawalRow).toContainText(withdrawalType);
+    await expect(withdrawalRow).toContainText(frequency);
+    await expect(withdrawalRow).toContainText('draft');
+    await expect(withdrawalRow).toContainText('pre-existing');
+  });
 });
