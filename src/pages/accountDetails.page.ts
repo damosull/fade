@@ -152,7 +152,9 @@ export class AccountDetailsPage {
   }
 
   correspondenceMethodsSection() {
-    return this.page.locator('div[data-sentry-component="CorrespondenceDetail"]');
+    return this.page
+      .locator('div.border.border-green.border-l-8')
+      .filter({ hasText: 'Correspondence Methods' });
   }
 
   correspondenceLoadingSpinner() {
@@ -190,9 +192,7 @@ export class AccountDetailsPage {
   }
 
   correspondenceAddButton() {
-    return this.correspondenceMethodsSection()
-      .locator('form[data-sentry-component="CorrespondenceForm"]')
-      .getByRole('button', { name: 'Add' });
+    return this.correspondenceMethodsSection().getByRole('button', { name: 'Add' });
   }
 
   correspondenceRowByPhoneNumber(phoneNumber: string) {
@@ -208,7 +208,10 @@ export class AccountDetailsPage {
   }
 
   relationshipsSection() {
-    return this.page.locator('form[data-sentry-component="RelationshipForm"]');
+    return this.page
+      .locator('div.border.border-green.border-l-8')
+      .filter({ hasText: 'Relationships' })
+      .first();
   }
 
   relationshipsTable() {
