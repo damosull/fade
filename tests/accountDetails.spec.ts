@@ -2,6 +2,9 @@ import { expect, test } from '../src/fixtures/baseTest';
 import { navigateToHome } from '../src/seed/auth';
 import { getSeed } from '../src/seed/seedClient';
 
+const makeEmail = () => `qatest${stamp()}@fadesystems.co.uk`;
+const makeTrustName = () => `Trust${stamp()}`;
+
 const stamp = () => new Date().toISOString().replace(/[:.]/g, '-');
 
 test.beforeEach(async ({ page }, testInfo) => {
@@ -196,5 +199,57 @@ test.describe('Account Details', () => {
     await expect(app.pages.accountDetails.detailsTab()).toBeVisible();
     await expect(app.pages.accountDetails.emailConsentLabel()).toContainText(emailConsent);
     await expect(app.pages.accountDetails.phoneConsentLabel()).toContainText(phoneConsent);
+  });
+
+  test('Details Tab - (Trust) Adding a new Beneficiary section', async ({ app, page }) => {
+    // Below code is taken from 'Create Trust Account' test in accountCreation.spec.ts. Not sure if you want to move this into a fixture, or something reusable.
+    // Probably best option would be to create a Trust Account via API, but for now this will do.
+    test.slow();
+    const seed = getSeed();
+    const beneficiaryName = 'Michael Test Beneficiary';
+    const beneficiaryDescription = 'Beneficiary Test Description';
+
+    const userEmail = makeEmail();
+    const userTrustName = makeTrustName();
+
+    await app.actions.account.createAccount(
+      'Account',
+      'Trust',
+      undefined,
+      undefined,
+      userTrustName,
+      userEmail,
+      'solicitor',
+      'Finance Hub',
+      'professional introducer',
+      seed.introducerFirmName
+    );
+    await app.actions.account.saveNewAccount();
+
+    try {
+      await expect(
+        page.getByText('The Trust has been created', { exact: true }).first()
+      ).toBeVisible();
+    } catch {
+      console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+      await page.waitForLoadState('networkidle');
+    }
+
+    await expect(app.pages.account.modal()).not.toBeVisible({ timeout: 10_000 });
+    await expect(page).toHaveURL(/\/accounts\/\d+$/);
+    await expect(app.pages.accountDetails.detailsTab()).toBeVisible();
+    await expect(app.pages.accountDetails.getTrustNameHeading(userTrustName)).toBeVisible();
+    expect(await app.pages.accountDetails.accountNumberHeading().textContent()!).toMatch(
+      /ACC\d{7}/
+    );
+    await expect(app.pages.accountDetails.getEmailLink(userEmail)).toHaveText(userEmail);
+    // Above code is taken from 'Create Trust Account' test in accountCreation.spec.ts. Not sure if you want to move this into a fixture, or something reusable.
+    // Probably best option would be to create a Trust Account via API, but for now this will do.
+
+    await app.actions.accountDetails.addBeneficiary(beneficiaryName, beneficiaryDescription);
+
+    await expect(
+      app.pages.accountDetails.beneficiariesRowByBeneficiaryName(beneficiaryName)
+    ).toContainText(beneficiaryDescription);
   });
 });

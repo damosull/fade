@@ -279,6 +279,25 @@ export class AccountDetailsPage {
   marketingPreferencesSaveButton() {
     return this.marketingPreferencesSection().locator('button').filter({ hasText: 'Save' });
   }
+
+  beneficiariesSection() {
+    return this.page
+      .locator('div.border.border-green.border-l-8')
+      .filter({ hasText: 'Beneficiaries' })
+      .first();
+  }
+
+  addBeneficiaryButton() {
+    return this.beneficiariesSection().getByRole('button', { name: 'Add Beneficiary' });
+  }
+
+  beneficiariesRows() {
+    return this.beneficiariesSection().locator('tbody tr');
+  }
+
+  beneficiariesRowByBeneficiaryName(beneficiaryName: string) {
+    return this.beneficiariesRows().filter({ hasText: beneficiaryName }).first();
+  }
 }
 
 export default AccountDetailsPage;
