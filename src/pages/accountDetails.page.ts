@@ -252,6 +252,33 @@ export class AccountDetailsPage {
     const descriptionText = `${accountName} is the ${relationType} of`;
     return this.relationshipsRows().filter({ hasText: descriptionText }).first();
   }
+
+  marketingPreferencesSection() {
+    return this.page
+      .locator('div.border.border-green.border-l-8')
+      .filter({ hasText: 'Marketing Preferences' })
+      .first();
+  }
+
+  emailConsentInput() {
+    return this.page.locator('label').filter({ hasText: 'Email Consent' }).locator('svg');
+  }
+
+  phoneConsentInput() {
+    return this.page.locator('label').filter({ hasText: 'Phone Consent' }).locator('svg');
+  }
+
+  emailConsentLabel() {
+    return this.page.locator('label').filter({ hasText: 'Email Consent' });
+  }
+
+  phoneConsentLabel() {
+    return this.page.locator('label').filter({ hasText: 'Phone Consent' });
+  }
+
+  marketingPreferencesSaveButton() {
+    return this.marketingPreferencesSection().locator('button').filter({ hasText: 'Save' });
+  }
 }
 
 export default AccountDetailsPage;

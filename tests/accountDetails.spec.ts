@@ -172,4 +172,29 @@ test.describe('Account Details', () => {
       app.pages.accountDetails.relationshipsRowByAccountName(accountName, 'spouse')
     ).toContainText(seed.accountSurname);
   });
+
+  test('Details Tab - Updating Marketing Preferences section', async ({ app, page }) => {
+    const seed = getSeed();
+    const emailConsent = 'no';
+    const phoneConsent = 'yes';
+
+    await app.actions.header.searchForAccount(seed.accountSurname);
+
+    await app.actions.accountDetails.selectEmailConsent(emailConsent);
+    await app.actions.accountDetails.selectPhoneConsent(phoneConsent);
+
+    const response =
+      await app.actions.accountDetails.clickMarketingPreferencesSaveAndWaitForResponse();
+    expect(response.status()).toBe(200);
+
+    await expect(
+      page.getByText('Account has been updated!', { exact: true }).first()
+    ).toBeVisible();
+
+    await page.reload();
+    await expect(page).toHaveURL(/\/accounts\/\d+$/);
+    await expect(app.pages.accountDetails.detailsTab()).toBeVisible();
+    await expect(app.pages.accountDetails.emailConsentLabel()).toContainText(emailConsent);
+    await expect(app.pages.accountDetails.phoneConsentLabel()).toContainText(phoneConsent);
+  });
 });
