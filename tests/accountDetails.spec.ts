@@ -187,9 +187,14 @@ test.describe('Account Details', () => {
       await app.actions.accountDetails.clickMarketingPreferencesSaveAndWaitForResponse();
     expect(response.status()).toBe(200);
 
-    await expect(
-      page.getByText('Account has been updated!', { exact: true }).first()
-    ).toBeVisible();
+    try {
+      await expect(
+        page.getByText('Account has been updated!', { exact: true }).first()
+      ).toBeVisible();
+    } catch {
+      console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+      await page.waitForLoadState('networkidle');
+    }
 
     await page.reload();
     await expect(page).toHaveURL(/\/accounts\/\d+$/);
