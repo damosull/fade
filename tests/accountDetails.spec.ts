@@ -155,7 +155,7 @@ test.describe('Account Details', () => {
 
     await app.actions.header.searchForAccount(seed.accountSurname);
 
-    const accountName = await app.actions.accountDetails.addRelationship('Michael Test', 'spouse');
+    const accountName = await app.actions.accountDetails.addRelationship('michael test', 'spouse');
 
     try {
       await expect(
