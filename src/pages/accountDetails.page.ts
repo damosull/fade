@@ -268,14 +268,6 @@ export class AccountDetailsPage {
     return this.page.locator('label').filter({ hasText: 'Phone Consent' }).locator('svg');
   }
 
-  emailConsentLabel() {
-    return this.page.locator('label').filter({ hasText: 'Email Consent' });
-  }
-
-  phoneConsentLabel() {
-    return this.page.locator('label').filter({ hasText: 'Phone Consent' });
-  }
-
   marketingPreferencesSaveButton() {
     return this.marketingPreferencesSection().locator('button').filter({ hasText: 'Save' });
   }
