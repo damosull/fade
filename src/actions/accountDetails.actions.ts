@@ -240,6 +240,26 @@ export class AccountDetailsActions {
       await expect(this.view.relationshipsViewMoreButton()).toHaveCount(0);
     }
   }
+
+  async selectPhoneConsent(value: string) {
+    await this.view.phoneConsentInput().click();
+    await this.page.getByRole('option', { name: value, exact: true }).click();
+  }
+
+  async selectEmailConsent(value: string) {
+    await this.view.emailConsentInput().click();
+    await this.page.getByRole('option', { name: value, exact: true }).click();
+  }
+
+  async clickMarketingPreferencesSaveAndWaitForResponse() {
+    const responsePromise = this.page.waitForResponse(
+      (response) => response.url().includes('/graphql') && response.request().method() === 'POST'
+    );
+
+    await this.view.marketingPreferencesSaveButton().click();
+
+    return await responsePromise;
+  }
 }
 
 export default AccountDetailsActions;

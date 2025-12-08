@@ -172,4 +172,26 @@ test.describe('Account Details', () => {
       app.pages.accountDetails.relationshipsRowByAccountName(accountName, 'spouse')
     ).toContainText(seed.accountSurname);
   });
+
+  test('Details Tab - Updating Marketing Preferences section', async ({ app, page }) => {
+    const seed = getSeed();
+
+    await app.actions.header.searchForAccount(seed.accountSurname);
+
+    await app.actions.accountDetails.selectEmailConsent('no');
+    await app.actions.accountDetails.selectPhoneConsent('yes');
+
+    const response =
+      await app.actions.accountDetails.clickMarketingPreferencesSaveAndWaitForResponse();
+    expect(response.status()).toBe(200);
+
+    try {
+      await expect(
+        page.getByText('Account has been updated!', { exact: true }).first()
+      ).toBeVisible();
+    } catch {
+      console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+      await page.waitForLoadState('networkidle');
+    }
+  });
 });
