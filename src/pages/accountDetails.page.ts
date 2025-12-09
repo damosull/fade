@@ -218,6 +218,13 @@ export class AccountDetailsPage {
     return this.page.locator('table').filter({ hasText: ' is the ' });
   }
 
+  directorsSection() {
+    return this.page
+      .locator('div.border.border-green.border-l-8')
+      .filter({ hasText: 'Directors' })
+      .first();
+  }
+
   relationshipsViewMoreButton() {
     return this.relationshipsTable().getByRole('button', { name: 'View more' });
   }
@@ -230,12 +237,24 @@ export class AccountDetailsPage {
     return this.relationshipsSection().getByRole('combobox').first();
   }
 
+  directorAccountInput() {
+    return this.directorsSection().getByRole('combobox').first();
+  }
+
   relationshipsTypeInput() {
     return this.relationshipsSection().getByRole('combobox').nth(1);
   }
 
+  directorTypeInput() {
+    return this.directorsSection().getByRole('combobox').nth(1);
+  }
+
   relationshipsAddButton() {
     return this.relationshipsSection().getByRole('button', { name: 'Add' });
+  }
+
+  directorsAddButton() {
+    return this.directorsSection().getByRole('button', { name: 'Add' });
   }
 
   relationshipsRows() {
@@ -246,6 +265,10 @@ export class AccountDetailsPage {
 
   relationshipsLoadingSpinner() {
     return this.relationshipsSection().locator('svg[data-sentry-element="ArrowPathIcon"]');
+  }
+
+  directorsLoadingSpinner() {
+    return this.directorsSection().locator('svg[data-sentry-element="ArrowPathIcon"]');
   }
 
   relationshipsRowByAccountName(accountName: string, relationType: string) {
