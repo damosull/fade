@@ -1,14 +1,17 @@
 import { type Page, expect } from '@playwright/test';
 import AccountDetailsPage from '../pages/accountDetails.page';
 import { clickWhenVisible, chooseDropdownOption } from '../support/helpers';
+import AddBeneficiaryModalPage from '../pages/addBeneficiaryModal.page';
 
 export class AccountDetailsActions {
   private readonly page: Page;
   private readonly view: AccountDetailsPage;
+  private readonly addBeneficiaryModal: AddBeneficiaryModalPage;
 
   constructor(page: Page) {
     this.page = page;
     this.view = new AccountDetailsPage(page);
+    this.addBeneficiaryModal = new AddBeneficiaryModalPage(page);
   }
 
   async assertOnDetailsTab() {
@@ -259,6 +262,14 @@ export class AccountDetailsActions {
     await this.view.marketingPreferencesSaveButton().click();
 
     return await responsePromise;
+  }
+
+  async addBeneficiary(beneficiaryName: string, beneficiaryDescription: string): Promise<string> {
+    await this.view.addBeneficiaryButton().click();
+    await this.addBeneficiaryModal.beneficiaryName().fill(beneficiaryName);
+    await this.addBeneficiaryModal.beneficiaryDescription().fill(beneficiaryDescription);
+    await this.addBeneficiaryModal.addButton().click();
+    return beneficiaryName;
   }
 }
 

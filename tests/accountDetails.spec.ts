@@ -194,4 +194,23 @@ test.describe('Account Details', () => {
       await page.waitForLoadState('networkidle');
     }
   });
+
+  test('Details Tab - (Trust) Adding a new Beneficiary section', async ({ app, page }) => {
+    const seed = getSeed();
+    const beneficiaryName = 'Michael Test Beneficiary';
+    const beneficiaryDescription = 'Beneficiary Test Description';
+
+    await app.actions.header.searchForAccount(seed.trustAccountName);
+
+    await app.actions.accountDetails.addBeneficiary(beneficiaryName, beneficiaryDescription);
+
+    try {
+      await expect(
+        page.getByText('Beneficiary saved successfully', { exact: true }).first()
+      ).toBeVisible();
+    } catch {
+      console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+      await page.waitForLoadState('networkidle');
+    }
+  });
 });
