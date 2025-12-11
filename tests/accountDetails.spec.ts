@@ -212,5 +212,9 @@ test.describe('Account Details', () => {
       console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
       await page.waitForLoadState('networkidle');
     }
+
+    await expect(
+      app.pages.accountDetails.beneficiariesSection().getByText(beneficiaryName)
+    ).toBeVisible();
   });
 });

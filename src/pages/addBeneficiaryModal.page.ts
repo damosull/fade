@@ -7,10 +7,6 @@ export class AddBeneficiaryModalPage {
     this.page = page;
   }
 
-  addPolicyHeading() {
-    return this.page.getByRole('heading', { name: 'Add Beneficiary' });
-  }
-
   beneficiaryName() {
     return this.page.getByRole('textbox', { name: 'Beneficiary Name' });
   }
