@@ -148,7 +148,7 @@ test.describe('Fade seeded flows', () => {
       'initial advice fee',
       'asset',
       'Aviva - ISA',
-      'New Business',
+      'new business',
       '1',
       'fixed',
       '30'
