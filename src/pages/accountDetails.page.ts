@@ -282,14 +282,6 @@ export class AccountDetailsPage {
   addBeneficiaryButton() {
     return this.beneficiariesSection().getByRole('button', { name: 'Add Beneficiary' });
   }
-
-  beneficiariesRows() {
-    return this.beneficiariesSection().locator('tbody tr');
-  }
-
-  beneficiariesRowByBeneficiaryName(beneficiaryName: string) {
-    return this.beneficiariesRows().filter({ hasText: beneficiaryName }).first();
-  }
 }
 
 export default AccountDetailsPage;

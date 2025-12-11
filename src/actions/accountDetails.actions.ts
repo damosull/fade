@@ -264,12 +264,8 @@ export class AccountDetailsActions {
     return await responsePromise;
   }
 
-  async clickAddBeneficiary() {
-    await this.view.addBeneficiaryButton().click();
-  }
-
   async addBeneficiary(beneficiaryName: string, beneficiaryDescription: string): Promise<string> {
-    await this.clickAddBeneficiary();
+    await this.view.addBeneficiaryButton().click();
     await this.addBeneficiaryModal.beneficiaryName().fill(beneficiaryName);
     await this.addBeneficiaryModal.beneficiaryDescription().fill(beneficiaryDescription);
     await this.addBeneficiaryModal.addButton().click();
