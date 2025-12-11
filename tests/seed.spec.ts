@@ -18,7 +18,7 @@ test.beforeEach(async ({ page }, testInfo) => {
   console.log('────────────────────────────────────────────');
 });
 
-test.describe('Fade seeded flows', () => {
+test.describe.serial('Fade seeded flows', () => {
   let seedData = {
     ownerTag: '',
     introducerAdviserName: '',
