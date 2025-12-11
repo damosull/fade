@@ -322,6 +322,18 @@ export class AccountDetailsActions {
 
     return await responsePromise;
   }
+
+  async fillInitialFeeSplitToAdviser(initialFeeSplit: string) {
+    await this.view.initialFeeSplit().fill(initialFeeSplit);
+  }
+
+  async fillOngoingSplitToAdviser(OngoingSplitToAdviser: string) {
+    await this.view.ongoingFeeSplit().fill(OngoingSplitToAdviser);
+  }
+
+  async saveSourceDetails() {
+    await this.view.sourceDetailsSaveButton().click();
+  }
 }
 
 export default AccountDetailsActions;

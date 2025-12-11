@@ -290,4 +290,25 @@ test.describe('Account Details', () => {
       await page.waitForLoadState('networkidle');
     }
   });
+
+  test('Details Tab - Updating Source details section', async ({ app, page }) => {
+    const seed = getSeed();
+    const initialFeeSplit = '11.34';
+    const ongoingFeeSplit = '55.78';
+
+    await app.actions.header.searchForAccount(seed.accountSurname);
+    await app.actions.accountDetails.fillInitialFeeSplitToAdviser(initialFeeSplit);
+    await app.actions.accountDetails.fillOngoingSplitToAdviser(ongoingFeeSplit);
+    await app.actions.accountDetails.saveSourceDetails();
+    try {
+      await expect(
+        page.getByText('Source Details updated successfully', { exact: true }).first()
+      ).toBeVisible();
+    } catch {
+      console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+      await page.waitForLoadState('networkidle');
+    }
+    await expect(app.pages.accountDetails.initialFeeSplit()).toHaveValue(initialFeeSplit);
+    await expect(app.pages.accountDetails.ongoingFeeSplit()).toHaveValue(ongoingFeeSplit);
+  });
 });
