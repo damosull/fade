@@ -197,10 +197,12 @@ test.describe('Account Details', () => {
 
   test('Details Tab - (Trust) Adding a new Beneficiary section', async ({ app, page }) => {
     const seed = getSeed();
-    const beneficiaryName = 'Michael Test Beneficiary';
+    const beneficiaryName = `Test Beneficiary - ${stamp()}`;
     const beneficiaryDescription = 'Beneficiary Test Description';
 
     await app.actions.header.searchForAccount(seed.trustAccountName);
+
+    await app.actions.accountDetails.waitForBeneficiariesToLoad();
 
     await app.actions.accountDetails.addBeneficiary(beneficiaryName, beneficiaryDescription);
 
@@ -212,6 +214,8 @@ test.describe('Account Details', () => {
       console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
       await page.waitForLoadState('networkidle');
     }
+
+    await app.actions.accountDetails.expandBeneficiariesIfMoreThanFive();
 
     await expect(
       app.pages.accountDetails.beneficiariesSection().getByText(beneficiaryName)

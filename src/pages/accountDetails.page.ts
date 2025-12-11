@@ -275,12 +275,31 @@ export class AccountDetailsPage {
   beneficiariesSection() {
     return this.page
       .locator('div.border.border-green.border-l-8')
-      .filter({ hasText: 'Beneficiaries' })
-      .first();
+      .filter({ hasText: 'Beneficiaries' });
   }
 
   addBeneficiaryButton() {
     return this.beneficiariesSection().getByRole('button', { name: 'Add Beneficiary' });
+  }
+
+  beneficiariesTable() {
+    return this.page.locator('table').filter({ hasText: 'Beneficiary Name' });
+  }
+
+  beneficiariesViewMoreButton() {
+    return this.beneficiariesTable().getByRole('button', { name: 'View more' });
+  }
+
+  beneficiariesViewLessButton() {
+    return this.beneficiariesTable().getByRole('button', { name: 'View less' });
+  }
+
+  beneficiariesRows() {
+    return this.beneficiariesTable().locator('tbody tr');
+  }
+
+  beneficiariesLoadingSpinner() {
+    return this.beneficiariesSection().locator('svg.animate-spin');
   }
 }
 

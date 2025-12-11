@@ -271,6 +271,32 @@ export class AccountDetailsActions {
     await this.addBeneficiaryModal.addButton().click();
     return beneficiaryName;
   }
+
+  async expandBeneficiariesIfMoreThanFive() {
+    const rows = this.view.beneficiariesRows();
+
+    await this.waitForBeneficiariesToLoad();
+
+    await rows.first().waitFor({ state: 'visible' });
+
+    const rowCount = await rows.count();
+
+    if (rowCount >= 5) {
+      await this.view.beneficiariesViewMoreButton().click();
+      await expect(this.view.beneficiariesViewLessButton()).toBeVisible();
+    } else {
+      await expect(this.view.beneficiariesViewMoreButton()).toHaveCount(0);
+    }
+  }
+
+  async waitForBeneficiariesToLoad() {
+    const spinner = this.view.beneficiariesLoadingSpinner();
+    const spinnerCount = await spinner.count();
+
+    if (spinnerCount > 0) {
+      await spinner.first().waitFor({ state: 'hidden' });
+    }
+  }
 }
 
 export default AccountDetailsActions;
