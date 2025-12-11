@@ -294,6 +294,27 @@ export class AccountDetailsPage {
   marketingPreferencesSaveButton() {
     return this.marketingPreferencesSection().locator('button').filter({ hasText: 'Save' });
   }
+
+  serviceDetailsSection() {
+    return this.page
+      .locator('div.border.border-green.border-l-8')
+      .filter({ hasText: 'Service Details' });
+  }
+
+  adviserInput() {
+    return this.serviceDetailsSection()
+      .locator('label')
+      .filter({ hasText: 'Adviser' })
+      .locator('svg');
+  }
+
+  serviceDetailsSaveButton() {
+    return this.serviceDetailsSection().locator('button').filter({ hasText: 'Save' });
+  }
+
+  confirmChangeButton() {
+    return this.page.locator('button').filter({ hasText: 'Confirm Change' });
+  }
 }
 
 export default AccountDetailsPage;

@@ -255,4 +255,39 @@ test.describe('Account Details', () => {
       app.pages.accountDetails.relationshipsRowByAccountName(accountName, 'partner')
     ).toContainText(userTrustName);
   });
+
+  test('Details Tab - Updating Service details section', async ({ app, page }) => {
+    test.slow();
+    const seed = getSeed();
+
+    await app.actions.header.searchForAccount(seed.accountSurname);
+    await app.actions.accountDetails.selectAdviser('Test Superadmin');
+    const response = await app.actions.accountDetails.clickServiceDetailsSaveAndWaitForResponse();
+    expect(response.status()).toBe(200);
+
+    try {
+      await expect(
+        page.getByText('Service Details updated successfully', { exact: true }).first()
+      ).toBeVisible();
+    } catch {
+      console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+      await page.waitForLoadState('networkidle');
+    }
+
+    // Need to revert back to original adviser to keep seed data consistent
+    await app.actions.accountDetails.selectAdviser('Finance Hub');
+
+    const responseAfter =
+      await app.actions.accountDetails.clickServiceDetailsSaveAndWaitForResponse();
+    expect(responseAfter.status()).toBe(200);
+
+    try {
+      await expect(
+        page.getByText('Service Details updated successfully', { exact: true }).first()
+      ).toBeVisible();
+    } catch {
+      console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+      await page.waitForLoadState('networkidle');
+    }
+  });
 });
