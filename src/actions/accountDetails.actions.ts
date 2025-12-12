@@ -266,9 +266,11 @@ export class AccountDetailsActions {
 
   async addBeneficiary(beneficiaryName: string, beneficiaryDescription: string): Promise<string> {
     await this.view.addBeneficiaryButton().click();
+    await this.addBeneficiaryModal.beneficiaryName().waitFor({ state: 'visible' });
     await this.addBeneficiaryModal.beneficiaryName().fill(beneficiaryName);
     await this.addBeneficiaryModal.beneficiaryDescription().fill(beneficiaryDescription);
     await this.addBeneficiaryModal.addButton().click();
+    await this.addBeneficiaryModal.beneficiaryName().waitFor({ state: 'hidden' });
     return beneficiaryName;
   }
 
