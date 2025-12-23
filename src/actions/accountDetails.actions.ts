@@ -1,14 +1,17 @@
 import { type Page, expect } from '@playwright/test';
 import AccountDetailsPage from '../pages/accountDetails.page';
 import { clickWhenVisible, chooseDropdownOption } from '../support/helpers';
+import AddBeneficiaryModalPage from '../pages/addBeneficiaryModal.page';
 
 export class AccountDetailsActions {
   private readonly page: Page;
   private readonly view: AccountDetailsPage;
+  private readonly addBeneficiaryModal: AddBeneficiaryModalPage;
 
   constructor(page: Page) {
     this.page = page;
     this.view = new AccountDetailsPage(page);
+    this.addBeneficiaryModal = new AddBeneficiaryModalPage(page);
   }
 
   async assertOnDetailsTab() {
@@ -303,6 +306,132 @@ export class AccountDetailsActions {
     );
 
     await this.view.marketingPreferencesSaveButton().click();
+
+    return await responsePromise;
+  }
+
+  async addBeneficiary(beneficiaryName: string, beneficiaryDescription: string): Promise<string> {
+    await this.view.addBeneficiaryButton().click();
+    await this.addBeneficiaryModal.beneficiaryName().waitFor({ state: 'visible' });
+    await this.addBeneficiaryModal.beneficiaryName().fill(beneficiaryName);
+    await this.addBeneficiaryModal.beneficiaryDescription().fill(beneficiaryDescription);
+    await this.addBeneficiaryModal.addButton().click();
+    await this.addBeneficiaryModal.beneficiaryName().waitFor({ state: 'hidden' });
+    return beneficiaryName;
+  }
+
+  async expandBeneficiariesIfMoreThanFive() {
+    const rows = this.view.beneficiariesRows();
+
+    await this.waitForBeneficiariesToLoad();
+
+    await rows.first().waitFor({ state: 'visible' });
+
+    const rowCount = await rows.count();
+
+    if (rowCount >= 5) {
+      await this.view.beneficiariesViewMoreButton().click();
+      await expect(this.view.beneficiariesViewLessButton()).toBeVisible();
+    } else {
+      await expect(this.view.beneficiariesViewMoreButton()).toHaveCount(0);
+    }
+  }
+
+  async waitForBeneficiariesToLoad() {
+    const spinner = this.view.beneficiariesLoadingSpinner();
+    const spinnerCount = await spinner.count();
+
+    if (spinnerCount > 0) {
+      await spinner.first().waitFor({ state: 'hidden' });
+    }
+  }
+
+  // Corporation Account Details Actions
+  async fillCorporationName(name: string) {
+    await this.view.corporationNameInput().fill(name);
+  }
+
+  async fillCorporationNumber(number: string) {
+    await this.view.corporationNumberInput().fill(number);
+  }
+
+  async fillCorporationDescription(description: string) {
+    await this.view.corporationDescriptionInput().fill(description);
+  }
+
+  async fillLEI(lei: string) {
+    await this.view.leiInput().fill(lei);
+  }
+
+  async fillLEIExpiryDate(date: string) {
+    await this.view.leiExpiryDateInput().fill(date);
+  }
+
+  async fillSalutation(salutation: string) {
+    await this.view.salutationInput().fill(salutation);
+  }
+
+  async fillFinancialYearEndDate(date: string) {
+    await this.view.financialYearEndDateInput().fill(date);
+  }
+
+  async fillIncorporationDate(date: string) {
+    await this.view.incorporationDateInput().clear();
+    await this.view.incorporationDateInput().fill(date);
+  }
+
+  async selectCompanyType(type: string) {
+    await this.view.companyTypeDropdown().click();
+    await this.page.getByRole('option', { name: type }).click();
+  }
+
+  async clickCorporationDetailsSave() {
+    await this.view.corporationDetailsSaveButton().click();
+  }
+
+  async clickCorporationDetailsSaveAndWaitForResponse() {
+    const responsePromise = this.page.waitForResponse(
+      (response) => response.url().includes('/graphql') && response.request().method() === 'POST'
+    );
+
+    await this.view.corporationDetailsSaveButton().click();
+
+    return await responsePromise;
+  }
+
+  async assertCorporationName(name: string) {
+    await expect(this.view.corporationNameInput()).toHaveValue(name);
+  }
+
+  // Trust Account Details Actions
+  async fillTrustName(name: string) {
+    await this.view.trustNameInput().fill(name);
+  }
+
+  async fillTrustDescription(description: string) {
+    await this.view.trustDescriptionInput().fill(description);
+  }
+
+  async fillTrustStartDate(date: string) {
+    await this.view.trustStartDateInput().clear();
+    await this.view.trustStartDateInput().fill(date);
+  }
+
+  async selectTrustType(type: string) {
+    await this.view.trustTypeDropdown().click();
+    await this.page.getByRole('option', { name: type }).click();
+  }
+
+  async clickTrustDetailsSave() {
+    await this.view.trustDetailsSaveButton().click();
+  }
+
+  async clickTrustDetailsSaveAndWaitForResponse() {
+    const responsePromise = this.page.waitForResponse(
+      (response) => response.url().includes('/graphql') && response.request().method() === 'POST'
+    );
+
+    await this.view.trustDetailsSaveButton().click();
 
     return await responsePromise;
   }

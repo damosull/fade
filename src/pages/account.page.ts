@@ -123,8 +123,8 @@ export class IndividualPage {
       .locator('svg');
   }
 
-  addressTypeSelect() {
-    return this.page.getByRole('option', { name: 'home', exact: true });
+  addressTypeOption(addressType: string) {
+    return this.page.getByRole('option', { name: addressType, exact: true });
   }
 
   searchAddress() {
