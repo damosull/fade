@@ -38,18 +38,21 @@ export default [
       'prettier/prettier': 'error',
       'playwright/no-networkidle': 'off',
       'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      'playwright/no-standalone-expect': 'off',
+      'playwright/no-skipped-test': 'off',
+      'playwright/no-conditional-in-test': 'off',
     },
   },
   {
     files: [
       'global-setup.cjs',
       'src/seed/**/*.ts',
-      'src/support/**/*.ts',   
+      'src/support/**/*.ts',
     ],
     languageOptions: {
       globals: {
         ...globals.es2021,
-        ...globals.node, 
+        ...globals.node,
       },
     },
   },
