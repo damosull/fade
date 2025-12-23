@@ -3,8 +3,6 @@ import { navigateToHome } from '../src/seed/auth';
 import { getSeed } from '../src/seed/seedClient';
 import { selectAccounts } from '../src/support/helpers';
 
-const makeEmail = () => `qatest${stamp()}@fadesystems.co.uk`;
-const makeTrustName = () => `Trust${stamp()}`;
 const stamp = () => new Date().toISOString().replace(/[:.]/g, '-');
 
 test.beforeEach(async ({ page }, testInfo) => {
@@ -361,64 +359,34 @@ selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, acc
         app.pages.accountDetails.beneficiariesSection().getByText(beneficiaryName)
       ).toBeVisible();
     });
-  });
 
-  test('Details Tab - ( Corporation ) - Updating the Directors section', async ({ app, page }) => {
-    // Below code is taken from 'Create Trust Account' test in accountCreation.spec.ts. Not sure if you want to move this into a fixture, or something reusable.
-    // Probably best option would be to create a Trust Account via API, but for now this will do.
-    test.slow();
-    const seed = getSeed();
-    const userEmail = makeEmail();
-    const userTrustName = makeTrustName();
-    await app.actions.account.createAccount(
-      'Account',
-      'Corporation',
-      undefined,
-      undefined,
-      userTrustName,
-      userEmail,
-      'solicitor',
-      'Finance Hub',
-      'professional introducer',
-      seed.introducerFirmName
-    );
-    await app.actions.account.saveNewAccount();
+    test('Details Tab - Updating the Directors section', async ({ app, page }) => {
+      if (accountType !== 'Corporation') {
+        console.log(`Skipping test: Only for Corporation accounts`);
+        return;
+      }
 
-    try {
+      const seed = getSeed();
+      const userCorporationName = seed[accountNameKey];
+
+      await app.actions.header.searchForAccount(userCorporationName);
+
+      const accountName = await app.actions.accountDetails.addDirector('michael test', 'partner');
+
+      try {
+        await expect(
+          page.getByText('Relationship added successfully', { exact: true }).first()
+        ).toBeVisible();
+      } catch {
+        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+        await page.waitForLoadState('networkidle');
+      }
+
+      await app.actions.accountDetails.expandDirectorsIfMoreThanFive();
+
       await expect(
-        page.getByText('The Corporation has been created', { exact: true }).first()
-      ).toBeVisible();
-    } catch {
-      console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
-      await page.waitForLoadState('networkidle');
-    }
-
-    await expect(app.pages.account.modal()).not.toBeVisible({ timeout: 10_000 });
-    await expect(page).toHaveURL(/\/accounts\/\d+$/);
-    await expect(app.pages.accountDetails.detailsTab()).toBeVisible();
-    await expect(app.pages.accountDetails.getTrustNameHeading(userTrustName)).toBeVisible();
-    expect(await app.pages.accountDetails.accountNumberHeading().textContent()!).toMatch(
-      /ACC\d{7}/
-    );
-    await expect(app.pages.accountDetails.getEmailLink(userEmail)).toHaveText(userEmail);
-    // Above code is taken from 'Create Trust Account' test in accountCreation.spec.ts. Not sure if you want to move this into a fixture, or something reusable.
-    // Probably best option would be to create a Trust Account via API, but for now this will do.
-
-    const accountName = await app.actions.accountDetails.addDirector('michael test', 'partner');
-
-    try {
-      await expect(
-        page.getByText('Relationship added successfully', { exact: true }).first()
-      ).toBeVisible();
-    } catch {
-      console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
-      await page.waitForLoadState('networkidle');
-    }
-
-    await app.actions.accountDetails.expandDirectorsIfMoreThanFive();
-
-    await expect(
-      app.pages.accountDetails.relationshipsRowByAccountName(accountName, 'partner')
-    ).toContainText(userTrustName);
+        app.pages.accountDetails.relationshipsRowByAccountName(accountName, 'partner')
+      ).toContainText(userCorporationName);
+    });
   });
 });
