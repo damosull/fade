@@ -276,7 +276,7 @@ export class AccountDetailsActions {
 
   async expandDirectorsIfMoreThanFive() {
     const spinner = this.view.directorsLoadingSpinner();
-    const rows = this.view.relationshipsRows();
+    const rows = this.view.directorsRows();
     const spinnerCount = await spinner.count();
 
     if (spinnerCount > 0) {
@@ -288,10 +288,10 @@ export class AccountDetailsActions {
     const rowCount = await rows.count();
 
     if (rowCount >= 5) {
-      await this.view.relationshipsViewMoreButton().click();
-      await expect(this.view.relationshipsViewLessButton()).toBeVisible();
+      await this.view.directorsViewMoreButton().click();
+      await expect(this.view.directorsViewLessButton()).toBeVisible();
     } else {
-      await expect(this.view.relationshipsViewMoreButton()).toHaveCount(0);
+      await expect(this.view.directorsViewMoreButton()).toHaveCount(0);
     }
   }
 

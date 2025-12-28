@@ -225,12 +225,24 @@ export class AccountDetailsPage {
       .first();
   }
 
+  directorsTable() {
+    return this.page.locator('table').filter({ hasText: ' is the ' });
+  }
+
   relationshipsViewMoreButton() {
     return this.relationshipsTable().getByRole('button', { name: 'View more' });
   }
 
   relationshipsViewLessButton() {
     return this.relationshipsTable().getByRole('button', { name: 'View less' });
+  }
+
+  directorsViewMoreButton() {
+    return this.directorsTable().getByRole('button', { name: 'View more' });
+  }
+
+  directorsViewLessButton() {
+    return this.directorsTable().getByRole('button', { name: 'View less' });
   }
 
   relationshipsAccountInput() {
@@ -259,6 +271,12 @@ export class AccountDetailsPage {
 
   relationshipsRows() {
     return this.relationshipsTable()
+      .locator('tbody tr')
+      .filter({ has: this.page.locator('a[href^="/accounts/"]'), hasText: /is the/i });
+  }
+
+  directorsRows() {
+    return this.directorsTable()
       .locator('tbody tr')
       .filter({ has: this.page.locator('a[href^="/accounts/"]'), hasText: /is the/i });
   }
