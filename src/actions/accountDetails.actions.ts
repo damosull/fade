@@ -165,19 +165,44 @@ export class AccountDetailsActions {
     return selectedText;
   }
 
+  async selectDirectorAccount(searchText: string): Promise<string> {
+    const input = this.view.directorAccountInput();
+    await clickWhenVisible(input);
+    await input.fill(searchText);
+    await chooseDropdownOption(this.page, searchText, true);
+    const selectedText = (await input.inputValue())?.trim() ?? searchText;
+    return selectedText;
+  }
+
   async selectRelationshipType(relationType: string): Promise<void> {
     await clickWhenVisible(this.view.relationshipsTypeInput());
     await chooseDropdownOption(this.page, relationType, true);
+  }
+
+  async selectDirectorRelation(directorRelation: string): Promise<void> {
+    await clickWhenVisible(this.view.directorTypeInput());
+    await chooseDropdownOption(this.page, directorRelation, true);
   }
 
   async clickAddRelationship() {
     await this.view.relationshipsAddButton().click();
   }
 
+  async clickAddDirector() {
+    await this.view.directorsAddButton().click();
+  }
+
   async addRelationship(searchText: string, relationType: string): Promise<string> {
     const accountName = await this.selectRelationshipAccount(searchText);
     await this.selectRelationshipType(relationType);
     await this.clickAddRelationship();
+    return accountName;
+  }
+
+  async addDirector(searchText: string, directorRelation: string): Promise<string> {
+    const accountName = await this.selectDirectorAccount(searchText);
+    await this.selectDirectorRelation(directorRelation);
+    await this.clickAddDirector();
     return accountName;
   }
 
@@ -247,6 +272,27 @@ export class AccountDetailsActions {
   async selectPhoneConsent(value: string) {
     await this.view.phoneConsentInput().click();
     await this.page.getByRole('option', { name: value, exact: true }).click();
+  }
+
+  async expandDirectorsIfMoreThanFive() {
+    const spinner = this.view.directorsLoadingSpinner();
+    const rows = this.view.directorsRows();
+    const spinnerCount = await spinner.count();
+
+    if (spinnerCount > 0) {
+      await spinner.first().waitFor({ state: 'hidden' });
+    }
+
+    await rows.first().waitFor({ state: 'visible' });
+
+    const rowCount = await rows.count();
+
+    if (rowCount >= 5) {
+      await this.view.directorsViewMoreButton().click();
+      await expect(this.view.directorsViewLessButton()).toBeVisible();
+    } else {
+      await expect(this.view.directorsViewMoreButton()).toHaveCount(0);
+    }
   }
 
   async selectEmailConsent(value: string) {

@@ -359,5 +359,34 @@ selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, acc
         app.pages.accountDetails.beneficiariesSection().getByText(beneficiaryName)
       ).toBeVisible();
     });
+
+    test('Details Tab - Updating the Directors section', async ({ app, page }) => {
+      if (accountType !== 'Corporation') {
+        console.log(`Skipping test: Only for Corporation accounts`);
+        return;
+      }
+
+      const seed = getSeed();
+      const userCorporationName = seed[accountNameKey];
+
+      await app.actions.header.searchForAccount(userCorporationName);
+
+      const accountName = await app.actions.accountDetails.addDirector('michael test', 'partner');
+
+      try {
+        await expect(
+          page.getByText('Relationship added successfully', { exact: true }).first()
+        ).toBeVisible();
+      } catch {
+        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+        await page.waitForLoadState('networkidle');
+      }
+
+      await app.actions.accountDetails.expandDirectorsIfMoreThanFive();
+
+      await expect(
+        app.pages.accountDetails.relationshipsRowByAccountName(accountName, 'partner')
+      ).toContainText(userCorporationName);
+    });
   });
 });

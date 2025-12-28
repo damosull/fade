@@ -218,6 +218,17 @@ export class AccountDetailsPage {
     return this.page.locator('table').filter({ hasText: ' is the ' });
   }
 
+  directorsSection() {
+    return this.page
+      .locator('div.border.border-green.border-l-8')
+      .filter({ hasText: 'Directors' })
+      .first();
+  }
+
+  directorsTable() {
+    return this.page.locator('table').filter({ hasText: ' is the ' });
+  }
+
   relationshipsViewMoreButton() {
     return this.relationshipsTable().getByRole('button', { name: 'View more' });
   }
@@ -226,16 +237,36 @@ export class AccountDetailsPage {
     return this.relationshipsTable().getByRole('button', { name: 'View less' });
   }
 
+  directorsViewMoreButton() {
+    return this.directorsTable().getByRole('button', { name: 'View more' });
+  }
+
+  directorsViewLessButton() {
+    return this.directorsTable().getByRole('button', { name: 'View less' });
+  }
+
   relationshipsAccountInput() {
     return this.relationshipsSection().getByRole('combobox').first();
+  }
+
+  directorAccountInput() {
+    return this.directorsSection().getByRole('combobox').first();
   }
 
   relationshipsTypeInput() {
     return this.relationshipsSection().getByRole('combobox').nth(1);
   }
 
+  directorTypeInput() {
+    return this.directorsSection().getByRole('combobox').nth(1);
+  }
+
   relationshipsAddButton() {
     return this.relationshipsSection().getByRole('button', { name: 'Add' });
+  }
+
+  directorsAddButton() {
+    return this.directorsSection().getByRole('button', { name: 'Add' });
   }
 
   relationshipsRows() {
@@ -244,8 +275,18 @@ export class AccountDetailsPage {
       .filter({ has: this.page.locator('a[href^="/accounts/"]'), hasText: /is the/i });
   }
 
+  directorsRows() {
+    return this.directorsTable()
+      .locator('tbody tr')
+      .filter({ has: this.page.locator('a[href^="/accounts/"]'), hasText: /is the/i });
+  }
+
   relationshipsLoadingSpinner() {
     return this.relationshipsSection().locator('svg[data-sentry-element="ArrowPathIcon"]');
+  }
+
+  directorsLoadingSpinner() {
+    return this.directorsSection().locator('svg[data-sentry-element="ArrowPathIcon"]');
   }
 
   relationshipsRowByAccountName(accountName: string, relationType: string) {
