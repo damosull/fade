@@ -435,6 +435,21 @@ export class AccountDetailsActions {
 
     return await responsePromise;
   }
+
+  async selectAdviser(value: string) {
+    await this.view.adviserInput().click();
+    await this.page.getByRole('option', { name: value, exact: true }).click();
+  }
+
+  async clickServiceDetailsSaveAndWaitForResponse() {
+    const responsePromise = this.page.waitForResponse(
+      (response) => response.url().includes('/graphql') && response.request().method() === 'POST'
+    );
+
+    await this.view.serviceDetailsSaveButton().click();
+
+    return await responsePromise;
+  }
 }
 
 export default AccountDetailsActions;

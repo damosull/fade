@@ -424,6 +424,23 @@ export class AccountDetailsPage {
       .filter({ hasText: 'Trust Account Details' })
       .locator('button:has-text("Save")');
   }
+
+  serviceDetailsSection() {
+    return this.page
+      .locator('div.border.border-green.border-l-8')
+      .filter({ hasText: 'Service Details' });
+  }
+
+  adviserInput() {
+    return this.serviceDetailsSection()
+      .locator('label')
+      .filter({ hasText: 'Adviser' })
+      .locator('svg');
+  }
+
+  serviceDetailsSaveButton() {
+    return this.serviceDetailsSection().locator('button').filter({ hasText: 'Save' });
+  }
 }
 
 export default AccountDetailsPage;
