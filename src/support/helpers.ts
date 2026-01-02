@@ -162,3 +162,22 @@ export async function selectDateByOffset(
   await dateCell.waitFor({ state: 'visible', timeout: 120000 });
   await dateCell.click();
 }
+
+/**
+ * Account type definitions for parameterized tests
+ */
+export const ACCOUNT_TYPES = {
+  Individual: { accountType: 'Individual', accountNameKey: 'accountSurname' as const },
+  Trust: { accountType: 'Trust', accountNameKey: 'trustAccountName' as const },
+  Corporation: { accountType: 'Corporation', accountNameKey: 'corporationAccountName' as const },
+} as const;
+
+export type AccountTypeKey = keyof typeof ACCOUNT_TYPES;
+export type AccountTypeData = (typeof ACCOUNT_TYPES)[AccountTypeKey];
+
+/**
+ * Helper to select which account types to test
+ */
+export const selectAccounts = (...types: AccountTypeKey[]) => {
+  return types.map((type) => ACCOUNT_TYPES[type]);
+};
