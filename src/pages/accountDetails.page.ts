@@ -441,6 +441,10 @@ export class AccountDetailsPage {
   serviceDetailsSaveButton() {
     return this.serviceDetailsSection().locator('button').filter({ hasText: 'Save' });
   }
+
+  confirmChangeButton() {
+    return this.page.locator('button').filter({ hasText: 'Confirm Change' });
+  }
 }
 
 export default AccountDetailsPage;

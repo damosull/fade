@@ -448,6 +448,12 @@ export class AccountDetailsActions {
 
     await this.view.serviceDetailsSaveButton().click();
 
+    // Modal only appears if there are related accounts affected
+    const confirmButton = this.view.confirmChangeButton();
+    if (await confirmButton.isVisible({ timeout: 2000 }).catch(() => false)) {
+      await confirmButton.click();
+    }
+
     return await responsePromise;
   }
 }
