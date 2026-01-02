@@ -84,11 +84,11 @@ export class IndividualActions {
     await this.view.viewMore().click();
   }
 
-  async addSearchAddress(addressQuery: string): Promise<void> {
+  async addSearchAddress(addressQuery: string, addressType: string = 'home'): Promise<void> {
     await expect(this.view.addNewAddressButton()).toBeVisible({ timeout: SHORT_WAIT });
     await this.view.addNewAddressButton().click();
     await this.view.addressType().click();
-    await this.view.addressTypeSelect().click();
+    await this.view.addressTypeOption(addressType).click();
     await this.view.searchAddress().fill(addressQuery);
     await this.view.selectAddress().click();
     await this.view.addAddressButton().click();
@@ -100,12 +100,13 @@ export class IndividualActions {
     city: string,
     county: string,
     postCode: string,
+    addressType: string = 'home',
     useForCorrespondence: boolean = false
   ): Promise<void> {
     await expect(this.view.addNewAddressButton()).toBeVisible({ timeout: SHORT_WAIT });
     await this.view.addNewAddressButton().click();
     await this.view.addressType().click();
-    await this.view.addressTypeSelect().click();
+    await this.view.addressTypeOption(addressType).click();
     await this.view.addressLine1().fill(addressLine1);
     await this.view.addressLine2().fill(addressLine2);
     await this.view.city().fill(city);
