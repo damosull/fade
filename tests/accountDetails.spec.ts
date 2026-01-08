@@ -433,7 +433,8 @@ selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, acc
 
       await app.actions.accountDetails.fillInitialFeeSplitToAdviser(initialFeeSplit);
       await app.actions.accountDetails.fillOngoingSplitToAdviser(ongoingFeeSplit);
-      await app.actions.accountDetails.saveSourceDetails();
+      const response = await app.actions.accountDetails.saveSourceDetailsAndWaitForResponse();
+      expect(response.status()).toBe(200);
 
       try {
         await expect(
