@@ -104,6 +104,37 @@ export async function waitForNonBlockingUI(page: Page, timeoutMs = 5000): Promis
 }
 
 /**
+ * Waits for all visible spinning SVG elements to disappear.
+ * Useful for ensuring loading states have completed before proceeding.
+ */
+export async function waitForSpinnersToDisappear(page: Page, timeout = 120000): Promise<void> {
+  await expect
+    .poll(
+      async () => {
+        // eslint-disable-next-line playwright/no-eval
+        return await page.$$eval(
+          'svg.animate-spin',
+          (svgs) =>
+            svgs.filter((svg) => {
+              // eslint-disable-next-line no-undef
+              const style = window.getComputedStyle(svg);
+              const rect = svg.getBoundingClientRect();
+
+              return (
+                style.display !== 'none' &&
+                style.visibility !== 'hidden' &&
+                rect.width > 0 &&
+                rect.height > 0
+              );
+            }).length
+        );
+      },
+      { timeout }
+    )
+    .toBe(0);
+}
+
+/**
  * Finds a Service Case link by (fuzzy) text, safely escaping special characters.
  */
 export function findServiceCaseLink(page: Page, selectServiceCase: string): Locator {

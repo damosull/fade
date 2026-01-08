@@ -456,6 +456,28 @@ export class AccountDetailsActions {
 
     return await responsePromise;
   }
+
+  async fillInitialFeeSplitToAdviser(initialFeeSplit: string) {
+    await this.view.initialFeeSplit().fill(initialFeeSplit);
+  }
+
+  async fillOngoingSplitToAdviser(OngoingSplitToAdviser: string) {
+    await this.view.ongoingFeeSplit().fill(OngoingSplitToAdviser);
+  }
+
+  async saveSourceDetails() {
+    await this.view.sourceDetailsSaveButton().click();
+  }
+
+  async saveSourceDetailsAndWaitForResponse() {
+    const responsePromise = this.page.waitForResponse(
+      (response) => response.url().includes('/graphql') && response.request().method() === 'POST'
+    );
+
+    await this.view.sourceDetailsSaveButton().click();
+
+    return await responsePromise;
+  }
 }
 
 export default AccountDetailsActions;

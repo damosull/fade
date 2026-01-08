@@ -423,5 +423,30 @@ selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, acc
         await page.waitForLoadState('networkidle');
       }
     });
+
+    test('Details Tab - Updating Source details section', async ({ app, page }) => {
+      const seed = getSeed();
+      const initialFeeSplit = '11.34';
+      const ongoingFeeSplit = '55.78';
+
+      await app.actions.header.searchForAccount(seed[accountNameKey]);
+
+      await app.actions.accountDetails.fillInitialFeeSplitToAdviser(initialFeeSplit);
+      await app.actions.accountDetails.fillOngoingSplitToAdviser(ongoingFeeSplit);
+      const response = await app.actions.accountDetails.saveSourceDetailsAndWaitForResponse();
+      expect(response.status()).toBe(200);
+
+      try {
+        await expect(
+          page.getByText('Source Details updated successfully', { exact: true }).first()
+        ).toBeVisible();
+      } catch {
+        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+        await page.waitForLoadState('networkidle');
+      }
+
+      await expect(app.pages.accountDetails.initialFeeSplit()).toHaveValue(initialFeeSplit);
+      await expect(app.pages.accountDetails.ongoingFeeSplit()).toHaveValue(ongoingFeeSplit);
+    });
   });
 });

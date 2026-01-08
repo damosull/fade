@@ -445,6 +445,26 @@ export class AccountDetailsPage {
   confirmChangeButton() {
     return this.page.locator('button').filter({ hasText: 'Confirm Change' });
   }
+
+  sourceDetailsSection() {
+    return this.page
+      .locator('div.border.border-green.border-l-8')
+      .filter({ hasText: 'Source Details' });
+  }
+
+  initialFeeSplit() {
+    return this.sourceDetailsSection().getByRole('textbox', {
+      name: 'Initial Fee Split to Adviser %',
+    });
+  }
+
+  ongoingFeeSplit() {
+    return this.sourceDetailsSection().getByRole('textbox', { name: 'Ongoing Split to Adviser %' });
+  }
+
+  sourceDetailsSaveButton() {
+    return this.sourceDetailsSection().locator('button').filter({ hasText: 'Save' });
+  }
 }
 
 export default AccountDetailsPage;
