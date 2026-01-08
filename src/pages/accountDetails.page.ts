@@ -154,7 +154,7 @@ export class AccountDetailsPage {
   correspondenceMethodsSection() {
     return this.page
       .locator('div.border.border-green.border-l-8')
-      .filter({ hasText: 'Correspondence Methods' });
+      .filter({ hasText: /Correspondence( Methods)?/ });
   }
 
   correspondenceLoadingSpinner() {
@@ -225,12 +225,24 @@ export class AccountDetailsPage {
       .first();
   }
 
+  directorsTable() {
+    return this.page.locator('table').filter({ hasText: ' is the ' });
+  }
+
   relationshipsViewMoreButton() {
     return this.relationshipsTable().getByRole('button', { name: 'View more' });
   }
 
   relationshipsViewLessButton() {
     return this.relationshipsTable().getByRole('button', { name: 'View less' });
+  }
+
+  directorsViewMoreButton() {
+    return this.directorsTable().getByRole('button', { name: 'View more' });
+  }
+
+  directorsViewLessButton() {
+    return this.directorsTable().getByRole('button', { name: 'View less' });
   }
 
   relationshipsAccountInput() {
@@ -259,6 +271,12 @@ export class AccountDetailsPage {
 
   relationshipsRows() {
     return this.relationshipsTable()
+      .locator('tbody tr')
+      .filter({ has: this.page.locator('a[href^="/accounts/"]'), hasText: /is the/i });
+  }
+
+  directorsRows() {
+    return this.directorsTable()
       .locator('tbody tr')
       .filter({ has: this.page.locator('a[href^="/accounts/"]'), hasText: /is the/i });
   }
@@ -293,6 +311,118 @@ export class AccountDetailsPage {
 
   marketingPreferencesSaveButton() {
     return this.marketingPreferencesSection().locator('button').filter({ hasText: 'Save' });
+  }
+
+  beneficiariesSection() {
+    return this.page
+      .locator('div.border.border-green.border-l-8')
+      .filter({ hasText: 'Beneficiaries' });
+  }
+
+  addBeneficiaryButton() {
+    return this.beneficiariesSection().getByRole('button', { name: 'Add Beneficiary' });
+  }
+
+  beneficiariesTable() {
+    return this.page.locator('table').filter({ hasText: 'Beneficiary Name' });
+  }
+
+  beneficiariesViewMoreButton() {
+    return this.beneficiariesTable().getByRole('button', { name: 'View more' });
+  }
+
+  beneficiariesViewLessButton() {
+    return this.beneficiariesTable().getByRole('button', { name: 'View less' });
+  }
+
+  beneficiariesRows() {
+    return this.beneficiariesTable().locator('tbody tr');
+  }
+
+  beneficiariesLoadingSpinner() {
+    return this.beneficiariesSection().locator('svg.animate-spin');
+  }
+
+  // Corporation Account Details
+  corporationNameInput() {
+    return this.page.getByRole('textbox', { name: 'Corporation Name' });
+  }
+
+  corporationNumberInput() {
+    return this.page.getByRole('textbox', { name: 'Corporation Number' });
+  }
+
+  corporationDescriptionInput() {
+    return this.page.getByRole('textbox', { name: 'Corporation Description' });
+  }
+
+  leiInput() {
+    return this.page.getByRole('textbox', { name: 'LEI' });
+  }
+
+  leiExpiryDateInput() {
+    return this.page.locator('input[name="leiExpiryDate"]');
+  }
+
+  salutationInput() {
+    return this.page.getByRole('textbox', { name: 'Salutation' });
+  }
+
+  financialYearEndDateInput() {
+    return this.page.locator('input[name="financialYearEndDate"]');
+  }
+
+  incorporationDateInput() {
+    return this.page.locator('input[name="startDate"]');
+  }
+
+  companyTypeInput() {
+    return this.page.locator('input[name="type"]').first();
+  }
+
+  companyTypeDropdown() {
+    return this.page
+      .locator('label')
+      .filter({ hasText: 'Company Type' })
+      .locator('div.css-mv2owe-control');
+  }
+
+  corporationDetailsSaveButton() {
+    return this.page
+      .locator('form')
+      .filter({ has: this.page.locator('fieldset:has-text("Corporation Account Details")') })
+      .locator('button:has-text("Save")');
+  }
+
+  corporationNameLabel() {
+    return this.page.locator('label').filter({ hasText: 'Corporation Name' });
+  }
+
+  // Trust Account Details
+  trustNameInput() {
+    return this.page.getByRole('textbox', { name: 'Trust Name' });
+  }
+
+  trustDescriptionInput() {
+    return this.page.getByRole('textbox', { name: 'Trust Description' });
+  }
+
+  trustStartDateInput() {
+    return this.page.locator('input[name="startDate"]');
+  }
+
+  trustTypeDropdown() {
+    return this.page
+      .locator('label')
+      .filter({ hasText: 'Trust Type' })
+      .locator('div.css-mv2owe-control');
+  }
+
+  trustDetailsSaveButton() {
+    return this.page
+      .locator('fieldset')
+      .filter({ hasText: 'Trust Account Details' })
+      .locator('button:has-text("Save")');
   }
 
   serviceDetailsSection() {
