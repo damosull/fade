@@ -482,8 +482,8 @@ export class AccountDetailsActions {
     await this.view.initialFeeSplit().fill(initialFeeSplit);
   }
 
-  async fillOngoingSplitToAdviser(OngoingSplitToAdviser: string) {
-    await this.view.ongoingFeeSplit().fill(OngoingSplitToAdviser);
+  async fillOngoingSplitToAdviser(ongoingSplitToAdviser: string) {
+    await this.view.ongoingFeeSplit().fill(ongoingSplitToAdviser);
   }
 
   async saveSourceDetails() {
