@@ -465,6 +465,40 @@ export class AccountDetailsPage {
   sourceDetailsSaveButton() {
     return this.sourceDetailsSection().locator('button').filter({ hasText: 'Save' });
   }
+
+  employmentDetailsSection() {
+    return this.page
+      .locator('div.border.border-green.border-l-8')
+      .filter({ hasText: 'Employment Details' });
+  }
+
+  employmentDetailsTable() {
+    return this.employmentDetailsSection().locator('table');
+  }
+
+  employmentDetailsRows() {
+    return this.employmentDetailsTable().locator('tbody tr');
+  }
+
+  employmentDetailsRowByEmployerName(employerName: string) {
+    return this.employmentDetailsRows().filter({ hasText: employerName }).first();
+  }
+
+  employmentDetailsLoadingSpinner() {
+    return this.employmentDetailsSection().locator('svg[data-sentry-element="ArrowPathIcon"]');
+  }
+
+  employmentDetailsViewMoreButton() {
+    return this.employmentDetailsTable().getByRole('button', { name: 'View more' });
+  }
+
+  employmentDetailsViewLessButton() {
+    return this.employmentDetailsTable().getByRole('button', { name: 'View less' });
+  }
+
+  addEmploymentButton() {
+    return this.employmentDetailsSection().getByRole('button', { name: 'Add employment' });
+  }
 }
 
 export default AccountDetailsPage;
