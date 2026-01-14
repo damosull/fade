@@ -44,7 +44,7 @@ export class AccountDetailsActions {
 
   async selectTitle(title: string) {
     await this.view.titleInput().click();
-    await this.page.getByRole('option', { name: title }).click();
+    await chooseDropdownOption(this.page, title);
   }
 
   async fillMiddleNames(middleNames: string) {
@@ -53,12 +53,12 @@ export class AccountDetailsActions {
 
   async selectGender(gender: string) {
     await this.view.genderInput().click();
-    await this.page.getByRole('option', { name: gender }).click();
+    await chooseDropdownOption(this.page, gender);
   }
 
   async selectMaritalStatus(status: string) {
     await this.view.maritalStatusInput().click();
-    await this.page.getByRole('option', { name: status }).click();
+    await chooseDropdownOption(this.page, status);
   }
 
   async fillMaidenName(maidenName: string) {
@@ -67,7 +67,7 @@ export class AccountDetailsActions {
 
   async selectEmploymentStatus(status: string) {
     await this.view.employmentStatusInput().click();
-    await this.page.getByRole('option', { name: status }).click();
+    await chooseDropdownOption(this.page, status);
   }
 
   async fillNINumber(niNumber: string) {
@@ -76,7 +76,7 @@ export class AccountDetailsActions {
 
   async selectNationality(nationality: string) {
     await this.view.nationalityInput().click();
-    await this.page.getByRole('option', { name: nationality }).click();
+    await chooseDropdownOption(this.page, nationality);
   }
 
   async checkUKResidentForTax() {
@@ -95,12 +95,12 @@ export class AccountDetailsActions {
 
   async selectInGoodHealth(option: string) {
     await this.view.inGoodHealthInput().click();
-    await this.page.getByRole('option', { name: option }).click();
+    await chooseDropdownOption(this.page, option);
   }
 
   async selectHasSmokedInLast12Months(option: string) {
     await this.view.hasSmokedInput().click();
-    await this.page.getByRole('option', { name: option }).click();
+    await chooseDropdownOption(this.page, option);
   }
 
   async checkHasWill() {
@@ -271,7 +271,7 @@ export class AccountDetailsActions {
 
   async selectPhoneConsent(value: string) {
     await this.view.phoneConsentInput().click();
-    await this.page.getByRole('option', { name: value, exact: true }).click();
+    await chooseDropdownOption(this.page, value, true);
   }
 
   async expandDirectorsIfMoreThanFive() {
@@ -318,7 +318,7 @@ export class AccountDetailsActions {
 
   async selectEmailConsent(value: string) {
     await this.view.emailConsentInput().click();
-    await this.page.getByRole('option', { name: value, exact: true }).click();
+    await chooseDropdownOption(this.page, value, true);
   }
 
   async clickMarketingPreferencesSaveAndWaitForResponse() {
@@ -403,7 +403,7 @@ export class AccountDetailsActions {
 
   async selectCompanyType(type: string) {
     await this.view.companyTypeDropdown().click();
-    await this.page.getByRole('option', { name: type }).click();
+    await chooseDropdownOption(this.page, type);
   }
 
   async clickCorporationDetailsSave() {
@@ -440,7 +440,7 @@ export class AccountDetailsActions {
 
   async selectTrustType(type: string) {
     await this.view.trustTypeDropdown().click();
-    await this.page.getByRole('option', { name: type }).click();
+    await chooseDropdownOption(this.page, type);
   }
 
   async clickTrustDetailsSave() {
@@ -459,7 +459,7 @@ export class AccountDetailsActions {
 
   async selectAdviser(value: string) {
     await this.view.adviserInput().click();
-    await this.page.getByRole('option', { name: value, exact: true }).click();
+    await chooseDropdownOption(this.page, value, true);
   }
 
   async clickServiceDetailsSaveAndWaitForResponse() {

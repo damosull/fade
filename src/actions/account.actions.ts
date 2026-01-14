@@ -1,6 +1,10 @@
 import { type Page, expect } from '@playwright/test';
 import IndividualPage from '../pages/account.page';
-import { waitForNonBlockingUI, findServiceCaseLink } from '../support/helpers';
+import {
+  waitForNonBlockingUI,
+  findServiceCaseLink,
+  chooseDropdownOption,
+} from '../support/helpers';
 import { SHORT_WAIT } from '../support/helpers';
 
 export class IndividualActions {
@@ -28,10 +32,10 @@ export class IndividualActions {
     await this.view.createNewButton().click();
 
     await this.view.accountOption().click();
-    await this.page.getByRole('option', { name: accountOption, exact: true }).click();
+    await chooseDropdownOption(this.page, accountOption, true);
 
     await this.view.accountTypeSelect().click();
-    await this.page.getByRole('option', { name: accountSubType }).click();
+    await chooseDropdownOption(this.page, accountSubType);
 
     if (accountSubType === 'Individual') {
       await this.view.firstName().fill(firstName!);
@@ -43,16 +47,16 @@ export class IndividualActions {
     await this.view.email().fill(email);
 
     await this.view.emailType().click();
-    await this.page.getByRole('option', { name: emailTypeSelect }).click();
+    await chooseDropdownOption(this.page, emailTypeSelect);
 
     await this.view.newAdviserDropdown().click();
-    await this.page.getByRole('option', { name: adviserSelect }).click();
+    await chooseDropdownOption(this.page, adviserSelect);
 
     await this.view.sourceType().click();
-    await this.page.getByRole('option', { name: sourceTypeSelect }).click();
+    await chooseDropdownOption(this.page, sourceTypeSelect);
 
     await this.view.introducerSelectDropdown().click();
-    await this.page.getByRole('option', { name: introducerSelect }).click();
+    await chooseDropdownOption(this.page, introducerSelect);
 
     if (accountOption === 'Account & Service Case' && serviceCaseIndicativeValue) {
       await this.newAccountServiceCaseDetails(serviceCaseIndicativeValue);
@@ -167,7 +171,7 @@ export class IndividualActions {
     await this.view.incomeFrequency().click();
     await this.view.incomeFrequencySelect().click();
     await this.view.incomeTypeDropdown().click();
-    await this.page.getByRole('option', { name: incomeType }).click();
+    await chooseDropdownOption(this.page, incomeType);
     await this.view.addName().fill(addName);
     await this.view.grossAmount().fill(grossAmount);
     await this.view.incomeDateDropdown().click();
