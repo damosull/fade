@@ -295,6 +295,27 @@ export class AccountDetailsActions {
     }
   }
 
+  async expandEmploymentDetailsIfMoreThanFive() {
+    const spinner = this.view.employmentDetailsLoadingSpinner();
+    const rows = this.view.employmentDetailsRows();
+    const spinnerCount = await spinner.count();
+
+    if (spinnerCount > 0) {
+      await spinner.first().waitFor({ state: 'hidden' });
+    }
+
+    await rows.first().waitFor({ state: 'visible' });
+
+    const rowCount = await rows.count();
+
+    if (rowCount >= 5) {
+      await this.view.employmentDetailsViewMoreButton().click();
+      await expect(this.view.employmentDetailsViewLessButton()).toBeVisible();
+    } else {
+      await expect(this.view.employmentDetailsViewMoreButton()).toHaveCount(0);
+    }
+  }
+
   async selectEmailConsent(value: string) {
     await this.view.emailConsentInput().click();
     await this.page.getByRole('option', { name: value, exact: true }).click();
@@ -461,8 +482,8 @@ export class AccountDetailsActions {
     await this.view.initialFeeSplit().fill(initialFeeSplit);
   }
 
-  async fillOngoingSplitToAdviser(OngoingSplitToAdviser: string) {
-    await this.view.ongoingFeeSplit().fill(OngoingSplitToAdviser);
+  async fillOngoingSplitToAdviser(ongoingSplitToAdviser: string) {
+    await this.view.ongoingFeeSplit().fill(ongoingSplitToAdviser);
   }
 
   async saveSourceDetails() {

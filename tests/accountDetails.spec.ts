@@ -448,5 +448,42 @@ selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, acc
       await expect(app.pages.accountDetails.initialFeeSplit()).toHaveValue(initialFeeSplit);
       await expect(app.pages.accountDetails.ongoingFeeSplit()).toHaveValue(ongoingFeeSplit);
     });
+
+    test('Details Tab - Updating Employment details section', async ({ app, page }) => {
+      if (accountType !== 'Individual') {
+        console.log(`Skipping test: Only for Individual accounts`);
+        return;
+      }
+
+      const seed = getSeed();
+      const employerName = `Employer-${stamp()}`;
+      const jobTitle = `JobTitle-${stamp()}`;
+      const employmentStatus = 'self employed';
+      const typeOfEmployment = 'self employed';
+
+      await app.actions.header.searchForAccount(seed[accountNameKey]);
+
+      await app.pages.accountDetails.addEmploymentButton().click();
+      await app.actions.addEmploymentModal.addEmploymentDetails(
+        employerName,
+        jobTitle,
+        employmentStatus,
+        typeOfEmployment
+      );
+
+      try {
+        await expect(
+          page.getByText('Employment has been saved successfully', { exact: true }).first()
+        ).toBeVisible();
+      } catch {
+        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+        await page.waitForLoadState('networkidle');
+      }
+
+      await app.actions.accountDetails.expandEmploymentDetailsIfMoreThanFive();
+      await expect(
+        app.pages.accountDetails.employmentDetailsRowByEmployerName(employerName)
+      ).toContainText(jobTitle);
+    });
   });
 });
