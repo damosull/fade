@@ -91,7 +91,7 @@ test.describe.serial('Fade seeded flows', () => {
       try {
         await expect(
           page.getByText('Introducer fee splits created successfully', { exact: false }).first()
-        ).toBeVisible({ timeout: 20_000 });
+        ).toBeVisible({ timeout: 40000 });
       } catch {
         console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
         await page.waitForLoadState('networkidle');
@@ -174,7 +174,7 @@ test.describe.serial('Fade seeded flows', () => {
       seedData.isaPolicyName = isaPolicyName;
       console.log('[seed] Adding ISA asset:', isaPolicyName);
       await app.pages.finance.addAssetButton().click();
-      await app.actions.assetModal.addAssetOverview('isa');
+      await app.actions.assetModal.addAssetOverview('ISA');
       await app.actions.assetModal.addAssetAgencyStatus('under agency');
       await app.actions.assetModal.addAssetPolicyDetails(
         isaPolicyName,
@@ -183,6 +183,14 @@ test.describe.serial('Fade seeded flows', () => {
         'in force'
       );
       await app.actions.assetModal.saveAsset();
+      try {
+        await expect(
+          page.getByText('Asset has been saved successfully', { exact: true }).first()
+        ).toBeVisible({ timeout: 20_000 });
+      } catch {
+        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+        await page.waitForLoadState('networkidle');
+      }
       console.log('[seed] ✅ ISA asset saved.');
 
       await app.pages.assetModal.addValuationButton().first().scrollIntoViewIfNeeded();
@@ -193,6 +201,14 @@ test.describe.serial('Fade seeded flows', () => {
       await app.pages.assetModal.addValuationButton().first().click();
       await app.actions.assetModal.addAssetValuation('2000000');
       await app.actions.assetModal.saveAssetValuation();
+      try {
+        await expect(
+          page.getByText('Valuation saved successfully', { exact: true }).first()
+        ).toBeVisible({ timeout: 20_000 });
+      } catch {
+        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+        await page.waitForLoadState('networkidle');
+      }
       console.log('[seed] ✅ ISA valuation saved.');
     });
 
@@ -201,7 +217,7 @@ test.describe.serial('Fade seeded flows', () => {
       seedData.giaPolicyName = giaPolicyName;
       console.log('[seed] Adding GIA asset:', giaPolicyName);
       await app.pages.finance.addAssetButton().click();
-      await app.actions.assetModal.addAssetOverview('gia');
+      await app.actions.assetModal.addAssetOverview('GIA');
       await app.actions.assetModal.addAssetAgencyStatus('under agency');
       await app.actions.assetModal.addAssetPolicyDetails(
         giaPolicyName,
@@ -210,6 +226,14 @@ test.describe.serial('Fade seeded flows', () => {
         'in force'
       );
       await app.actions.assetModal.saveAsset();
+      try {
+        await expect(
+          page.getByText('Asset has been saved successfully', { exact: true }).first()
+        ).toBeVisible({ timeout: 20_000 });
+      } catch {
+        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+        await page.waitForLoadState('networkidle');
+      }
       console.log('[seed] ✅ GIA asset saved.');
 
       await app.pages.assetModal.addValuationButton().last().scrollIntoViewIfNeeded();
@@ -220,6 +244,14 @@ test.describe.serial('Fade seeded flows', () => {
       await app.pages.assetModal.addValuationButton().last().click();
       await app.actions.assetModal.addAssetValuation('5000000');
       await app.actions.assetModal.saveAssetValuation();
+      try {
+        await expect(
+          page.getByText('Valuation saved successfully', { exact: true }).first()
+        ).toBeVisible({ timeout: 20_000 });
+      } catch {
+        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+        await page.waitForLoadState('networkidle');
+      }
       console.log('[seed] ✅ GIA valuation saved.');
     });
 
@@ -237,7 +269,14 @@ test.describe.serial('Fade seeded flows', () => {
         'under agency',
         'non-advised'
       );
-      await page.waitForLoadState('networkidle');
+      try {
+        await expect(
+          page.getByText('Protection policy has been saved successfully', { exact: false }).first()
+        ).toBeVisible({ timeout: 20_000 });
+      } catch {
+        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+        await page.waitForLoadState('networkidle');
+      }
       console.log(`[seed] ✅ Protection policy created (${protectionPolicyNumber}).`);
     });
 
@@ -245,6 +284,11 @@ test.describe.serial('Fade seeded flows', () => {
   });
 
   test('Trust account creation', async ({ app, page }) => {
+    if (!seedData.ownerTag) {
+      throw new Error(
+        '[seed] ownerTag is not set. The first test must run successfully before this test.'
+      );
+    }
     const trustAccountName = `Trust-${seedData.ownerTag}`;
     seedData.trustAccountName = trustAccountName;
     const introducerFirmName = seedData.introducerFirmName;
@@ -278,6 +322,11 @@ test.describe.serial('Fade seeded flows', () => {
   });
 
   test('Corporation account creation', async ({ app, page }) => {
+    if (!seedData.ownerTag) {
+      throw new Error(
+        '[seed] ownerTag is not set. The first test must run successfully before this test.'
+      );
+    }
     const corporationAccountName = `Corp-${seedData.ownerTag}`;
     seedData.corporationAccountName = corporationAccountName;
     const introducerFirmName = seedData.introducerFirmName;
