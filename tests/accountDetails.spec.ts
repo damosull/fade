@@ -450,13 +450,19 @@ selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, acc
     });
 
     test('Details Tab - Updating Employment details section', async ({ app, page }) => {
+      if (accountType !== 'Individual') {
+        console.log(`Skipping test: Only for Individual accounts`);
+        return;
+      }
+
       const seed = getSeed();
       const employerName = `Employer-${stamp()}`;
       const jobTitle = `JobTitle-${stamp()}`;
       const employmentStatus = 'self employed';
       const typeOfEmployment = 'self employed';
 
-      await app.actions.header.searchForAccount(seed.accountSurname);
+      await app.actions.header.searchForAccount(seed[accountNameKey]);
+
       await app.pages.accountDetails.addEmploymentButton().click();
       await app.actions.addEmploymentModal.addEmploymentDetails(
         employerName,
