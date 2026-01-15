@@ -23,6 +23,7 @@ const actionConstructors = {
   signin: actions.SigninActions,
   assetModal: actions.AssetModalActions,
   accountDetails: actions.AccountDetailsActions,
+  addEmploymentModal: actions.AddEmploymentModalActions,
   withdrawalModal: actions.WithdrawalModalActions,
 } as const;
 
@@ -43,6 +44,7 @@ const pageConstructors = {
   signin: pages.SigninPage,
   assetModal: pages.AssetModalPage,
   accountDetails: pages.AccountDetailsPage,
+  addEmploymentModal: pages.AddEmploymentModalPage,
   withdrawalModal: pages.WithdrawalModalPage,
 } as const;
 

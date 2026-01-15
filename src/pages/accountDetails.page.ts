@@ -116,9 +116,7 @@ export class AccountDetailsPage {
   }
 
   personalDetailsSaveButton() {
-    return this.page
-      .locator('form[data-sentry-component="IndividualDetailsForm"]')
-      .getByRole('button', { name: 'Save' });
+    return this.page.locator('button:has-text("Save")').first();
   }
 
   successMessage() {
@@ -133,6 +131,18 @@ export class AccountDetailsPage {
     return this.addressesSection().getByRole('button', { name: 'View more' });
   }
 
+  addressesViewLessButton() {
+    return this.addressesSection().getByRole('button', { name: 'View less' });
+  }
+
+  addressRows() {
+    return this.addressesSection().locator('tbody tr');
+  }
+
+  addressesLoadingSpinner() {
+    return this.addressesSection().locator('svg[data-sentry-element="ArrowPathIcon"]');
+  }
+
   addressRowByCity(city: string) {
     return this.addressesSection().locator('tr').filter({ hasText: city });
   }
@@ -142,7 +152,25 @@ export class AccountDetailsPage {
   }
 
   correspondenceMethodsSection() {
-    return this.page.locator('div').filter({ hasText: 'Correspondence Methods' }).first();
+    return this.page
+      .locator('div.border.border-green.border-l-8')
+      .filter({ hasText: /Correspondence( Methods)?/ });
+  }
+
+  correspondenceLoadingSpinner() {
+    return this.correspondenceMethodsSection().locator('svg[data-sentry-element="ArrowPathIcon"]');
+  }
+
+  correspondenceRows() {
+    return this.correspondenceMethodsSection().locator('tbody tr');
+  }
+
+  correspondenceViewMoreButton() {
+    return this.correspondenceMethodsSection().getByRole('button', { name: 'View more' });
+  }
+
+  correspondenceViewLessButton() {
+    return this.correspondenceMethodsSection().getByRole('button', { name: 'View less' });
   }
 
   correspondenceMethodInput() {
@@ -164,9 +192,7 @@ export class AccountDetailsPage {
   }
 
   correspondenceAddButton() {
-    return this.correspondenceMethodsSection()
-      .locator('form[data-sentry-component="CorrespondenceForm"]')
-      .getByRole('button', { name: 'Add' });
+    return this.correspondenceMethodsSection().getByRole('button', { name: 'Add' });
   }
 
   correspondenceRowByPhoneNumber(phoneNumber: string) {
@@ -182,38 +208,296 @@ export class AccountDetailsPage {
   }
 
   relationshipsSection() {
-    return this.page.locator('form[data-sentry-component="RelationshipForm"]');
+    return this.page
+      .locator('div.border.border-green.border-l-8')
+      .filter({ hasText: 'Relationships' })
+      .first();
+  }
+
+  relationshipsTable() {
+    return this.page.locator('table').filter({ hasText: ' is the ' });
+  }
+
+  directorsSection() {
+    return this.page
+      .locator('div.border.border-green.border-l-8')
+      .filter({ hasText: 'Directors' })
+      .first();
+  }
+
+  directorsTable() {
+    return this.page.locator('table').filter({ hasText: ' is the ' });
   }
 
   relationshipsViewMoreButton() {
-    return this.page
-      .locator('div[data-sentry-component="RelationshipsView"]')
-      .locator('table tfoot')
-      .getByRole('button', { name: 'View more' });
+    return this.relationshipsTable().getByRole('button', { name: 'View more' });
   }
 
-  relationshipAccountInput() {
+  relationshipsViewLessButton() {
+    return this.relationshipsTable().getByRole('button', { name: 'View less' });
+  }
+
+  directorsViewMoreButton() {
+    return this.directorsTable().getByRole('button', { name: 'View more' });
+  }
+
+  directorsViewLessButton() {
+    return this.directorsTable().getByRole('button', { name: 'View less' });
+  }
+
+  relationshipsAccountInput() {
     return this.relationshipsSection().getByRole('combobox').first();
   }
 
-  relationshipTypeInput() {
+  directorAccountInput() {
+    return this.directorsSection().getByRole('combobox').first();
+  }
+
+  relationshipsTypeInput() {
     return this.relationshipsSection().getByRole('combobox').nth(1);
   }
 
-  relationshipAddButton() {
+  directorTypeInput() {
+    return this.directorsSection().getByRole('combobox').nth(1);
+  }
+
+  relationshipsAddButton() {
     return this.relationshipsSection().getByRole('button', { name: 'Add' });
   }
 
-  relationshipRowByAccountName(accountName: string, relationType: string) {
-    const relationshipsTable = this.page.locator(
-      'div[data-sentry-component="RelationshipsView"] table tbody'
-    );
-    const descriptionText = `${accountName} is the ${relationType} of`;
-    return relationshipsTable.locator('tr').filter({ hasText: descriptionText }).last();
+  directorsAddButton() {
+    return this.directorsSection().getByRole('button', { name: 'Add' });
   }
 
-  relationshipSuccessMessage() {
-    return this.page.getByText('Relationship added successfully', { exact: true });
+  relationshipsRows() {
+    return this.relationshipsTable()
+      .locator('tbody tr')
+      .filter({ has: this.page.locator('a[href^="/accounts/"]'), hasText: /is the/i });
+  }
+
+  directorsRows() {
+    return this.directorsTable()
+      .locator('tbody tr')
+      .filter({ has: this.page.locator('a[href^="/accounts/"]'), hasText: /is the/i });
+  }
+
+  relationshipsLoadingSpinner() {
+    return this.relationshipsSection().locator('svg[data-sentry-element="ArrowPathIcon"]');
+  }
+
+  directorsLoadingSpinner() {
+    return this.directorsSection().locator('svg[data-sentry-element="ArrowPathIcon"]');
+  }
+
+  relationshipsRowByAccountName(accountName: string, relationType: string) {
+    const descriptionText = `${accountName} is the ${relationType} of`;
+    return this.relationshipsRows().filter({ hasText: descriptionText }).first();
+  }
+
+  marketingPreferencesSection() {
+    return this.page
+      .locator('div.border.border-green.border-l-8')
+      .filter({ hasText: 'Marketing Preferences' })
+      .first();
+  }
+
+  emailConsentInput() {
+    return this.page.locator('label').filter({ hasText: 'Email Consent' }).locator('svg');
+  }
+
+  phoneConsentInput() {
+    return this.page.locator('label').filter({ hasText: 'Phone Consent' }).locator('svg');
+  }
+
+  marketingPreferencesSaveButton() {
+    return this.marketingPreferencesSection().locator('button').filter({ hasText: 'Save' });
+  }
+
+  beneficiariesSection() {
+    return this.page
+      .locator('div.border.border-green.border-l-8')
+      .filter({ hasText: 'Beneficiaries' });
+  }
+
+  addBeneficiaryButton() {
+    return this.beneficiariesSection().getByRole('button', { name: 'Add Beneficiary' });
+  }
+
+  beneficiariesTable() {
+    return this.page.locator('table').filter({ hasText: 'Beneficiary Name' });
+  }
+
+  beneficiariesViewMoreButton() {
+    return this.beneficiariesTable().getByRole('button', { name: 'View more' });
+  }
+
+  beneficiariesViewLessButton() {
+    return this.beneficiariesTable().getByRole('button', { name: 'View less' });
+  }
+
+  beneficiariesRows() {
+    return this.beneficiariesTable().locator('tbody tr');
+  }
+
+  beneficiariesLoadingSpinner() {
+    return this.beneficiariesSection().locator('svg.animate-spin');
+  }
+
+  // Corporation Account Details
+  corporationNameInput() {
+    return this.page.getByRole('textbox', { name: 'Corporation Name' });
+  }
+
+  corporationNumberInput() {
+    return this.page.getByRole('textbox', { name: 'Corporation Number' });
+  }
+
+  corporationDescriptionInput() {
+    return this.page.getByRole('textbox', { name: 'Corporation Description' });
+  }
+
+  leiInput() {
+    return this.page.getByRole('textbox', { name: 'LEI' });
+  }
+
+  leiExpiryDateInput() {
+    return this.page.locator('input[name="leiExpiryDate"]');
+  }
+
+  salutationInput() {
+    return this.page.getByRole('textbox', { name: 'Salutation' });
+  }
+
+  financialYearEndDateInput() {
+    return this.page.locator('input[name="financialYearEndDate"]');
+  }
+
+  incorporationDateInput() {
+    return this.page.locator('input[name="startDate"]');
+  }
+
+  companyTypeInput() {
+    return this.page.locator('input[name="type"]').first();
+  }
+
+  companyTypeDropdown() {
+    return this.page
+      .locator('label')
+      .filter({ hasText: 'Company Type' })
+      .locator('div.css-mv2owe-control');
+  }
+
+  corporationDetailsSaveButton() {
+    return this.page
+      .locator('form')
+      .filter({ has: this.page.locator('fieldset:has-text("Corporation Account Details")') })
+      .locator('button:has-text("Save")');
+  }
+
+  corporationNameLabel() {
+    return this.page.locator('label').filter({ hasText: 'Corporation Name' });
+  }
+
+  // Trust Account Details
+  trustNameInput() {
+    return this.page.getByRole('textbox', { name: 'Trust Name' });
+  }
+
+  trustDescriptionInput() {
+    return this.page.getByRole('textbox', { name: 'Trust Description' });
+  }
+
+  trustStartDateInput() {
+    return this.page.locator('input[name="startDate"]');
+  }
+
+  trustTypeDropdown() {
+    return this.page
+      .locator('label')
+      .filter({ hasText: 'Trust Type' })
+      .locator('div.css-mv2owe-control');
+  }
+
+  trustDetailsSaveButton() {
+    return this.page
+      .locator('fieldset')
+      .filter({ hasText: 'Trust Account Details' })
+      .locator('button:has-text("Save")');
+  }
+
+  serviceDetailsSection() {
+    return this.page
+      .locator('div.border.border-green.border-l-8')
+      .filter({ hasText: 'Service Details' });
+  }
+
+  adviserInput() {
+    return this.serviceDetailsSection()
+      .locator('label')
+      .filter({ hasText: 'Adviser' })
+      .locator('svg');
+  }
+
+  serviceDetailsSaveButton() {
+    return this.serviceDetailsSection().locator('button').filter({ hasText: 'Save' });
+  }
+
+  confirmChangeButton() {
+    return this.page.locator('button').filter({ hasText: 'Confirm Change' });
+  }
+
+  sourceDetailsSection() {
+    return this.page
+      .locator('div.border.border-green.border-l-8')
+      .filter({ hasText: 'Source Details' });
+  }
+
+  initialFeeSplit() {
+    return this.sourceDetailsSection().getByRole('textbox', {
+      name: 'Initial Fee Split to Adviser %',
+    });
+  }
+
+  ongoingFeeSplit() {
+    return this.sourceDetailsSection().getByRole('textbox', { name: 'Ongoing Split to Adviser %' });
+  }
+
+  sourceDetailsSaveButton() {
+    return this.sourceDetailsSection().locator('button').filter({ hasText: 'Save' });
+  }
+
+  employmentDetailsSection() {
+    return this.page
+      .locator('div.border.border-green.border-l-8')
+      .filter({ hasText: 'Employment Details' });
+  }
+
+  employmentDetailsTable() {
+    return this.employmentDetailsSection().locator('table');
+  }
+
+  employmentDetailsRows() {
+    return this.employmentDetailsTable().locator('tbody tr');
+  }
+
+  employmentDetailsRowByEmployerName(employerName: string) {
+    return this.employmentDetailsRows().filter({ hasText: employerName }).first();
+  }
+
+  employmentDetailsLoadingSpinner() {
+    return this.employmentDetailsSection().locator('svg[data-sentry-element="ArrowPathIcon"]');
+  }
+
+  employmentDetailsViewMoreButton() {
+    return this.employmentDetailsTable().getByRole('button', { name: 'View more' });
+  }
+
+  employmentDetailsViewLessButton() {
+    return this.employmentDetailsTable().getByRole('button', { name: 'View less' });
+  }
+
+  addEmploymentButton() {
+    return this.employmentDetailsSection().getByRole('button', { name: 'Add employment' });
   }
 }
 

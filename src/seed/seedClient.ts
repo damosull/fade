@@ -18,7 +18,7 @@ export function getSeed(): SeedData {
   const seedsPath = path.join(cacheDir, 'seeds.json');
 
   if (!fs.existsSync(seedsPath)) {
-    throw new Error(`[seedClient] No seeds found at ${seedsPath}. Run seed.spec.ts first.`);
+    throw new Error(`[seedClient] No seeds found at ${seedsPath}. Run 'npm run seed:local' first.`);
   }
 
   const parsed = JSON.parse(fs.readFileSync(seedsPath, 'utf8'));
