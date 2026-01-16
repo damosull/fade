@@ -32,9 +32,11 @@ export class RunNewAmlCheckModalActions {
       this.view.electronicCheckResultDropdown(),
       electronicCheckResult
     );
-    if (result === 'Passed') {
-      await this.view.passedButton().click();
+    if (result !== 'Passed') {
+      throw new Error(`Unsupported AML result: ${result}`);
     }
+    await this.view.passedButton().click();
+    await expect(this.view.runNewAmlCheckHeading()).toBeHidden({ timeout: 5000 });
   }
 }
 

@@ -485,31 +485,39 @@ selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, acc
         app.pages.accountDetails.employmentDetailsRowByEmployerName(employerName)
       ).toContainText(jobTitle);
     });
-  });
 
-  test('Details Tab - Verify updating AML check section*', async ({ app, page }) => {
-    const seed = getSeed();
-    const proofOfId = 'passport';
-    const proofOfAddress = 'utility bill';
-    const isPoliticallyExposed = 'no';
-    const electronicCheckResult = 'pass';
-    const result = 'Passed';
+    test('Details Tab - Verify updating AML check section*', async ({ app, page }) => {
+      if (accountType !== 'Individual') {
+        console.log(`Skipping test: Only for Individual accounts`);
+        return;
+      }
 
-    await app.actions.header.searchForAccount(seed.accountSurname);
-    await app.pages.accountDetails.runNewAmlCheckButton().click();
-    await app.actions.runNewAmlCheckModal.runNewAmlCheck(
-      proofOfId,
-      proofOfAddress,
-      isPoliticallyExposed,
-      electronicCheckResult,
-      result
-    );
+      const seed = getSeed();
+      const proofOfId = 'passport';
+      const proofOfAddress = 'utility bill';
+      const isPoliticallyExposed = 'no';
+      const electronicCheckResult = 'pass';
+      const result = 'Passed';
 
-    try {
-      await expect(page.getByText('AML saved successfully', { exact: true }).first()).toBeVisible();
-    } catch {
-      console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
-      await page.waitForLoadState('networkidle');
-    }
+      await app.actions.header.searchForAccount(seed[accountNameKey]);
+
+      await app.pages.accountDetails.runNewAmlCheckButton().click();
+      await app.actions.runNewAmlCheckModal.runNewAmlCheck(
+        proofOfId,
+        proofOfAddress,
+        isPoliticallyExposed,
+        electronicCheckResult,
+        result
+      );
+
+      try {
+        await expect(
+          page.getByText('AML saved successfully', { exact: true }).first()
+        ).toBeVisible();
+      } catch {
+        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+        await page.waitForLoadState('networkidle');
+      }
+    });
   });
 });
