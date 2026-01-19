@@ -126,9 +126,8 @@ export class FinanceTabPage {
   }
 
   withdrawalRowByAmount(amount: number) {
-    return this.withdrawalsSection()
-      .locator('tr')
-      .filter({ hasText: `£${amount.toFixed(2)}` });
+    const formattedAmount = `£${amount.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    return this.withdrawalsSection().locator('tr').filter({ hasText: formattedAmount });
   }
 }
 
