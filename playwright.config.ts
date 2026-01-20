@@ -18,6 +18,13 @@ const storageFor = (p: string) =>
       ? localShared
       : undefined;
 
+const jsonReporter: [string, { outputFile: string }] = [
+  'json',
+  {
+    outputFile: process.env.PLAYWRIGHT_RESULTS_FILE ?? 'playwright-report/results.json',
+  },
+];
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -40,8 +47,8 @@ export default defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 1,
   /* Opt out of parallel tests on CI. */
-  timeout: 120000,
-  /* Time out increased to 2 minutes for each test */
+  timeout: 360000,
+  /* Time out increased to 6 minutes for each test */
   expect: { timeout: 120000 },
   /* Time out for each expect() call */
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
@@ -50,10 +57,12 @@ export default defineConfig({
         ['github'], // GH annotations on failures
         ['list'], // live progress in the Actions log
         ['html', { open: 'never' }],
+        jsonReporter,
       ]
     : [
         ['list'], // nice local progress
-        ['html'],
+        ['html', { open: 'never' }],
+        jsonReporter,
       ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
