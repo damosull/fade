@@ -60,6 +60,11 @@ export class AssetModalActions {
   async saveAssetValuation() {
     await this.view.saveValuationButton().click();
   }
+
+  async addPolicyStatusDate() {
+    await this.view.policyStatusDateDropdown().click();
+    await this.view.policyStatusDatePickerToday().click();
+  }
 }
 
 export default AssetModalActions;

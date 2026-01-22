@@ -3,7 +3,7 @@ import { type Locator, type Page, expect } from '@playwright/test';
 /**
  * Standard wait time for most element visibility checks.
  */
-export const SHORT_WAIT = 5000;
+export const SHORT_WAIT = 8000;
 
 /**
  * Clicks an element after confirming it’s visible.

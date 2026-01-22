@@ -108,6 +108,14 @@ export class FinanceTabPage {
   addPolicyButton() {
     return this.page.getByRole('button', { name: 'Add Policy' });
   }
+
+  assetsSection() {
+    return this.page.locator('#assets');
+  }
+
+  assetRowByName(name: string) {
+    return this.assetsSection().locator('tr').filter({ hasText: name });
+  }
 }
 
 export default FinanceTabPage;
