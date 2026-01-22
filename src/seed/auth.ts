@@ -4,6 +4,7 @@ import path from 'node:path';
 import { existsSync, mkdirSync } from 'node:fs';
 import { SigninActions } from '../actions/index.actions';
 import { HeaderAndHamburgerPage } from '../pages/index.page';
+import { waitForSpinnersToDisappear } from '../support/helpers';
 
 if (!process.env.CI) {
   loadEnv();
@@ -66,7 +67,6 @@ export async function navigateToHome(
 
   try {
     await page.goto(new URL('/', baseURL).toString(), { waitUntil: 'domcontentloaded' });
-    await page.waitForLoadState('networkidle');
 
     const header = new HeaderAndHamburgerPage(page);
 
@@ -85,6 +85,11 @@ export async function navigateToHome(
     } else if (!quiet) {
       console.log('[auth] ✅ Already logged in.');
     }
+
+    await page
+      .getByRole('heading', { name: 'Dashboard', level: 1 })
+      .waitFor({ state: 'visible', timeout: 120000 });
+    await waitForSpinnersToDisappear(page);
 
     await ensureStorageState(page, projectName);
     return true;
