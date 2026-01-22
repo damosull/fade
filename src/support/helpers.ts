@@ -49,7 +49,7 @@ export async function chooseDropdownOption(
   await expect(listbox).toBeVisible();
 
   const allOptions = listbox.getByRole('option');
-  await expect(allOptions.first()).toBeVisible({ timeout: SHORT_WAIT });
+  await expect(allOptions.first()).toBeVisible();
 
   const texts = await allOptions.allInnerTexts();
 
@@ -101,6 +101,37 @@ export async function waitForNonBlockingUI(page: Page, timeoutMs = 5000): Promis
       // ignore if not present
     }
   }
+}
+
+/**
+ * Waits for all visible spinning SVG elements to disappear.
+ * Useful for ensuring loading states have completed before proceeding.
+ */
+export async function waitForSpinnersToDisappear(page: Page, timeout = 120000): Promise<void> {
+  await expect
+    .poll(
+      async () => {
+        // eslint-disable-next-line playwright/no-eval
+        return await page.$$eval(
+          'svg.animate-spin',
+          (svgs) =>
+            svgs.filter((svg) => {
+              // eslint-disable-next-line no-undef
+              const style = window.getComputedStyle(svg);
+              const rect = svg.getBoundingClientRect();
+
+              return (
+                style.display !== 'none' &&
+                style.visibility !== 'hidden' &&
+                rect.width > 0 &&
+                rect.height > 0
+              );
+            }).length
+        );
+      },
+      { timeout }
+    )
+    .toBe(0);
 }
 
 /**
@@ -162,3 +193,22 @@ export async function selectDateByOffset(
   await dateCell.waitFor({ state: 'visible', timeout: 120000 });
   await dateCell.click();
 }
+
+/**
+ * Account type definitions for parameterized tests
+ */
+export const ACCOUNT_TYPES = {
+  Individual: { accountType: 'Individual', accountNameKey: 'accountSurname' as const },
+  Trust: { accountType: 'Trust', accountNameKey: 'trustAccountName' as const },
+  Corporation: { accountType: 'Corporation', accountNameKey: 'corporationAccountName' as const },
+} as const;
+
+export type AccountTypeKey = keyof typeof ACCOUNT_TYPES;
+export type AccountTypeData = (typeof ACCOUNT_TYPES)[AccountTypeKey];
+
+/**
+ * Helper to select which account types to test
+ */
+export const selectAccounts = (...types: AccountTypeKey[]) => {
+  return types.map((type) => ACCOUNT_TYPES[type]);
+};

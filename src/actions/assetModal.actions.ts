@@ -14,12 +14,12 @@ export class AssetModalActions {
   async addAssetOverview(selectAssetType: string) {
     await expect(this.view.addAssetHeading()).toBeVisible({ timeout: 5000 });
     await this.view.assetTypeDropdown().click();
-    await this.view.selectAssetTypeOption(selectAssetType).click();
+    await this.view.selectAssetTypeOption(selectAssetType, true).click();
   }
 
   async addAssetSubType(selectAssetSubType: string) {
     await this.view.assetSubTypeDropdown().click();
-    await this.view.selectAssetSubTypeOption(selectAssetSubType).click();
+    await this.view.selectAssetSubTypeOption(selectAssetSubType, true).click();
   }
 
   async addAssetAgencyStatus(agencyStatusSelect: string) {
@@ -37,10 +37,10 @@ export class AssetModalActions {
   ) {
     await this.view.policyName().fill(policyName);
     await this.view.providerDropdown().click();
-    await this.view.selectProviderOption(provider).click();
+    await this.view.selectProviderOption(provider, true).click();
     await this.view.policyNumber().fill(policyNumber);
     await this.view.policyStatusDropdown().click();
-    await this.view.selectPolicyStatusOption(policyStatus).click();
+    await this.view.selectPolicyStatusOption(policyStatus, true).click();
   }
 
   async saveAsset() {
