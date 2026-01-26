@@ -25,6 +25,7 @@ const actionConstructors = {
   accountDetails: actions.AccountDetailsActions,
   addEmploymentModal: actions.AddEmploymentModalActions,
   withdrawalModal: actions.WithdrawalModalActions,
+  contributionModal: actions.ContributionModalActions,
 } as const;
 
 /**
@@ -46,6 +47,7 @@ const pageConstructors = {
   accountDetails: pages.AccountDetailsPage,
   addEmploymentModal: pages.AddEmploymentModalPage,
   withdrawalModal: pages.WithdrawalModalPage,
+  contributionModal: pages.ContributionModalPage,
 } as const;
 
 /**

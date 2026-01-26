@@ -374,4 +374,48 @@ test.describe('Finances Tab', () => {
     await expect(withdrawalRow).toContainText('draft');
     await expect(withdrawalRow).toContainText('pre-existing');
   });
+
+  test('Finances Tab - Verify successfully adding contribution - Cash Transfer', async ({
+    app,
+  }) => {
+    const ownerTag = `e2e-${stamp()}`;
+    const isaPolicyName = `ISA-${ownerTag}`;
+    const seed = getSeed();
+    const newPolicy = policyNumber();
+    const provider = 'Aviva';
+    const uniqueAmount = Math.floor(Math.random() * 8901) + 100;
+
+    await app.actions.header.searchForAccount(seed.accountSurname);
+    await app.actions.header.openFinancesTab();
+
+    await app.pages.finance.addAssetButton().click();
+    await app.actions.assetModal.addAssetOverview('ISA');
+    await app.actions.assetModal.addAssetSubType('stocks & shares ISA');
+    await app.actions.assetModal.addAssetPolicyDetails(
+      isaPolicyName,
+      provider,
+      newPolicy,
+      'in force'
+    );
+    await app.actions.assetModal.addPolicyStatusDate();
+    await app.actions.assetModal.saveAsset();
+
+    await app.actions.finance.expandAsset(isaPolicyName);
+
+    await app.pages.finance.addContributionButton().click();
+    await app.actions.contributionModal.addType('Cash Transfer');
+    await app.actions.contributionModal.selectFirstTransferredFrom();
+    await app.actions.contributionModal.enterEstimatedAmount(uniqueAmount.toString());
+    await app.actions.contributionModal.selectStatus('submitted');
+    await app.actions.contributionModal.selectFrequency('monthly');
+    await app.actions.contributionModal.selectTransferType('cash');
+    await app.actions.contributionModal.selectTargetDateToday();
+    await app.actions.contributionModal.saveContribution();
+
+    const contributionRow = app.pages.finance.contributionRowByAmount(uniqueAmount);
+    await expect(contributionRow).toContainText('cash transfer');
+    await expect(contributionRow).toContainText('submitted');
+    await expect(contributionRow).toContainText('monthly');
+    await expect(contributionRow).toContainText('existing contribution');
+  });
 });

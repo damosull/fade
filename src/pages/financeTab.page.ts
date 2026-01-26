@@ -129,6 +129,15 @@ export class FinanceTabPage {
     const formattedAmount = `£${amount.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     return this.withdrawalsSection().locator('tr').filter({ hasText: formattedAmount });
   }
+
+  contributionsSection() {
+    return this.page.getByRole('group', { name: 'Contributions' });
+  }
+
+  contributionRowByAmount(amount: number) {
+    const formattedAmount = `£${amount.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    return this.contributionsSection().locator('tr').filter({ hasText: formattedAmount });
+  }
 }
 
 export default FinanceTabPage;

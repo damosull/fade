@@ -11,3 +11,4 @@ export { default as AssetModalActions } from './assetModal.actions';
 export { default as AccountDetailsActions } from './accountDetails.actions';
 export { default as AddEmploymentModalActions } from './addEmploymentModal.actions';
 export { default as WithdrawalModalActions } from './withdrawalModal.actions';
+export { default as ContributionModalActions } from './contributionModal.actions';
