@@ -121,6 +121,10 @@ export class FinanceTabPage {
     return this.assetsSection().locator('tr').filter({ hasText: name });
   }
 
+  valuationButtonForAsset(assetName: string) {
+    return this.assetRowByName(assetName).getByRole('button', { name: 'Valuations' });
+  }
+
   withdrawalsSection() {
     return this.page.getByRole('group', { name: 'Withdrawals' });
   }

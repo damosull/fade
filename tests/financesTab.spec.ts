@@ -498,4 +498,36 @@ test.describe('Finances Tab', () => {
     await expect(contributionRow).toContainText('monthly');
     await expect(contributionRow).toContainText('existing contribution');
   });
+
+  test('Finances Tab - Add valuation successfully to asset', async ({ app }) => {
+    const ownerTag = `e2e-${stamp()}`;
+    const isaPolicyName = `ISA-${ownerTag}`;
+    const seed = getSeed();
+    const newPolicy = policyNumber();
+    const provider = 'Aviva';
+    const uniqueAmount = Math.floor(Math.random() * 8901) + 100;
+
+    await app.actions.header.searchForAccount(seed.accountSurname);
+    await app.actions.header.openFinancesTab();
+
+    await app.pages.finance.addAssetButton().click();
+    await app.actions.assetModal.addAssetOverview('ISA');
+    await app.actions.assetModal.addAssetSubType('stocks & shares ISA');
+    await app.actions.assetModal.addAssetPolicyDetails(
+      isaPolicyName,
+      provider,
+      newPolicy,
+      'in force'
+    );
+    await app.actions.assetModal.addPolicyStatusDate();
+    await app.actions.assetModal.saveAsset();
+
+    await app.pages.finance.valuationButtonForAsset(isaPolicyName).click();
+    await app.actions.assetModal.addAssetValuation(uniqueAmount.toString());
+    await app.actions.assetModal.saveAssetValuation();
+
+    const assetRow = app.pages.finance.assetRowByName(isaPolicyName);
+    const formattedAmount = `£${uniqueAmount.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    await expect(assetRow).toContainText(formattedAmount);
+  });
 });
