@@ -13,7 +13,7 @@ export class ContributionModalActions {
   async addType(selectType: string) {
     await expect(this.view.addContributionHeading()).toBeVisible({ timeout: 5000 });
     await this.view.typeDropdown().click();
-    await this.view.selectTypeOption(selectType, false).click();
+    await this.view.selectTypeOption(selectType, true).click();
   }
 
   async selectFirstTransferredFrom() {
