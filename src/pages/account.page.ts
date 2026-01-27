@@ -123,8 +123,8 @@ export class IndividualPage {
       .locator('svg');
   }
 
-  addressTypeSelect() {
-    return this.page.getByRole('option', { name: 'home', exact: true });
+  addressTypeOption(addressType: string) {
+    return this.page.getByRole('option', { name: addressType, exact: true });
   }
 
   searchAddress() {
@@ -303,10 +303,6 @@ export class IndividualPage {
 
   newAdviserDropdown() {
     return this.page.locator('label').filter({ hasText: 'adviserSelect' }).locator('svg');
-  }
-
-  newAdviserSelect() {
-    return this.page.getByRole('option', { name: 'Test Superadmin' });
   }
 
   serviceCaseDate() {
