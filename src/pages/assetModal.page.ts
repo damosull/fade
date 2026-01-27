@@ -15,24 +15,24 @@ export class AssetModalPage {
     return this.page.getByRole('group', { name: 'Overview' }).locator('svg');
   }
 
-  selectAssetTypeOption(name: string) {
-    return this.page.getByRole('option', { name });
+  selectAssetTypeOption(name: string, exact = true) {
+    return this.page.getByRole('option', { name, exact });
   }
 
   assetSubTypeDropdown() {
     return this.page.locator('label').filter({ hasText: 'Sub TypeSelect' }).locator('svg');
   }
 
-  selectAssetSubTypeOption(name: string) {
-    return this.page.getByRole('option', { name });
+  selectAssetSubTypeOption(name: string, exact = true) {
+    return this.page.getByRole('option', { name, exact });
   }
 
   pensionTypeDropdown() {
     return this.page.locator('label').filter({ hasText: 'Pension TypeSelect' }).locator('svg');
   }
 
-  selectPensionTypeOption(name: string) {
-    return this.page.getByRole('option', { name });
+  selectPensionTypeOption(name: string, exact = true) {
+    return this.page.getByRole('option', { name, exact });
   }
 
   addAssetSaveButton() {
@@ -70,8 +70,8 @@ export class AssetModalPage {
     return this.page.locator('label').filter({ hasText: 'ProviderSelect...' }).locator('svg');
   }
 
-  selectProviderOption(name: string) {
-    return this.page.getByRole('option', { name });
+  selectProviderOption(name: string, exact = true) {
+    return this.page.getByRole('option', { name, exact });
   }
 
   wrapId() {
@@ -108,8 +108,8 @@ export class AssetModalPage {
     return this.page.locator('label').filter({ hasText: 'Policy StatusSelect...' }).locator('svg');
   }
 
-  selectPolicyStatusOption(name: string) {
-    return this.page.getByRole('option', { name });
+  selectPolicyStatusOption(name: string, exact = true) {
+    return this.page.getByRole('option', { name, exact });
   }
 
   policyStatusDateDropdown() {
@@ -134,8 +134,8 @@ export class AssetModalPage {
       .locator('svg');
   }
 
-  selectMembershipStatusOption(name: string) {
-    return this.page.getByRole('option', { name });
+  selectMembershipStatusOption(name: string, exact = true) {
+    return this.page.getByRole('option', { name, exact });
   }
 
   employmentDropdown() {
@@ -149,8 +149,8 @@ export class AssetModalPage {
       .locator('svg');
   }
 
-  selectDrawdownStatusOption(name: string) {
-    return this.page.getByRole('option', { name });
+  selectDrawdownStatusOption(name: string, exact = true) {
+    return this.page.getByRole('option', { name, exact });
   }
 
   addValuationButton() {

@@ -1,6 +1,10 @@
 import { type Page, expect } from '@playwright/test';
 import IndividualPage from '../pages/account.page';
-import { waitForNonBlockingUI, findServiceCaseLink } from '../support/helpers';
+import {
+  waitForNonBlockingUI,
+  findServiceCaseLink,
+  chooseDropdownOption,
+} from '../support/helpers';
 import { SHORT_WAIT } from '../support/helpers';
 
 export class IndividualActions {
@@ -28,10 +32,10 @@ export class IndividualActions {
     await this.view.createNewButton().click();
 
     await this.view.accountOption().click();
-    await this.page.getByRole('option', { name: accountOption, exact: true }).click();
+    await chooseDropdownOption(this.page, accountOption, true);
 
     await this.view.accountTypeSelect().click();
-    await this.page.getByRole('option', { name: accountSubType }).click();
+    await chooseDropdownOption(this.page, accountSubType);
 
     if (accountSubType === 'Individual') {
       await this.view.firstName().fill(firstName!);
@@ -43,16 +47,16 @@ export class IndividualActions {
     await this.view.email().fill(email);
 
     await this.view.emailType().click();
-    await this.page.getByRole('option', { name: emailTypeSelect }).click();
+    await chooseDropdownOption(this.page, emailTypeSelect);
 
     await this.view.newAdviserDropdown().click();
-    await this.page.getByRole('option', { name: adviserSelect }).click();
+    await chooseDropdownOption(this.page, adviserSelect);
 
     await this.view.sourceType().click();
-    await this.page.getByRole('option', { name: sourceTypeSelect }).click();
+    await chooseDropdownOption(this.page, sourceTypeSelect);
 
     await this.view.introducerSelectDropdown().click();
-    await this.page.getByRole('option', { name: introducerSelect }).click();
+    await chooseDropdownOption(this.page, introducerSelect);
 
     if (accountOption === 'Account & Service Case' && serviceCaseIndicativeValue) {
       await this.newAccountServiceCaseDetails(serviceCaseIndicativeValue);
@@ -84,11 +88,11 @@ export class IndividualActions {
     await this.view.viewMore().click();
   }
 
-  async addSearchAddress(addressQuery: string): Promise<void> {
+  async addSearchAddress(addressQuery: string, addressType: string = 'home'): Promise<void> {
     await expect(this.view.addNewAddressButton()).toBeVisible({ timeout: SHORT_WAIT });
     await this.view.addNewAddressButton().click();
     await this.view.addressType().click();
-    await this.view.addressTypeSelect().click();
+    await this.view.addressTypeOption(addressType).click();
     await this.view.searchAddress().fill(addressQuery);
     await this.view.selectAddress().click();
     await this.view.addAddressButton().click();
@@ -100,12 +104,13 @@ export class IndividualActions {
     city: string,
     county: string,
     postCode: string,
+    addressType: string = 'home',
     useForCorrespondence: boolean = false
   ): Promise<void> {
     await expect(this.view.addNewAddressButton()).toBeVisible({ timeout: SHORT_WAIT });
     await this.view.addNewAddressButton().click();
     await this.view.addressType().click();
-    await this.view.addressTypeSelect().click();
+    await this.view.addressTypeOption(addressType).click();
     await this.view.addressLine1().fill(addressLine1);
     await this.view.addressLine2().fill(addressLine2);
     await this.view.city().fill(city);
@@ -166,7 +171,7 @@ export class IndividualActions {
     await this.view.incomeFrequency().click();
     await this.view.incomeFrequencySelect().click();
     await this.view.incomeTypeDropdown().click();
-    await this.page.getByRole('option', { name: incomeType }).click();
+    await chooseDropdownOption(this.page, incomeType);
     await this.view.addName().fill(addName);
     await this.view.grossAmount().fill(grossAmount);
     await this.view.incomeDateDropdown().click();
