@@ -26,6 +26,7 @@ const actionConstructors = {
   addEmploymentModal: actions.AddEmploymentModalActions,
   withdrawalModal: actions.WithdrawalModalActions,
   contributionModal: actions.ContributionModalActions,
+  runNewAmlCheckModal: actions.RunNewAmlCheckModalActions,
 } as const;
 
 /**
@@ -48,6 +49,7 @@ const pageConstructors = {
   addEmploymentModal: pages.AddEmploymentModalPage,
   withdrawalModal: pages.WithdrawalModalPage,
   contributionModal: pages.ContributionModalPage,
+  runNewAmlCheckModal: pages.RunNewAmlCheckModalPage,
 } as const;
 
 /**

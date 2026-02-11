@@ -12,3 +12,4 @@ export { default as AccountDetailsPage } from './accountDetails.page';
 export { default as AddEmploymentModalPage } from './addEmploymentModal.page';
 export { default as WithdrawalModalPage } from './withdrawalModal.page';
 export { default as ContributionModalPage } from './contributionModal.page';
+export { default as RunNewAmlCheckModalPage } from './runNewAmlCheckModal.page';
