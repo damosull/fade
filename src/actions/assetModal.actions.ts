@@ -1,6 +1,6 @@
 import { expect, type Page } from '@playwright/test';
 import AssetModalPage from '../pages/assetModal.page';
-import { selectDateByOffset } from '../support/helpers';
+import { selectDateByOffset, selectFromDropdown } from '../support/helpers';
 
 export class AssetModalActions {
   private readonly page: Page;
@@ -13,18 +13,15 @@ export class AssetModalActions {
 
   async addAssetOverview(selectAssetType: string) {
     await expect(this.view.addAssetHeading()).toBeVisible({ timeout: 5000 });
-    await this.view.assetTypeDropdown().click();
-    await this.view.selectAssetTypeOption(selectAssetType, true).click();
+    await selectFromDropdown(this.page, this.view.assetTypeDropdown(), selectAssetType, true);
   }
 
   async addAssetSubType(selectAssetSubType: string) {
-    await this.view.assetSubTypeDropdown().click();
-    await this.view.selectAssetSubTypeOption(selectAssetSubType, true).click();
+    await selectFromDropdown(this.page, this.view.assetSubTypeDropdown(), selectAssetSubType, true);
   }
 
   async addAssetAgencyStatus(agencyStatusSelect: string) {
-    await this.view.agencyStatusDropdown().click();
-    await this.view.selectAgencyStatusOption(agencyStatusSelect, true).click();
+    await selectFromDropdown(this.page, this.view.agencyStatusDropdown(), agencyStatusSelect, true);
     await this.view.agencyStatusDateDropdown().click();
     await this.view.agencyStatusDatePickerToday().click();
   }
@@ -36,11 +33,9 @@ export class AssetModalActions {
     policyStatus: string
   ) {
     await this.view.policyName().fill(policyName);
-    await this.view.providerDropdown().click();
-    await this.view.selectProviderOption(provider, true).click();
+    await selectFromDropdown(this.page, this.view.providerDropdown(), provider, true);
     await this.view.policyNumber().fill(policyNumber);
-    await this.view.policyStatusDropdown().click();
-    await this.view.selectPolicyStatusOption(policyStatus, true).click();
+    await selectFromDropdown(this.page, this.view.policyStatusDropdown(), policyStatus, true);
   }
 
   async saveAsset() {
@@ -59,6 +54,16 @@ export class AssetModalActions {
 
   async saveAssetValuation() {
     await this.view.saveValuationButton().click();
+  }
+
+  async addPolicyStatusDate() {
+    await this.view.policyStatusDateDropdown().click();
+    await this.view.policyStatusDatePickerToday().click();
+  }
+
+  async addPensionType(selectPensionType: string) {
+    await this.view.pensionTypeDropdown().click();
+    await this.view.selectPensionTypeOption(selectPensionType).click();
   }
 }
 

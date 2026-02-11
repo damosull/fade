@@ -112,6 +112,17 @@ export class AssetModalPage {
     return this.page.getByRole('option', { name, exact });
   }
 
+  policyStatusDateDropdown() {
+    return this.page
+      .locator('div')
+      .filter({ hasText: /^Policy Status Date$/ })
+      .locator('svg');
+  }
+
+  policyStatusDatePickerToday() {
+    return this.page.locator('.react-datepicker__day--today');
+  }
+
   crystallised() {
     return this.page.getByRole('textbox', { name: 'Crystallised' });
   }
