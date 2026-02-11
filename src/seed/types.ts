@@ -6,4 +6,6 @@ export type SeedData = {
   isaPolicyName: string;
   giaPolicyName: string;
   protectionPolicyNumber: string;
+  trustAccountName: string;
+  corporationAccountName: string;
 };

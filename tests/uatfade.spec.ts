@@ -33,7 +33,7 @@ test.describe('Individual account creation & details', () => {
       undefined,
       userEmail,
       'personal',
-      'Test Superadmin',
+      'Finance Hub',
       'professional introducer',
       seed.introducerFirmName,
       undefined

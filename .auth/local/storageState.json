@@ -2,17 +2,17 @@
   "cookies": [
     {
       "name": "__cf_bm",
-      "value": "zKKxUkPpCjkQDvzPgJaUAZ3__UnfVcl8P7onqGyGinE-1762557778-1.0.1.1-0RQB33_ainxzCsZCvPOUYis8Euv.idGzQdtVIzU7b_tm1qD8plsc1mLtva8SbnJ3dwGykxchw.AsukYi_22POXBqxdPrqbD4uzF2WFIi2Wo",
+      "value": "zp4wqi2vdMfTJa3sn1GMujvuawRqeZeao_TZa11e6c8-1768379081-1.0.1.1-h8CTSzLN.fcrGv0dAP7uRPQiAJ5muMxImSF906anhRLFgZAFc4nXQuT8I2oNpFmOGfiZKqu0Mhcmq4JVf.feWsG9TgwMyu2gBYXzdZ8lm30",
       "domain": ".qa.fade.systems",
       "path": "/",
-      "expires": 1762559578.517819,
+      "expires": 1768380881.324326,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "__Host-next-auth.csrf-token",
-      "value": "a0b6352343ed86c3e40cdcaf1352eeefd8b6351d66c2012064a31bcfb359b807%7C4c0f7dd14ea4f8eac28b9b8108525aa37e6705caa89b7d8b56b0bbc9324d6eb6",
+      "value": "6d244adefbcce47584c0d331bf08aceef6d3aed0d6861618c00ffb5128d6c88f%7C4604ca7af60f8799318ff4642aecc72e7aebb9e91907c7d771aac77c83989602",
       "domain": "qa.fade.systems",
       "path": "/",
       "expires": -1,
@@ -31,11 +31,11 @@
       "sameSite": "Lax"
     },
     {
-      "name": "esctx-ErFXWYgvQgk",
-      "value": "AQABCQEAAABlMNzVhAPUTrARzfQjWPtKApL4TESo4No3gAgBUTggujvwP1S_ypW4KdakPsu9AHt2hPHQkAAjHYvL6slNNEEKXLn3BEjKvZXfcQRY3mQb6UjNgTGc_GxlnBEtguyoY9Xnh6sWcdqsiRBK8Jf3rKTNWSNTyrpsjbsrcuGooKX1MyAA",
+      "name": "esctx-fHBAmuasXYg",
+      "value": "AQABCQEAAACvnsHKEvvRQb3Bz3Qc7wnaBAo6hJSfJNmbRtpkqw9Yrud0koJxY7BGnI5btvueg9k3SdSEXsZxBEi_3BFVSy97WJcyYvZcoqavyqgGbrEBU1JZLMvhl1FtHqwzlKt225mJmEVSrrM5T_KO71iN5bF-OoR1N5SE5C3EAUYioIspBCAA",
       "domain": ".login.microsoftonline.com",
       "path": "/",
-      "expires": 1762559284.380777,
+      "expires": 1768380586.253728,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
@@ -75,28 +75,18 @@
       "value": "1",
       "domain": "login.microsoftonline.com",
       "path": "/",
-      "expires": 1762557843,
+      "expires": 1768379145,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
     },
     {
-      "name": "esctx-sfby0qmCN2g",
-      "value": "AQABCQEAAABlMNzVhAPUTrARzfQjWPtKYXvV_UWzDrDCfCxONQabbxdqgHuwe_Y0YxbNDfRx0End52FdLLvZZFBV9m3e746ozhHz8YPdQvH7TLGE1dg0BtpbddTnwHiPOtu8jodZhvIqZ_sG5CmeMjp_fVok2z_mnYhJ1cQ8N61y-07mzR2yfSAA",
+      "name": "esctx-QgXQ3juXm4U",
+      "value": "AQABCQEAAACvnsHKEvvRQb3Bz3Qc7wnarRaUCCF6KutdYztb8dBVcRRhsAylPQDxZg3SVcE0OC4TUSLUcsu3s6RZMOUUbk4yS8GSuK8fRs3_8xDVkGAB7UdOOQX9xZXDJkUTHf3yoHSovvWH2FpBg7XJiqPgV743IYb6-rCk0J109bsGIXwQGiAA",
       "domain": ".login.microsoftonline.com",
       "path": "/",
-      "expires": 1762559284.596792,
+      "expires": 1768380586.456471,
       "httpOnly": true,
-      "secure": true,
-      "sameSite": "None"
-    },
-    {
-      "name": "MicrosoftApplicationsTelemetryDeviceId",
-      "value": "3bfa7889-14ad-4214-8d67-4586e1fbb162",
-      "domain": "login.microsoftonline.com",
-      "path": "/",
-      "expires": 1794093785.602728,
-      "httpOnly": false,
       "secure": true,
       "sameSite": "None"
     },
@@ -105,44 +95,44 @@
       "value": "0",
       "domain": ".login.microsoftonline.com",
       "path": "/",
-      "expires": 1796253783,
+      "expires": 1802075085,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "wlidperf",
-      "value": "FR=L&ST=1762557785323",
+      "value": "FR=L&ST=1768379086839",
       "domain": ".microsoftonline.com",
       "path": "/",
-      "expires": 1796253785,
+      "expires": 1802075086,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "MC1",
-      "value": "GUID=0d740f909e6c462f8103085538cb7f30&HASH=0d74&LV=202511&V=4&LU=1762557785464",
+      "value": "GUID=59b4c09f3883409684a69bed63323342&HASH=59b4&LV=202601&V=4&LU=1768379087037",
       "domain": ".microsoft.com",
       "path": "/",
-      "expires": 1794093785.472967,
+      "expires": 1799915088.056912,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "MS0",
-      "value": "da6bba22967342ad8c75515854e2b5b0",
+      "value": "a685eaf4440a4322bf8414c7580384c8",
       "domain": ".microsoft.com",
       "path": "/",
-      "expires": 1762559585.473079,
+      "expires": 1768380888.056991,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "ESTSAUTHLIGHT",
-      "value": "+00a8f219-fbab-8adc-a167-722a9b315440",
+      "value": "+00116d0a-c9b9-29f8-0d07-e47acacd227a",
       "domain": "login.microsoftonline.com",
       "path": "/",
       "expires": -1,
@@ -152,7 +142,7 @@
     },
     {
       "name": "esctx",
-      "value": "PAQABBwEAAABlMNzVhAPUTrARzfQjWPtKh6v1aYPjM9UDK9XENAJzVkBNcsbq9iCafc4H6q0OKMcq6XY8JMyfpUkmA3ORxjHGWosua5XQYjONzcbFGGqqHk4tOWLFxK2U0HymVpwDg1vVAmuHZnPPvhsMubjUMKQUdTdQ3is0gBtuY36Ja4FVyIKipVc_RZrSm9tmiqR6MmkgAA",
+      "value": "PAQABBwEAAACvnsHKEvvRQb3Bz3Qc7wna_bYHocJz0Ps5cy1y_JcD5sI4y3J0hUeUVdFOFGEiVO1cVgnXgjcYTHCj3X1QKRDz3d04ePDDZTfnbKlle0o1Se_ihXkr-T3I1eu6umxGFhnIlX18COTTQ5i98gc4OOx_YIcI0CfZ08fYN-4zq64b5oBjZDl5sZ41dNVVsRqji6cgAA",
       "domain": ".login.microsoftonline.com",
       "path": "/",
       "expires": -1,
@@ -161,18 +151,18 @@
       "sameSite": "None"
     },
     {
-      "name": "esctx-P3WNavXq0A",
-      "value": "AQABCQEAAABlMNzVhAPUTrARzfQjWPtKHQoCVk9EkNH8pP-__mM38F7gH4i8k_Nw_8vuJ3AUK7CX1dSIT_gcNOmalP-mYxMBwr08werc-6_U-K8pu8UVxEK8wg4XeXtmx2SppRixwx7ntvxze4KLNEWm1KNx8_IbBx66cqNBrCJGf4qavfwDdCAA",
+      "name": "esctx-uDD5i0xzqA",
+      "value": "AQABCQEAAACvnsHKEvvRQb3Bz3Qc7wna7C2kPd_59RTFEpkR9daQbx9UciZNf67RJHZ0XkB7Iy47GWBbG8TLD8g7-gl99eyrPYkj6qyKGv_rO5I8zsCnle-wHm_PhXIQd8Xr_YFAuvkzJPs4ux6kv59yZY3BlVcModgaTsUaTm3H4trOEgAVNyAA",
       "domain": ".login.microsoftonline.com",
       "path": "/",
-      "expires": 1762559286.544839,
+      "expires": 1768380588.073516,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "uaid",
-      "value": "d56b7066aa824c30be520c3882583707",
+      "value": "d5d613cfcd9f42d89cddb241e804f933",
       "domain": ".login.live.com",
       "path": "/",
       "expires": -1,
@@ -182,7 +172,7 @@
     },
     {
       "name": "MSPRequ",
-      "value": "id=N&lt=1762557785&co=2",
+      "value": "id=N&lt=1768379087&co=2",
       "domain": ".login.live.com",
       "path": "/",
       "expires": -1,
@@ -192,17 +182,17 @@
     },
     {
       "name": "ESTSAUTHPERSISTENT",
-      "value": "1.Aa4AU6tS9Ywoiku6LEXHdtk1Iy8y5sLOQ4xNns5RZqJJC_g7AQCuAA.AgABFwQAAABlMNzVhAPUTrARzfQjWPtKAwDs_wUA9P_P1DhmrNoGuij8EOnUVSmLGUIELT2ezlQxZst9DBXjHR-brjFm9_pN9x8YV0aq97GMHK08JOFnEwRY54kIYGCxLOHPn6SY2pkm3pQRl04U7UqhyQn1SJ4zD_kk93hNVFCt0B5SeI2-SsV3wt8OjsLd3HyVTtIjQEWLID7i7ZIx4iXPuIRy8qCrMQ5CL9nhrLVrDTy1i6djuP-VCzlv5F7iMkuHBQSBM748h2A-LAI46hIQeM5oFR1MC_eS6y65_l2pss4GNcavY7dbWt73_fM3d6CQRE4nWBUfU-rLWLTeT507lAHmg7obtcI1xN7sGDTHzTK_ujnTEZz3u7ZhmIlPimdPE0ctksAWMmCDjMuF9Wg_84rdS1XSLDVQcdr84geFMhBi3w4lwN2Xo4-F5tCb_4JWgUS_Xix9jfvUvyqcFfZKQQ06yOfeuM65JVpULNj4RMsQffjMmmGnRyoRTWF8zgU6noot2060rCBlroeUo22nInEILhV-5i8PHhK9zPC2uuPn0Dgsf3Xh3T0-pZcni7ngsqsLyeyse566XzWRVuXinE4a3dyED-nqmT4xHXtgdfhsyZzbkgZDkYhaj6TtnJUXSLNMA4D73GW3igZxpxMAOIk-hfaz1l4",
+      "value": "1.Aa4AU6tS9Ywoiku6LEXHdtk1Iy8y5sLOQ4xNns5RZqJJC_g7AQCuAA.AgABFwQAAACvnsHKEvvRQb3Bz3Qc7wnaAwDs_wUA9P_iRQKHLH4E_8QwxXyJyEGnkXILPOfcyu3SpuH35p9tcLu_PMursUoQ9O_ZpDDqjQ6xvaDP-OFvQKomxJRRQQd6q6FE6gCwsxtM1ORvL9Do1ToXK18A7du5BErfAuHqnAN923eV0nbJaiQsMzq8vW45oAzykpK2g-_9rI44KJGFv9Nom2HyGvx8N5jfvMPbtamPJclSnAY6n911n5q9wRvinFeEWiNJacOLvXjqAluCHlR4yfBeglMbfolnZ591t9sO68d0bk-HSmWutaBIWd-lQn3VcazhEEKjyDLJtgfl59j2SCjPwIr4QA-MBMKYCKkhvHEcSPCJ283IQ6P6qY0MXZIUlzl1DLa39-H_m2K3TyDZchCEkFdXthr71jbqS2w882Of-DnWnBVzmsy0Ur0H6yzYdwDpSNNXDAdN8Ct1P-vWlQz8axhxpVqxlbulg9dOFZcKMWfES_mBwF2E5f8ixG1XFCgzQ_toTukAv6X4S8IS_x-WTYW2UUo6QdcJ6zH5OsHc1lqtd7uidhRsQxw0riHna8eIxa-dipefXK-QuhQpKArOWixatCZpHm7Lx08R3l58m328jEJMnmAg8TobrSOnEaBoRmn0W6AOT7DrD0eryYKO7j_mvert4Q",
       "domain": ".login.microsoftonline.com",
       "path": "/",
-      "expires": 1770333785.852905,
+      "expires": 1776155088.395776,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "ESTSAUTH",
-      "value": "1.Aa4AU6tS9Ywoiku6LEXHdtk1Iy8y5sLOQ4xNns5RZqJJC_g7AQCuAA.AgABFwQAAABlMNzVhAPUTrARzfQjWPtKAwDs_wUA9P_LjaooQ4Zhltw6d7Qg73xmt9NWQUanHkeoqPT2WAj6R_sKvjhmdLw64EWK_EpBS76xU016tjvDSf9f",
+      "value": "1.Aa4AU6tS9Ywoiku6LEXHdtk1Iy8y5sLOQ4xNns5RZqJJC_g7AQCuAA.AgABFwQAAACvnsHKEvvRQb3Bz3Qc7wnaAwDs_wUA9P-poYQgsWs3grPeyGwtABh6coor7mc5VxLrnfTdBCbpcuQhfHhAgNKF0prZ883mnAVxGhPuv68ZFdxD",
       "domain": ".login.microsoftonline.com",
       "path": "/",
       "expires": -1,
@@ -212,27 +202,27 @@
     },
     {
       "name": "buid",
-      "value": "1.Aa4AU6tS9Ywoiku6LEXHdtk1Iy8y5sLOQ4xNns5RZqJJC_g7AQCuAA.AQABGgEAAABlMNzVhAPUTrARzfQjWPtKvdczYUuNtOmRwCUvBZSpAxLfauvSpl2IHVZGwhagVx0Vke5leGj41ttKq6g3DLOIIYk1bjmkKHJ8lex-zzGJydIxA67jshSTsbZRnnXeqYy3GM6i-XU1ECd9w2jc6MQ-LBaGfuq27nGWCa1mRmLY8HtV5DX1YrYItSdvJxEACkUgAA",
+      "value": "1.Aa4AU6tS9Ywoiku6LEXHdtk1Iy8y5sLOQ4xNns5RZqJJC_g7AQCuAA.AQABGgEAAACvnsHKEvvRQb3Bz3Qc7wnaNIotTy9hDSTOtxqRB08TcDbvRuo8u-tV_PZ629MlKGHNDeL2NNrbGuzei7jDu5d5MxQiX3rQ5gyx0qZ93yav0JnXziwAeAOvIJt1yctPz8O2xZdMdyXLSsel0He47kMlMXYWmib42vEqfmZO4qDOzQqyVjn9vbNmSTgqzakZB-YgAA",
       "domain": "login.microsoftonline.com",
       "path": "/",
-      "expires": 1765149785.852975,
+      "expires": 1770971088.395851,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "CCState",
-      "value": "RWhJS0VFVzVKTzBaTG9STG5JZGFIdXQxRVpBPQ==",
+      "value": "RWhJS0VMOUkrejR5L2RoRm9kQnY1bG1iWElVPQ==",
       "domain": ".login.microsoftonline.com",
       "path": "/",
-      "expires": 1763421785.852999,
+      "expires": 1769243088.395882,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "SignInStateCookie",
-      "value": "CAgABFgIAAABlMNzVhAPUTrARzfQjWPtKAwDs_wUA9P8vnAPi420TbqDB2poDClE_KFMIS1Iwb6QEP08yhdJL4dXliLCUiCr7d4LBvKpSHCpa_4MT6kHHWaRmB_j0-8LpUWEVFmhSD02Y9Fwz_oo3kdOPL_M4eX0xj4qXT1CoXyOQzr4JjurSVUygZcneitoP689U4Yb5oKFmYMGxTGEiClFBHPD7Djy4zhOSnS3IwqsbrQesnzEliAMV-XLQb0a0pLM6Tm3QqsKg6PJL5sY_IYlmixwwIBhQyYoS3AFr_B8iAKZnqvhIP0c",
+      "value": "CAgABFgIAAACvnsHKEvvRQb3Bz3Qc7wnaAwDs_wUA9P8OSwieZUioUphSH2EiYsaJs8Vz16IIJHLOG7RnJcvAjD7foe6gwKJmuQBKe3xmw1109tOuKJIPa_JaCQl6Qqmy2GHlP_rbDo0sDdnAG_58M44mZcAqjAjXDMzNYKDj3VGv2KXvK-edq7oq-sTBChwd1Pc_wFsQGgt1ePqbj7Y-sgw-p93dDaoNposjR8JN9klr2W_xcpcp3E0AW9ZBWFZ9HNb1A-fPk8IjFmutKPSFMeomD9kw_1qyxZgfEcH8pZxOYHFS4nG_n9nP",
       "domain": ".login.microsoftonline.com",
       "path": "/",
       "expires": -1,
@@ -242,40 +232,30 @@
     },
     {
       "name": "fpc",
-      "value": "Akh1mfqPvdhKhshb-yoQFUEpFdARAQAAAFZ2oOAOAAAA99Sb2wEAAABYdqDgDgAAAHDYRWcBAAAAWXag4A4AAAA",
+      "value": "Ai26CK41BaxBgwr0EoqJspopFdARAQAAAMxJ-eAOAAAA99Sb2wEAAADOSfngDgAAAHDYRWcBAAAAzkn54A4AAAA",
       "domain": "login.microsoftonline.com",
       "path": "/",
-      "expires": 1765149785.853029,
+      "expires": 1770971088.395912,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
     },
     {
-      "name": "ai_session",
-      "value": "TS7ajH4t5+Rs+HDMRK6kCA|1762557783953|1762557786306",
-      "domain": "login.microsoftonline.com",
-      "path": "/",
-      "expires": 1762559586,
-      "httpOnly": false,
-      "secure": true,
-      "sameSite": "None"
-    },
-    {
       "name": "__Secure-next-auth.session-token.0",
-      "value": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..XFWOKlorM5dJmVFT.fD8pnwHK_PVZC5Rqj5RmrX-_ZWFzAf-wycibsF0ed6H1A9YnxSODKrRdLZ_iKOhNkggE8L5eDT2rH8tGRVmU6f9ngZ_QTT5L2A5ck-Q5CqI7kZ45pX3nEjkn7IXKggRj2KS49enp6V_P1Nz1wkuBvEsRz4vduGV4OFmv0sxSnvtcXubiMSHthceu5Bpjh9HLdKXoICV4NYJJ57N9a45pu6JM-cRydO6dheXfkXyXycUxznxzK77HpF2rVfK6l-xBzz4CJIMR7pk03lPx_ZppoV2mLtLQ-53CnEXM-AyVdKHM2RfNkp1E_eMQLgk8JyHv9R_WDTKB8KhMRxMH8tZiPVQpuSF-QPGVBjYMQtiL3FnYNW42EQ0DFSMbeGgGVCRJ-3-exMr4M_RSjLQ0z9Sk-Xsdyazsk39Xfxsqp1DTjrQ-PVutgecAW6Zsvrxo1ILVY26EMB4C_RNY-vnR2CG8xnn-Npf02NcWn42Tgfv1AZ3aHPdVxqdxq5wjm4yFRvG3uAVPR8Jno3WExWYRyWbVNZOa343aes8Hv4qht6H_iWhG5iKsyJsDNYyms0qzHuSrY6cbfeGMCNF7MmJjiu56lUxWK36us13oxIEG0sngQ7MDfXAEV9Mgj1kd13Hl6J67k-vzkukzteEqbCeThg3XeT9eTQaPm-gwX9BaE6eucj9BLsyJAWleQdbxgoHpIUnGqroYRTXEey8IQ4t4bQXUzA963wRW3WD3puOSmKEKO2MqNV_yAnzoFF7ktH81sQ5me2Rz_KDfbJY5LZSdREL38Np77pOv5Qy2f4gfuKPgFwrneWspQEg-zThUOu7yJtDoQwsOexNQWyFZLyPgPZ_t3mVT1znvT16u50piaOXhyjx-dYI-K3_jZgeTxUIH7JHYuC-lYoqPwshSApdRhmgiV-h4Y08GMXT5RPB-aRtMJZbYyqRkmVuQkQCgQI1XvAJRS_amIyDKcWkfc5pxJMqBaQSFC6-waHFy93k5-tZiFmw3WUzOsjMZWrW1w3ZpadtZb6m5q-yaw035zH4F6u8MooDrhp8fpOiL72iRGkVM23AUZBe-kdU-ZB80DRlmNQZ0Zitmr2pwZc69NA4fuVcMKGXn5EaIppqPjCVkM0t4A5f53kZ1rOVHX2i776KV82igY1DYg8-xIuR3RieLCjSR4Um0xvL_E-VUwwfjfKVs7MZ9tViMMeP0AI8oBKE5YMPBZtUlJypTrvfLiYOjEUCbIuj30PoHiUFivJFydUsQGBxxuobGTc2aRGgKzM66uyXu-SohyCtDMWpdIxkOkPvU4CCpvPhYKUs0vO1Bp9CL2q6S6GEvNryeUiqRtkcla7T0tvfZsXwRuQld0WsafchjuNOMaGQIeiJFOWjGC5q_EI3bb-HQb7hibDeRxEwG97rSMZl8PN9Q6sjhRJ0Ya85jJ9Q1vfYvT53krIdy-_3yCGI0EipoFJknB_xVZni39zhYuNhUErnLV7XctYA8nUbxQ61kIvwmH2CT2L765PcBakgQjBKggKp_J83fhsxcjRVtVbavo1Vb-g6q3AF7XrJZYZ6zd0zVKMaTZoMuxZLV6TTbF6me1CqeKzXObCqehxIbIiZ4RUmCHojrErCHNQGoIB94NFQnTfX8EGTFDZpZxqWs253cPi75Bl4kjE_SGetexWMShvI0nK6rzcXqcfx2iaJZ5tkvZrYw2u-FKkFHQjm0dWvf8jCZJs5dqCPCA6blvM4HLayXYGEied7bDnpzQvUCzZ6pRj7svrx0rY5AB4SKLX7mekVhs9PvEYCoiQ9PwxR7zKV2XGtM42O7sy3Gjqv2YpKrm5sse4FTeMuexb2WTrPb4pG-IUE-6df4ns4s1bDJOh5KIpSdcx4KW0mxZhM8S5LBf6CjyhXUpBMHYjYnBl7BPprwUGZ6ZUY1DVPmvI7Egene8R_zBuRdlIxNAcPh3FctK2MewIBPkrtZbWOLgJ_l2K9YDECdStKoFZ5AS5RZPaH9NBK6NeOZl8yUydb6WjagxCUUiNRik9GvKygBRzahJn9uL-clZkZIbnD8NMNOKkg66OKj-FhnrFIJI_LUtGZgF3hiOCMvVungJ-hVt8nQOej7wSehPDjl10fRKIPbPyuK-mdUNJiD59uCv9XtST79zZykkw7qIRj5puv2eeF22fG45v_m0NTmcHtnzBqIl4v_lSApsFyEYK8nKDPXWIBlVTftZ_zQyLWtszUBY7ioA2GuqchPNkknvj1YCZqiW9YYeqDE5DF8qB2f85tK8b-qX_vnKO4DpToE74vpQpw5_yAbj1Dh_Y47bjgNLAw2hOoth1ISRzdd_VZy3QEu-8WjNV62oTeAI47DeCcbUr6AvJpnYfayqJL1xU_wrwWHRcSHjiufj-aWFQahMIt6gHqCMH6PYwUJhOz16nanKdJ0yViIyAruGn0bW4VVuk7iinTcIEKRDkIKbrSRDJVbyUXiVIAzccd3hAI3qu_a854XM4nphMlETUqbz59--ok8Y6nAfeoX1RSCRCJXZCGbIPEXRLqe9kVjlXrmvJWk1rr4AEQtrVhGiFbDDnL_gLk74KbM8Zrm1vbBrtcmldzp6orbXrHgFUrWqDcP8LTZbPm3OMlOc8tQn4q1slJvbLNTCPzmDFtHS0EayyFM2lJzvp-WWcZ-6yI4eURvj--qbvoBibxSx4O937XaGuAQCcQbiJLxgXZHbUKCywaMeXMJ4H6EAQ5VZLd8SQryIR4nVbTP6Kcrp5mtH12pFGaSmf_vMq2pMWj3RcMWXyhE6MmEtPz8-uHy12YzN6nKFpp7X_AdDJl8bc9XaPPu4vAscuEnOZBLyB-QKTjiLbEbFssdQ2TwGCEDqY0VAEM209nv9mqxFwWK35OVUYFe1pPdJjGT1wbiAIb4ichRerS6e7IduGrT1gkA-bYHqifxWHJ-S6WepiY-8uPbRXml_3LqzD-gsGdJaS1UBRecFaVynGRVGZFNOCxc5yW6Cz1w0b4q_uC4DebD-_EE5q6nPejjTYbrg1-5Pv6unSqfKfjbSOFCGXA8FaNz5NC6Zx-M1rI0PuGNxbrNbFq91ne9m4DUb9rDR2fKZMfa4V01ka_mLt2_PLXbSbjt4qjOwV_4CSyGwRMPOIoKihw2bd5ZDL2a942ZdI-5XP65E_zmJawEtmyb0JOi6B7DMJws_BcE8OKn08kZMAKgpPAk_ISqOHLO86HddiL-GQEOTWc9UQcht4qgnEyuMyHEgr1M0_zyp7ULhnq97ohlJInLhSZTP-fP9wTPhEB1cWIZHIl-aeD-4lEbPQOm5x9p-iMhzezqlyYzc1fXHkze4a7ke5atn_6_LMMaIkoK0OG4lsBGKeAcfFV7LHv9mzwZ1aQ-8t72Zm4G7Y1LIF9zHbGJVAXq_xmwnu5s01W2fnIXx8KElSrqWndA2tmSw5jq62R_RMIBiTkXnfgemSEbkqCgbB7vThrEh_2L6q5M_xZNBjQEpRS8X4ycPKQEgw9IQmHk3Ky80ifLkrL2JQ7rwGevRj0KnBCwidV4HAKFCO1DpooLt6sQtrWkDznLBaSDBbKvPRhj0iTg6GyCGW44fBQ7vT0vNxtPCeW3eL5TneXwFV8iD9W0nXyA7AEHVTLE5y2Nz2QjqnWsemSdAgBstNOTEkh5lFEI3mM_69mnSCj-8CFaeL7R3ZGnQ4yciueG2Q_pU6IK3M1IHwE59xXKuEVwzmTN5_i-y6qqDPI0SRQutUJDjjabKN-zVhb8gASdLc7ipa6DQRxLbgosDgb8-P3tvY6uGV2oYAnxobBWzanh4XL_xB8Bp1uufSpft9kyUexJKb9XEkAl87biVu_z29S94YB-tLtj0vXNIbB_20NZ-uYTnWCP0Nl7Ojv7R40RObr",
+      "value": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..rXd9iVMB41CFiABb.2Y4giY0lH0C7EJto7KjEObPGxGziaZsLyyrWJ_JluN9f0ohZeuDROvPuo-ZDXRNyGBufuvJf18yjjrcHx1mp8q8fDg5KLC3833XU7fp95LXtbowzo4AR-IM4Yb6kysa-SM6QPDInYYZcjxC-xj-6yEZLV2mmQlUpozmcO9U25HTZcHWgCpzO0pNEbwbw_N0_bSG1DIF-rbpavK9UzMPcIk-0p_D9PGNSGA7kt_H0FIEd7MeKLOy9sG7ptk9iBkxViUcfJiPwfHDhmtZ4dHU4kILVbxKCdUZuNZFtTeT-2nL1rD_IGfaubRtZdhLJqpfl888r3rvjUqyWxpOrtXDh-t1rbR0wEgVhVeLKQnoUDqQccXEZIQdAVY5wmiEav4v38IuS4H64QmN4tEgzJFP4W9YSckF84M-rAE1ZAyGq1L7a2p9rRlawp4cVmMdiCGRFGXf59tP4HXbm27gN6pDETYo1Ch8Oh1ZWsu8gUm6qe7suRocyxl_z52C1Xk_60obT4T9DfVCdVkMxZdw_Vcdh3kQJNrcp12nT2zge_0IGZRdctj-D-8RSCzPdJ0OE46BLX8Kv-m_szqC3yBVDFaEb0CdrXtXT9I-mP2ICCK7EkD_FOmbaxjVhAyPXI3c4fYsAexnoPUfMUcGFs-cC1F2NmcMNIEQJyRhl37-NoKWcaeJidiV84RTvfU2y5UkigSoQAkCsGUCxF9-Xsp_9JN3c8Ufl-Jtoht9t8dqGf9NLdUerZFckc5LqFm6O36Qpc37rCHOekI37QiVY8ipbAGFzdfODWKsaksfHRNhWiAaGI-rP1jzITZOjHPdnFYXnPIcWWEI-przgeXECGiXstzHl5zbTvTzSijku68Zmmv4kXpuH46uGjqK_yY1MzaWEQxh2sqWS4rBbELhGwsVuTRWV0wPqgOuGSPMjbSanG6uEfZQQKKoQtTZ7aSwnD8Mi_bk2t8dqf6n-FxAEtC37eERIA0rI-ghYLrN1FZpLCkRn46KimbqighpjHtwvnHOmTd3p6WSvp_h3682BuYC3uTgqIw1zmJOLbqr4qaGxoOnRG4RisVly8kKD8O6H5t3RTGvyiMVdIY6xxzrWgQgO-lMMkTRS1UEg3QuAgzJUwnMmQKoQJypQZPZSsUzKrkQ3Wd_CSjvDS_EMFPopHaI7K5qRcQ3hKx2lNSRZgaY9arNimoEEZz822gSoQsakT3ewryasxErT_E5OuQxLkr4xJy72ZT3CeAqGxqjxnWvFFN52xM19eB2gEpRsBz6SHN0l9FlEaHCQJ4yzF51Oc9NVH4NGdMK6o747TOcQ36CUhDXiLoLNmYJVFbrAfYQDZQucHsVnKv3f-F8byV5Bv99tjT-KG6KFquFQUQtMgg79qNTrsvBWV0CP_AyCU39hURA-Bpg65ii4fpcFA-01UJciLO3uUVLifeJiZAeZZJ605SJgVW7adJiRCVuhlrjrH4qfBzfw32VKI8NFU2ujmoujN7ANC9nXY8MoUOCN87Su9NBjOSDd5_vWu39DT0oOq1AZ94eAzsdxePInmoWjVJXKLNJFljZeh1B2jgIAEBZMno0lkSda4imyfep3gIXUkbGO3GPtRenloN0F_8zmLD42wyZxHxzhsEDXUpVi6bo-1cECsAjPlgdTpU1KXjQTp5gn0AssWkTZppCnETPlvgNVq9BSG9Twsk9Bpcjuxc1o3Gd_hblptRaKIm7DfF5JvQ7A9nEWP491PNjoRyWU0Vw8GGlMnZcyRrNNe22zK6io28PiKKJgn0s60yOrSa-DmPQ51ItJg0a2BgmNt8oh-G5uNf3wHEWTafZxT7XbzGnlp6aKhgT2NIQs3U9cQ7TrRJVKflzKnt_fCX3Aqj7om4aUqyVZTujNOzf9FdWRrNJ2psO0zAgXt-2NNS6DbL6KxgUJGt6jBZBqnFaIh4faYjWsPfdm8nYTjNWozRANzkqDt7KkAE9UATbRezqpaPh--f_mY140Vh_Dt2OQUkDPCZ2cJH3oU_4z8KNiikZecKt0otIOu-UqcSiBYagDwqVNctwN2GpzOSPaw65SOWgP-6YiPVftOnkpbL__iU4MeP_rs2wuKK8Bs_37mB85tbIjFtzcGC5cZjrlvCB5E-VU8z_Mqja7QubnsFjiN70aOjoGIJaC9LP0hDivaV9K2m2C9RjNY7j2Q15Dwg3BBXiSCHlm5Fz7vqKQk6aBq2JcA_Nr7lIQqrt5l9U5wn6vjNd7_C8hJkiMPAZ6qKD9BSXsCXpVcUct2GppGkYJHkAToMFFA3-sxvNPFoYDZuwig3G1T5us94tI62x1ln6k4-rWdznjVBvlpxGQuE-UiHkPMxa8dyYzgMbezL7DiUD__MwUi1XaJ4rOSIAdD9ehlskJ3dsZxzgQi3Ck-YGSHCYQokHAelZLeDORsZy8WPDspPOTOiOylF-MGF5nemP7zbVyIVZHyrvVH9lzFxoUFy5p1djFGxSL05TyNcCj3-cCNNtanu7PuqClnhFlsClElWvKRibcdj9Ce2j6Gju13XBLnpEvXU1b0DLm1NzcuhbF4ZCDu2jRGnQccyhvJJS7N4iiN8hIlWE36Myjt-Q1e-zkm01I03US3fURxbsqjfrDuskhPO9E_ZDECz_7OB1FVfYyww9f7Yneg7i7SfRD6ZZP9n9TeI38wSHUm8Rs8U6qUGM0fUV7xP4FGpu9aUjQFs2BuM8t9VL0tyEb_g-RLBAwyGmzxH2YQ-218fdHeWMDTjMQ9ELz8SemJnerg-Syo5jK76rNVF6diYhDryh5JG5X3Gjdpjkwd0L-Hcsj-TDvq7AzCIEcEmEGF-UWPR0YWn7ZxHRPNb7J3Hw5ELW0JJ8s6k4zGo4q32lqW8Rb4OQGsgTBbY1YCfw7PxTNLluPcTpZF7Lh_RkVmcbgnBU2wrnrNJJJOhwoOz7AVH1UFnqTgWyL_VRqF2FwOp2B7Sa7dBb9upQNKsGLq_oS-ld3akzG1M6V5Zc3Cm3Ie1X4IlHzrg0Jwm88nIZNK16lPTWaeBYDnqNHPFzw_e2rxHmfsjR2wlGPIa0rrB6FELcKXD3mYFPKaAqwrxxIf2G_xfC_WPRj8oXwgEHzdVnts9Zw5rWWWMOQZMws6g_U84aTwi5h6moJqPyG0pqpaLe1cLtSpOV6urt_H9XX6Nn3tJBCM6xXGad-q-_Ubh6_iRYX1HzQWg5_MJIHVP6qlf1x-m5ZjbBK15V67l5bJGUBBz2i8HH5duCB-zyjiFGMiD5c9VuKFnKPetZZS1FcFhe_C63B-UHbHVwXbOlU8H-czb6GfFB7iCyl4Rd9x0jxa1k-LY2jA0Qg48W0ap-g8W8ZnttP9nlGb14PgFLvd1q5FHcIkrMp-sXK3zud9wTUSn9C1weTq6uNXEFa-_vkzBNillW2XLv7brE130Dv3-z9DcxFFPNYpAQg8dbAtkcjRH_2u6JJyKetacSuocd7D_pklsLzgq0MafLg-IX3XPNIaE2y8hhZ6mOHpFjCKkM1yjz-DO0ISnFbqtCoPthBh76PT96xLhGo--pHhVzy8UQdk3mYmPH4O4Z33Qb_jG38Nxw0tRlMSoyrPiOD-utNg-jqBUvYs5i6c1sgSKJSVXvWYAECncvRCfBiFNw7qfVlWztvYhUjhfSI-aWxUt3e5mOtKtX33-ocvs1A2pCLO3PSkhJq28KCcQBOJ6a7AFlILtV8_iNCSV5RVTHr5aZsHLPu68l04_62ARAM-EmP8t3sYu_CEM3gwQTW8ExzAOEjf-pbat-Lg3Y7i1O2T37Jf_cqhntzGSm1B5sUKLu9JeBqazTpkxYfuclekmMNeXEtX21T-Q4ll_0cSTJGZIs-DRiiC1CjLbRE9XNjwciXiXijPsVoYCsPc4o",
       "domain": "qa.fade.systems",
       "path": "/",
-      "expires": 1765149786.628176,
+      "expires": 1770971088.320145,
       "httpOnly": true,
       "secure": true,
       "sameSite": "Lax"
     },
     {
       "name": "__Secure-next-auth.session-token.1",
-      "value": "2euN6C6AAzAtwHkTNCKsiGEQQsDVdSuZ75JIBP3Fei3cI-8W5HYRof7ySV4lin5vKrwyHxw8OR5zI3DYIKqZsXJ7MF4UUI45GTtDBW9tf3Tms2QkaS55NEV3FMnOX6PbiAJ7JgGvqY2_8X6JdFblochzJuw2TklEqOFw4mJ6uAYz2ASrokQ6K0oRXB3AdtIViwNy0EIVf1XHzWmhA2xU9i47BGs5w0_3V1woxGNE_ClnChhqB6iNL2QlOrMENMk9Er6ZZkY52BOcaDYDp_Eswqub9zTeG6u0QDp6NlcQyQakEJADShenf0Tqpd6oGyeWXay9Z9Pvuu99ECl02hKx7BFR_XgClIsz79us2GKPl3q7i7fu7gaEEt945aVasZuZBwZcJAs0Ddp7TV8jN3SeyV4FS5EK2lSMwFSs3Jp6VgppaovaVby5bT_p_pxMHBBdZp4wJc_cC62vl9vGqSwqcLSxDNJUlQc4ds0RCMS_zmgGXsMpW9sqkh0W7LjZg0dMF5JYdAxiQTB0XxzTcPfypFjXMoMROUQZRCjYZp_gmUZibVmybn4CXCwdvaaWJDYJDwd5CWhQwvlC3TcGGAIYSJzLWQLj_HqIqZZuulRkZb4Xye3wu4Tl09-f5_GKbz7uT1Ot0htDaD7fkUj-V864LXXPLr_wTwQI-97yRlN2EHx4k4VtWIf40zVC-QjrNzhiSE_mNI_NvfZ6ABZy9cphAGmr9psI2SIvqEMv2wZcHwlOAMmYnDtBlQXmRLy19iisVln4orFzSOXAdGoF21b1J_E4_Ij_dywfk7kQXUBnburiVuOLgmkwY5vdBvExbjmuMwrIS-mvl_A3-zKMM_NRs_o94erfGPoULBVbTehP7f3V-BVitx_z0D0q-zJI_xtg71VawbzxOUa6bSrrWkIvN4VKVN0GeLN1S4oAJEXf_R5bruelx58PB-H54Z8MwIYNQQu-pBSpdqGTtnwOX0LBadtPmzEIzjJF3_fqGCtxC0TV0NXnM7Ck1BbYiotxuZCw5gBczvWy5VZLoXPaFs80r18zVUYTDtDnn3O7CbIlEI6hCRdFxFnBzPQRkbwz-X2qm4Uo_j9cb9ThduJ5GJGkfkhIcORknNg3YamMv3WanILO3vD8ZNdlRj_0E2slQCGz0DIVZB2nvDDGEVwjlEqJwcCO8lzduAbgIE1e9rEbAkgY-roU983gWNYuUpDzCDkMv6T83qvUeDm9og8zZLPqDhiBGPVe6DAp1mBAX6sbCf75vYfc6PvnGJ96_wzBKwbHTF0BRFDzM-7IV302IOSBaOUsBXb0xGzT_854v_bIR_fodoH6sIRtkc3cMlKpH0z5We38nP4SjMhClCfBlSfQ0x2nwSeJYeKCGHM5delYnlp71__I-QtAAFowSztu1aUU6kzssUTDu1TB9MlM2yt_gh5THnCOzeFQaDzq2nV6RY5PnU1Pq0iU5mmue9oIcdwXi3xMi7TYqhiPpZwaPaNrU_K3S9-w7SIFd1Y5TBaPU9NoU8d5MnH75aj8t6rmBaHP_qRCOKj5GbDPJfKA8u4LenU4tirHi01iyE_5oDsOIxWJ6IOywdNXmPd-H1oV3Kw09JdDWbF_Ya8DgW46KmgmCyifES4wlA3sB5ju7rimigjsje34QUDrj7PvqHElLJ7YKw5aeeQcjQ3kTcO0_9E6GBfeGWNlWYEoNGabWET1OvW9zB0fboVFTSgsPX4XmUdRacpe27wM4tQ-O27dNLPu5hAAzfpLiAtIqxYqZsQn_HTaDDryGxK73I8sLmIVJkxNwfE9g5OBIzej6lfG1u0tMauRR3_Y0pf_EBss.Ll11_3N-QSLe9EdWGRpjsg",
+      "value": "XVkZYyT7a4eXDBppen9kHiJRur0EjJGRWDOZEIk1tgKvzOJw5Fyj4rPp2fz1G8kHJI1UtE6B1gFaI4stVtHBxvkr2w_2YVpka3XFlJNUVq_bM9ymVHLiyGTMsyHPEzqq1vExL4Urh-03Mv7F4dsUxlnsmelArMf_mo6KCIcTZ5FnmIz1qItRDuplTtWtuV-YCxPFxW_HdA2JHMxcijVcYQxn-nANK5_uZ3NjMIztRR0Uuay4zfo4o333S5TjIidlrUgtw51Epn9tjsFnkNHC2gGytfq7jtMrGQpt2rWdnYqxLRuIysXrMxFCZQwvYzP0DkjiyS7GAfkNwOODJrv-eeKmJscydlzmqBqTmEGP0ydp6w7w3pSurYSKJ-vE9bGOztYZSqgZ_Nmp44zImpI0V60gOgdKR24tXLf87HDZ7UxHLhNOkdPgbDlLfd_0xSmTwHYiCDEYS-XP4Ip4KO5scRMjKCev_nVXPh2DWNpJ7PEY1moS8MVmjkJqcb9eSEzdH6bwWVBX7Gg_kcZVTZaP1lIgqsh9bFXreQnj-fVScOZylfx5ZiDQmyrV8pZjMOyCo1UaS1kAIMIg7cwQFrcnPkalMClmUpOYV6ZDp1X9cDMQNQD8vCu_dAx1nUGN2RFzlDI4WvKcfvEwRVM95AqvHjVFOaaACLl6H85AO8APRDSw3oIC6RIIuQyFESDEES-GACkYV86yEUruVXkv_F1gH_1p2TdSKoCcYbNZx2uyZPHKCYAEDXO9wknDXXPHZPiRqP-nO5ihrB-IWmpSx0lJXB1yBKFYkyTsNDOyOjDpC2YDB7FSjrmff2BvF9aRY1igMLPtb2ze0QItpJEkDC_dq2ABEAO0bwXQ2dud4f4ILDSqo2WbtiwRF3BNY8l7t1LtVcxz5o8SeSz0WqzHjyQ4ZmH49ABga5cKLVWRfqpNyEmXCiifQZJmdLMk9Vy7Q66Aty1vgfCT96DB5U5xSpYRP9QyilNj5y1tyHTG1VcAU_3i5dLiUMlFqImd3pv2df5G1WO31MwXmtr2W2SkWPRCJPb8TiYdtUkJdHddgBq3C7qOrgwGAL6uueeznMSIskVeHIakkzoYirQMX-JRS4upAj6YGt6AVRJuUtec4hBPZrhYS1dl2GjSp_0jrsBY-Bx2NDqia6pazhSEnZ2vCheKW5JGWAg652xRz0NdwuBfHGUdGN6NFSNp2gjSlkAufQb8gIm6A1K58v1VQ9f1MYjQ0DLIglm2uM1czXmwzZeGj-ILTkUJT7QybVx503PKt4neEaSIqvZtVrVZA-QLseqmhY6uV1V3DaekhdqdOzQafIZ6UfXAU4D7TLDSS7sdNPQZ2lBsNqa3eZRbxLKNY-wz0WRTeTrvOqNSZlsFOSwVsG5U7YpqJEBZhiMic-afyITj6BcAtVcCzbOvT3Qz7WgjbFHy9IizfWCE_63K52nagOtRTfEZZPbgP3-GvUM-vDQtVT7Hb-KvDqmjYs-4THjrAu6zacf-frrRXTcwvG_WvoqFzFN3S2huo4AetoZ5caquTsKaaZ2Fdzf8G6KnkBzskfRM9V3b5n7gJdc8I7iBBluEK6K6nWxCrYj-ZzzYEwsHh2fTma5fNU7nJD4qsTfPMeizTI5XzYzW8j-8OaBd4EGtCVzuvYQMykD6WFg1q7qZM4d-9CgAIio8tp9Q_4nJUhRaBFGOguogLRgCf69tuAgrzJ42i9R6l6LRI4Yk8SgfZclV7mpF7KyqdgXXdteBTH2SS3QfAH54TdtnGdrFT23YPKrsraY99r1lf7PvsOt34nkkKt5aWer4sH6SYVb592Ax3ypgszBwv.DsTt7bTr-kxsEYn-IxlLxg",
       "domain": "qa.fade.systems",
       "path": "/",
-      "expires": 1765149786.628273,
+      "expires": 1770971088.320311,
       "httpOnly": true,
       "secure": true,
       "sameSite": "Lax"
@@ -287,15 +267,19 @@
       "localStorage": [
         {
           "name": "nextauth.message",
-          "value": "{\"event\":\"session\",\"data\":{\"trigger\":\"getSession\"},\"timestamp\":1762557786}"
+          "value": "{\"event\":\"session\",\"data\":{\"trigger\":\"getSession\"},\"timestamp\":1768379088}"
         },
         {
-          "name": "cacheLoading",
-          "value": "true"
+          "name": "lastFetchTimestamp",
+          "value": "2026-01-14T08:25:10.116Z"
         },
         {
           "name": "app_version",
-          "value": "1762449736367"
+          "value": "1768323412333"
+        },
+        {
+          "name": "queryCache",
+          "value": "{\"adviser\":{\"edges\":[{\"node\":{\"id\":\"/users/108\",\"displayName\":\"Test Superadmin\",\"emailAddress\":\"superadmin@fadetest.onmicrosoft.com\"}},{\"node\":{\"id\":\"/users/115\",\"displayName\":\"Finance Hub\",\"emailAddress\":null}}]},\"provider\":{\"edges\":[{\"node\":{\"id\":\"/providers/233\",\"name\":\"Aviva\",\"isPlatformProvider\":null}}]},\"communication_direction_meeting\":{\"values\":[\"face to face\",\"online\",\"phone\"]},\"communication_direction_nonMeeting\":{\"values\":[\"from client\",\"to client\",\"from provider\",\"to provider\",\"other\"]},\"default\":{\"values\":[\"yes\",\"no\"]},\"dependant_type\":{\"values\":[\"spouse\",\"employer\",\"employee\",\"civil partner\",\"cohabiter\",\"sibling\",\"son/daughter\",\"parent\",\"partner\",\"grandchild\"]},\"isFinanciallyDependant\":{\"values\":[\"yes\",\"no\"]},\"livesWithClient\":{\"values\":[\"yes\",\"no\"]},\"tree\":{\"values\":{\"pension\":{\"subType\":{\"occupational\":{\"pensionType\":[\"defined benefit\",\"S.32\"]},\"workplace\":{\"pensionType\":[\"workplace pension\",\"AVC\",\"EPP\",\"SSAS\"]},\"personal\":{\"pensionType\":[\"personal\",\"S.226\",\"SIPP\",\"stakeholder\"]}}},\"inheritance tax product\":{\"subType\":[\"AIM ISA\",\"AIM portfolio\",\"discounted gift trust\",\"single company/unlisted shares\"]},\"ISA\":{\"subType\":[\"stocks & shares ISA\",\"cash ISA\",\"lifetime ISA\",\"innovative finance ISA\",\"help to buy ISA\"]},\"JISA\":{\"subType\":[\"Junior Cash ISA\",\"Junior Stocks & Shares ISA\"]},\"GIA\":[],\"VCT\":[],\"EIS\":[],\"SEIS\":[],\"bond\":{\"subType\":[\"offshore\",\"onshore\"]},\"cash\":{\"subType\":[\"current account\",\"deposit account\",\"fixed term account\"]},\"national savings\":{\"subType\":[\"certificates\",\"premium bonds\",\"income bonds\",\"direct saver\",\"investment account\"]},\"property\":{\"subType\":[\"main residence\",\"additional residence\",\"buy to let\",\"commercial\",\"other\"]},\"annuity\":{\"subType\":[\"purchased lifetime annuity\",\"lifetime care annuity\",\"pension lifetime annuity\",\"pension fixed term annuity\"]},\"structured products\":{\"subType\":[\"deposit\",\"capital products (protected)\",\"capital at risk\"]}}},\"businessType\":{\"values\":[\"existing\",\"new\"]},\"account_emailConsent\":{\"values\":[\"yes\",\"no\",\"not provided\"]},\"account_smsConsent\":{\"values\":[\"yes\",\"no\",\"not provided\"]},\"account_phoneConsent\":{\"values\":[\"yes\",\"no\",\"not provided\"]},\"account_postConsent\":{\"values\":[\"yes\",\"no\",\"not provided\"]},\"agencyStatus\":{\"values\":[\"under agency\",\"under agency - info only\",\"not under agency\",\"not under agency - disengaged\",\"under agency - disengaged\"]},\"policyStatus\":{\"values\":[\"draft\",\"submitted\",\"in force\",\"closed\",\"death claim\",\"not proceeding\",\"transferred out\",\"surrendered\",\"matured\"]},\"membershipStatus\":{\"values\":[\"active member - accruing\",\"deferred member\",\"active member - not accruing\",\"taking benefits\",\"transferred out\"]},\"drawdownStatus\":{\"values\":[\"not in drawdown\",\"in drawdown\"]},\"accrueRate\":{\"values\":[\"1/50\",\"1/80\",\"1/120\"]},\"FREQUENCIES\":{\"values\":[\"monthly\",\"quarterly\",\"biannually\",\"annually\"]},\"FREQUENCIES_WITH_ONE_OFF\":{\"values\":[\"one-off\",\"monthly\",\"quarterly\",\"biannually\",\"annually\"]},\"benefitLevelType\":{\"values\":[\"percentage\",\"CPI\",\"RPI\"]},\"expense_type\":{\"values\":[\"birthdays & christmas\",\"building & contents insurance\",\"car & travel\",\"charity\",\"clothing\",\"council tax\",\"credit cards\",\"food & toiletries\",\"furniture & appliances & repairs\",\"gas & electricity\",\"gym & health\",\"hair & beauty\",\"holidays\",\"housekeeping\",\"life & general insurance\",\"mobiles\",\"monthly discretionary expenditure\",\"mortgage & rent\",\"other\",\"pension contributions\",\"personal loans\",\"pets\",\"regular savings\",\"school & childcare fees\",\"socials & going out\",\"tv & broadband\",\"water\"]},\"income_type\":{\"values\":[\"salary\",\"dividends\",\"annuity\",\"rent\",\"other non earned, taxable income\",\"state pension\",\"other non taxable income\",\"bond income\",\"interest\",\"pension\"]},\"protectionPolicy_status\":{\"values\":[\"submitted\",\"in force\",\"in claim\",\"matured\",\"cancelled\",\"draft\"]},\"protectionPolicy_adviceType\":{\"values\":[\"advised\",\"non-advised\",\"execution only\"]},\"premiumEscalation\":{\"values\":[\"level\",\"increasing - RPI\",\"increasing - CPI\",\"increasing\"]},\"paidBy\":{\"values\":[\"client\",\"employer\",\"3rd party\"]},\"protectionPolicy_category\":{\"values\":[\"endowment policy\",\"term assurance\",\"whole of life\",\"key man\",\"income protection\",\"relevant life cover\",\"family income benefit\",\"private medical insurance\",\"personal accident\"]},\"whichDeath\":{\"values\":[\"first\",\"second\"]},\"benefitLevel\":{\"values\":[\"level\",\"increasing\",\"decreasing\"]},\"criticalIllnessWhichDeath\":{\"values\":[\"first\",\"second\"]},\"criticalIllnessBenefitLevel\":{\"values\":[\"level\",\"increasing\",\"decreasing\"]},\"liability_category\":{\"values\":[\"mortgage\",\"secured loan\",\"unsecured loan\",\"credit card\"]},\"capitalGain_status\":{\"values\":[\"realised\",\"unrealised\",\"anticipated\"]},\"powerOfAttorney_type\":{\"values\":[\"ordinary\",\"lasting\",\"enduring\"]},\"powerOfAttorney_covering\":{\"values\":[\"health only\",\"finances only\",\"health and finances\"]},\"gift_giftType\":{\"values\":[\"potentially exempt transfer\",\"chargeable lifetime transfer\",\"gift from income\",\"small gift\"]},\"individual_title\":{\"values\":[\"Mr\",\"Mrs\",\"Ms\",\"Miss\",\"Master\",\"Doctor\",\"Professor\",\"Reverend\",\"Lady\",\"Sir\",\"Captain\",\"Major\",\"Lieutenant Colonel\",\"Colonel\",\"Lady\",\"Lieutenant Commander\",\"the Honourable\",\"Commander\",\"Flight Lieutenant\",\"Brigadier\",\"Judge\",\"Lord\",\"the Honourable Mrs\",\"Wing commander\",\"Group captain\",\"the Right Honourable\",\"the Reverend Father\",\"Reverend Canon\",\"Major General.\",\"Air Commodore\",\"Viscount\",\"Dame\",\"Rear Admiral\"]},\"individual_gender\":{\"values\":[\"male\",\"female\",\"other\"]},\"individual_maritalStatus\":{\"values\":[\"single\",\"married\",\"widowed\",\"divorced\",\"civil partnership\",\"cohabiting\"]},\"individual_employmentStatus\":{\"values\":[\"employed\",\"self employed\",\"retired\",\"unemployed\",\"full time education\"]},\"dictionary_COUNTRY\":{\"values\":{\"GB\":\"United Kingdom of Great Britain and Northern Ireland\",\"AF\":\"Islamic Republic of Afghanistan\",\"AX\":\"Aland Islands\",\"AL\":\"Albania\",\"DZ\":\"Algeria\",\"AS\":\"American Samoa\",\"AD\":\"Andorra\",\"AO\":\"Angola\",\"AI\":\"Anguilla\",\"AQ\":\"Antarctica\",\"AG\":\"Antigua and Barbuda\",\"AR\":\"Argentina\",\"AM\":\"Armenia\",\"AW\":\"Aruba\",\"AU\":\"Australia\",\"AT\":\"Austria\",\"AZ\":\"Azerbaijan\",\"BS\":\"Bahamas\",\"BH\":\"Bahrain\",\"BD\":\"Bangladesh\",\"BB\":\"Barbados\",\"BY\":\"Belarus\",\"BE\":\"Belgium\",\"BZ\":\"Belize\",\"BJ\":\"Benin\",\"BM\":\"Bermuda\",\"BT\":\"Bhutan\",\"BO\":\"Bolivia (Plurinational State of)\",\"BQ\":\"Bonaire, Sint Eustatius and Saba\",\"BA\":\"Bosnia and Herzegovina\",\"BW\":\"Botswana\",\"BV\":\"Bouvet Island\",\"BR\":\"Brazil\",\"IO\":\"British Indian Ocean Territory\",\"BN\":\"Brunei Darussalam\",\"BG\":\"Bulgaria\",\"BF\":\"Burkina Faso\",\"BI\":\"Burundi\",\"CV\":\"Cabo Verde\",\"KH\":\"Cambodia\",\"CM\":\"Cameroon\",\"CA\":\"Canada\",\"KY\":\"Cayman Islands\",\"CF\":\"Central African Republic\",\"TD\":\"Chad\",\"CL\":\"Chile\",\"CN\":\"China\",\"CX\":\"Christmas Island\",\"CC\":\"Cocos (Keeling) Islands\",\"CO\":\"Colombia\",\"KM\":\"Comoros\",\"CG\":\"Congo\",\"CD\":\"Congo, Democratic Republic of the\",\"CK\":\"Cook Islands\",\"CR\":\"Costa Rica\",\"CI\":\"Côte d'Ivoire\",\"HR\":\"Croatia\",\"CU\":\"Cuba\",\"CW\":\"Curaçao\",\"CY\":\"Cyprus\",\"CZ\":\"Czechia\",\"DK\":\"Denmark\",\"DJ\":\"Djibouti\",\"DM\":\"Dominica\",\"DO\":\"Dominican Republic\",\"EC\":\"Ecuador\",\"EG\":\"Egypt\",\"SV\":\"El Salvador\",\"GQ\":\"Equatorial Guinea\",\"ER\":\"Eritrea\",\"EE\":\"Estonia\",\"SZ\":\"Eswatini\",\"ET\":\"Ethiopia\",\"FK\":\"Falkland Islands (Malvinas)\",\"FO\":\"Faroe Islands\",\"FJ\":\"Fiji\",\"FI\":\"Finland\",\"FR\":\"France\",\"GF\":\"French Guiana\",\"PF\":\"French Polynesia\",\"TF\":\"French Southern Territories\",\"GA\":\"Gabon\",\"GM\":\"Gambia\",\"GE\":\"Georgia\",\"DE\":\"Germany\",\"GH\":\"Ghana\",\"GI\":\"Gibraltar\",\"GR\":\"Greece\",\"GL\":\"Greenland\",\"GD\":\"Grenada\",\"GP\":\"Guadeloupe\",\"GU\":\"Guam\",\"GT\":\"Guatemala\",\"GG\":\"Guernsey\",\"GN\":\"Guinea\",\"GW\":\"Guinea-Bissau\",\"GY\":\"Guyana\",\"HT\":\"Haiti\",\"HM\":\"Heard Island and McDonald Islands\",\"VA\":\"Holy See\",\"HN\":\"Honduras\",\"HK\":\"Hong Kong\",\"HU\":\"Hungary\",\"IS\":\"Iceland\",\"IN\":\"India\",\"ID\":\"Indonesia\",\"IR\":\"Iran (Islamic Republic of)\",\"IQ\":\"Iraq\",\"IE\":\"Ireland\",\"IM\":\"Isle of Man\",\"IL\":\"Israel\",\"IT\":\"Italy\",\"JM\":\"Jamaica\",\"JP\":\"Japan\",\"JE\":\"Jersey\",\"JO\":\"Jordan\",\"KZ\":\"Kazakhstan\",\"KE\":\"Kenya\",\"KI\":\"Kiribati\",\"KP\":\"Korea (Democratic People's Republic of)\",\"KR\":\"Korea, Republic of\",\"KW\":\"Kuwait\",\"KG\":\"Kyrgyzstan\",\"LA\":\"Lao People's Democratic Republic\",\"LV\":\"Latvia\",\"LB\":\"Lebanon\",\"LS\":\"Lesotho\",\"LR\":\"Liberia\",\"LY\":\"Libya\",\"LI\":\"Liechtenstein\",\"LT\":\"Lithuania\",\"LU\":\"Luxembourg\",\"MO\":\"Macao\",\"MG\":\"Madagascar\",\"MW\":\"Malawi\",\"MY\":\"Malaysia\",\"MV\":\"Maldives\",\"ML\":\"Mali\",\"MT\":\"Malta\",\"MH\":\"Marshall Islands\",\"MQ\":\"Martinique\",\"MR\":\"Mauritania\",\"MU\":\"Mauritius\",\"YT\":\"Mayotte\",\"MX\":\"Mexico\",\"FM\":\"Micronesia (Federated States of)\",\"MD\":\"Moldova, Republic of\",\"MC\":\"Monaco\",\"MN\":\"Mongolia\",\"ME\":\"Montenegro\",\"MS\":\"Montserrat\",\"MA\":\"Morocco\",\"MZ\":\"Mozambique\",\"MM\":\"Myanmar\",\"NA\":\"Namibia\",\"NR\":\"Nauru\",\"NP\":\"Nepal\",\"NL\":\"Netherlands\",\"NC\":\"New Caledonia\",\"NZ\":\"New Zealand\",\"NI\":\"Nicaragua\",\"NE\":\"Niger\",\"NG\":\"Nigeria\",\"NU\":\"Niue\",\"NF\":\"Norfolk Island\",\"MK\":\"North Macedonia\",\"MP\":\"Northern Mariana Islands\",\"NO\":\"Norway\",\"OM\":\"Oman\",\"PK\":\"Pakistan\",\"PW\":\"Palau\",\"PS\":\"Palestine, State of\",\"PA\":\"Panama\",\"PG\":\"Papua New Guinea\",\"PY\":\"Paraguay\",\"PE\":\"Peru\",\"PH\":\"Philippines\",\"PN\":\"Pitcairn\",\"PL\":\"Poland\",\"PT\":\"Portugal\",\"PR\":\"Puerto Rico\",\"QA\":\"Qatar\",\"RE\":\"Réunion\",\"RO\":\"Romania\",\"RU\":\"Russian Federation\",\"RW\":\"Rwanda\",\"BL\":\"Saint Barthélemy\",\"SH\":\"Saint Helena, Ascension and Tristan da Cunha\",\"KN\":\"Saint Kitts and Nevis\",\"LC\":\"Saint Lucia\",\"MF\":\"Saint Martin (French part)\",\"PM\":\"Saint Pierre and Miquelon\",\"VC\":\"Saint Vincent and the Grenadines\",\"WS\":\"Samoa\",\"SM\":\"San Marino\",\"ST\":\"Sao Tome and Principe\",\"SA\":\"Saudi Arabia\",\"SN\":\"Senegal\",\"RS\":\"Serbia\",\"SC\":\"Seychelles\",\"SL\":\"Sierra Leone\",\"SG\":\"Singapore\",\"SX\":\"Sint Maarten (Dutch part)\",\"SK\":\"Slovakia\",\"SI\":\"Slovenia\",\"SB\":\"Solomon Islands\",\"SO\":\"Somalia\",\"ZA\":\"South Africa\",\"GS\":\"South Georgia and the South Sandwich Islands\",\"SS\":\"South Sudan\",\"ES\":\"Spain\",\"LK\":\"Sri Lanka\",\"SD\":\"Sudan\",\"SR\":\"Suriname\",\"SJ\":\"Svalbard and Jan Mayen\",\"SE\":\"Sweden\",\"CH\":\"Switzerland\",\"SY\":\"Syrian Arab Republic\",\"TW\":\"Taiwan, Province of China\",\"TJ\":\"Tajikistan\",\"TZ\":\"Tanzania, United Republic of\",\"TH\":\"Thailand\",\"TL\":\"Timor-Leste\",\"TG\":\"Togo\",\"TK\":\"Tokelau\",\"TO\":\"Tonga\",\"TT\":\"Trinidad and Tobago\",\"TN\":\"Tunisia\",\"TR\":\"Turkey\",\"TM\":\"Turkmenistan\",\"TC\":\"Turks and Caicos Islands\",\"TV\":\"Tuvalu\",\"UG\":\"Uganda\",\"UA\":\"Ukraine\",\"AE\":\"United Arab Emirates\",\"US\":\"United States of America\",\"UM\":\"United States Minor Outlying Islands\",\"UY\":\"Uruguay\",\"UZ\":\"Uzbekistan\",\"VU\":\"Vanuatu\",\"VE\":\"Venezuela (Bolivarian Republic of)\",\"VN\":\"Viet Nam\",\"VG\":\"Virgin Islands (British)\",\"VI\":\"Virgin Islands (U.S.)\",\"WF\":\"Wallis and Futuna\",\"EH\":\"Western Sahara\",\"YE\":\"Yemen\",\"ZM\":\"Zambia\",\"ZW\":\"Zimbabwe\"}},\"employment_status\":{\"values\":[\"employed\",\"self employed\",\"unemployed\",\"retired\",\"other\"]},\"employmentType\":{\"values\":[\"full time\",\"part time\",\"self employed\",\"contractor\",\"zero hours\",\"fixed term\",\"agency\",\"other\"]},\"objective_type\":{\"values\":[\"future retirement\",\"income/expenditure requirement\",\"one off spend\",\"protection need\",\"tax mitigation\",\"generic goal/unspecified\"]},\"retirementType\":{\"values\":[\"full\",\"phased\"]},\"targetClient\":{\"values\":[\"client\",\"client or spouse/partner\",\"client and spouse/partner\"]},\"objective_need\":{\"values\":[\"a lump sum\",\"a regular income\",\"a mortgage paid off\"]},\"objective_event\":{\"values\":[\"death\",\"serious illness\",\"both\"]},\"objective_tax\":{\"values\":[\"income tax\",\"capital gains tax\",\"lifetime allowance charge\",\"inheritance tax\"]},\"toolUsed\":{\"values\":[\"defaqto\",\"oxford risk\"]},\"correspondenceMethod_typeIndividualEmail\":{\"values\":[\"personal\",\"work\"]},\"correspondenceMethod_typeIndividualPhone\":{\"values\":[\"home\",\"mobile\",\"office\"]},\"correspondenceMethod_typeTrustEmail\":{\"values\":[\"solicitor\",\"trustee\",\"beneficiary\",\"general\"]},\"correspondenceMethod_typeTrustPhone\":{\"values\":[\"solicitor\",\"trustee\",\"beneficiary\",\"general\"]},\"correspondenceMethod_typeCorporationEmail\":{\"values\":[\"general\",\"director\",\"secretary\",\"accountant\",\"solicitor\"]},\"correspondenceMethod_typeCorporationPhone\":{\"values\":[\"general\",\"director\",\"secretary\",\"accountant\",\"solicitor\"]},\"relationship_typeIndividual\":{\"values\":[\"spouse\",\"employer\",\"employee\",\"civil partner\",\"cohabiter\",\"son/daughter\",\"parent\",\"partner\",\"grandchild\",\"sibling\",\"grandparent\",\"POA - donor\",\"POA - attorney\"]},\"account_sourceCategory\":{\"values\":[\"firm generated\",\"adviser generated\",\"professional introducer\"]},\"aml_electronicCheckResult\":{\"values\":[\"pass\",\"fail\",\"refer\"]},\"aml_proofOfId\":{\"values\":[\"passport\",\"photo card driving licence\",\"national identity card\",\"firearms certificate / shotgun licence\"]},\"aml_proofOfAddress\":{\"values\":[\"local authority council tax bill\",\"photo card driving licence\",\"DWP letter\",\"HMRC letter\",\"utility bill\",\"credit card statement\",\"bank statement\"]},\"aml_isPoliticallyExposedPerson\":{\"values\":[\"yes\",\"no\"]},\"serviceCase_type\":{\"values\":[\"new business\",\"annual review\",\"withdrawal\",\"existing client - ad hoc request\"]},\"serviceCase_status\":{\"values\":{\"new business\":[\"new enquiry\",\"fact find\",\"data gathering\",\"report writing\",\"advice presentation\",\"new business proceeding\",\"complete\",\"not proceeding\",\"on hold\"],\"annual review\":[\"new review\",\"data gathering\",\"report writing\",\"new business proceeding\",\"complete\",\"not proceeding\",\"on hold\"],\"withdrawal\":[\"withdrawal request\",\"withdrawal advice\",\"report writing\",\"withdrawal processing\",\"complete\",\"not proceeding\",\"on hold\"],\"existing client - ad hoc request\":[\"new ad hoc request\",\"report writing\",\"ad hoc processing\",\"complete\",\"not proceeding\",\"on hold\"]}},\"fee_structure\":{\"values\":[\"fixed\",\"percentage\"]},\"fee_type\":{\"values\":[\"initial advice fee\",\"ongoing advice fee\",\"initial commission\",\"initial commission (auto renewal)\",\"initial referral fee\",\"ongoing referral fee\",\"renewal commission\",\"fund based commission\",\"clawback\"]},\"fee_source\":{\"values\":[\"client\",\"asset\",\"protection policy\",\"referral company\"]},\"task_status\":{\"values\":[\"not started\",\"in progress\",\"waiting for info\",\"complete\",\"closed\"]},\"task_type\":{\"values\":[\"new enquiry\",\"write report\",\"process signed LOA\",\"run AML check\",\"general\",\"data request\",\"client enquiry\",\"new business proceeding\",\"PP triage & MI\",\"new document uploaded\",\"new review\",\"fact find\",\"advice presentation\",\"data gathering\",\"report writing\",\"withdrawal request\",\"withdrawal advice\",\"withdrawal processing\",\"not proceeding\",\"new ad hoc request\",\"ad hoc processing\",\"withdrawal\",\"top up\",\"GIA to pension\",\"GIA to ISA\",\"disengagement\",\"investment change\",\"product switch\",\"new policy\",\"new contribution\"]},\"ADVISER_TASKS_STATUSES\":{\"values\":[\"in progress\",\"not started\",\"waiting for info\"]}}"
         }
       ]
     }
