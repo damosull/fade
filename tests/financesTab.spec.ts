@@ -94,9 +94,9 @@ selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, acc
       await expect(assetRow).toContainText('in force');
     });
 
-    test.skip('Verify adding JISA', async ({ app, page }) => {
+    test('Verify adding JISA', async ({ app, page }) => {
       const ownerTag = `e2e-${stamp()}`;
-      const isaPolicyName = `ISA-${ownerTag}`;
+      const jisaPolicyName = `JISA-${ownerTag}`;
       const seed = getSeed();
       const newPolicy = policyNumber();
       const provider = 'Aviva';
@@ -105,11 +105,11 @@ selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, acc
 
       await app.actions.header.openFinancesTab();
       await app.pages.finance.addAssetButton().click();
-      await app.actions.assetModal.addAssetOverview('ISA');
-      await app.actions.assetModal.addAssetSubType('JISA');
+      await app.actions.assetModal.addAssetOverview('JISA');
+      await app.actions.assetModal.addAssetSubType('Junior Cash ISA');
 
       await app.actions.assetModal.addAssetPolicyDetails(
-        isaPolicyName,
+        jisaPolicyName,
         provider,
         newPolicy,
         'in force'
@@ -127,10 +127,10 @@ selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, acc
         await page.waitForLoadState('networkidle');
       }
 
-      const assetRow = app.pages.finance.assetRowByName(isaPolicyName);
+      const assetRow = app.pages.finance.assetRowByName(jisaPolicyName);
       await expect(assetRow).toContainText(provider);
-      await expect(assetRow).toContainText('ISA');
-      await expect(assetRow).toContainText(/JISA/i);
+      await expect(assetRow).toContainText('JISA');
+      await expect(assetRow).toContainText(/junior cash ISA/i);
       await expect(assetRow).toContainText(newPolicy);
       await expect(assetRow).toContainText('in force');
     });
@@ -257,135 +257,134 @@ selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, acc
       await expect(assetRow).toContainText(newPolicy);
       await expect(assetRow).toContainText('in force');
     });
-  });
 
-  test('Verify adding Lifetime ISA', async ({ app }) => {
-    const ownerTag = `e2e-${stamp()}`;
-    const isaPolicyName = `ISA-${ownerTag}`;
-    const seed = getSeed();
-    const newPolicy = policyNumber();
-    const provider = 'Aviva';
+    test('Verify adding Pension - Personal', async ({ app, page }) => {
+      const ownerTag = `e2e-${stamp()}`;
+      const isaPolicyName = `ISA-${ownerTag}`;
+      const seed = getSeed();
+      const newPolicy = policyNumber();
+      const provider = 'Aviva';
 
-    await app.actions.header.searchForAccount(seed.accountSurname);
-    await app.actions.header.openFinancesTab();
-    await app.pages.finance.addAssetButton().click();
-    await app.actions.assetModal.addAssetOverview('isa');
-    await app.actions.assetModal.addAssetSubType('Lifetime ISA');
+      await app.actions.header.searchForAccount(seed[accountNameKey]);
 
-    await app.actions.assetModal.addAssetPolicyDetails(
-      isaPolicyName,
-      provider,
-      newPolicy,
-      'in force'
-    );
+      await app.actions.header.openFinancesTab();
+      await app.pages.finance.addAssetButton().click();
+      await app.actions.assetModal.addAssetOverview('pension');
+      await app.actions.assetModal.addAssetSubType('Personal');
+      await app.actions.assetModal.addPensionType('SIPP');
+      await app.actions.assetModal.addAssetAgencyStatus('under agency');
 
-    await app.actions.assetModal.addPolicyStatusDate();
-    await app.actions.assetModal.saveAsset();
+      await app.actions.assetModal.addAssetPolicyDetails(
+        isaPolicyName,
+        provider,
+        newPolicy,
+        'in force'
+      );
 
-    const assetRow = app.pages.finance.assetRowByName(isaPolicyName);
-    await expect(assetRow).toContainText(provider);
-    await expect(assetRow).toContainText('ISA');
-    await expect(assetRow).toContainText('lifetime ISA');
-    await expect(assetRow).toContainText(newPolicy);
-    await expect(assetRow).toContainText('in force');
-  });
+      await app.actions.assetModal.saveAsset();
 
-  test('Verify adding Pension - Personal', async ({ app }) => {
-    const ownerTag = `e2e-${stamp()}`;
-    const isaPolicyName = `ISA-${ownerTag}`;
-    const seed = getSeed();
-    const newPolicy = policyNumber();
-    const provider = 'Aviva';
+      try {
+        await expect(
+          page.getByText('Asset has been saved successfully', { exact: true }).first()
+        ).toBeVisible();
+      } catch {
+        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+        await page.waitForLoadState('networkidle');
+      }
 
-    await app.actions.header.searchForAccount(seed.accountSurname);
-    await app.actions.header.openFinancesTab();
-    await app.pages.finance.addAssetButton().click();
-    await app.actions.assetModal.addAssetOverview('pension');
-    await app.actions.assetModal.addAssetSubType('Personal');
-    await app.actions.assetModal.addPensionType('SIPP');
-    await app.actions.assetModal.addAssetAgencyStatus('under agency');
+      const assetRow = app.pages.finance.assetRowByName(isaPolicyName);
+      await expect(assetRow).toContainText(provider);
+      await expect(assetRow).toContainText('pension');
+      await expect(assetRow).toContainText('personal');
+      await expect(assetRow).toContainText(newPolicy);
+      await expect(assetRow).toContainText('in force');
+      await expect(assetRow).toContainText('under agency');
+    });
 
-    await app.actions.assetModal.addAssetPolicyDetails(
-      isaPolicyName,
-      provider,
-      newPolicy,
-      'in force'
-    );
+    test('Verify adding Pension - Workplace', async ({ app, page }) => {
+      const ownerTag = `e2e-${stamp()}`;
+      const isaPolicyName = `ISA-${ownerTag}`;
+      const seed = getSeed();
+      const newPolicy = policyNumber();
+      const provider = 'Aviva';
 
-    await app.actions.assetModal.saveAsset();
+      await app.actions.header.searchForAccount(seed[accountNameKey]);
 
-    const assetRow = app.pages.finance.assetRowByName(isaPolicyName);
-    await expect(assetRow).toContainText(provider);
-    await expect(assetRow).toContainText('pension');
-    await expect(assetRow).toContainText('personal');
-    await expect(assetRow).toContainText(newPolicy);
-    await expect(assetRow).toContainText('in force');
-    await expect(assetRow).toContainText('under agency');
-  });
+      await app.actions.header.openFinancesTab();
+      await app.pages.finance.addAssetButton().click();
+      await app.actions.assetModal.addAssetOverview('pension');
+      await app.actions.assetModal.addAssetSubType('Workplace');
+      await app.actions.assetModal.addPensionType('AVC');
+      await app.actions.assetModal.addAssetAgencyStatus('under agency');
 
-  test('Verify adding Pension - Workplace', async ({ app }) => {
-    const ownerTag = `e2e-${stamp()}`;
-    const isaPolicyName = `ISA-${ownerTag}`;
-    const seed = getSeed();
-    const newPolicy = policyNumber();
-    const provider = 'Aviva';
+      await app.actions.assetModal.addAssetPolicyDetails(
+        isaPolicyName,
+        provider,
+        newPolicy,
+        'in force'
+      );
 
-    await app.actions.header.searchForAccount(seed.accountSurname);
-    await app.actions.header.openFinancesTab();
-    await app.pages.finance.addAssetButton().click();
-    await app.actions.assetModal.addAssetOverview('pension');
-    await app.actions.assetModal.addAssetSubType('Workplace');
-    await app.actions.assetModal.addPensionType('AVC');
-    await app.actions.assetModal.addAssetAgencyStatus('under agency');
+      await app.actions.assetModal.saveAsset();
 
-    await app.actions.assetModal.addAssetPolicyDetails(
-      isaPolicyName,
-      provider,
-      newPolicy,
-      'in force'
-    );
+      try {
+        await expect(
+          page.getByText('Asset has been saved successfully', { exact: true }).first()
+        ).toBeVisible();
+      } catch {
+        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+        await page.waitForLoadState('networkidle');
+      }
 
-    await app.actions.assetModal.saveAsset();
+      const assetRow = app.pages.finance.assetRowByName(isaPolicyName);
+      await expect(assetRow).toContainText(provider);
+      await expect(assetRow).toContainText('pension');
+      await expect(assetRow).toContainText('workplace');
+      await expect(assetRow).toContainText(newPolicy);
+      await expect(assetRow).toContainText('in force');
+      await expect(assetRow).toContainText('under agency');
+    });
 
-    const assetRow = app.pages.finance.assetRowByName(isaPolicyName);
-    await expect(assetRow).toContainText(provider);
-    await expect(assetRow).toContainText('pension');
-    await expect(assetRow).toContainText('workplace');
-    await expect(assetRow).toContainText(newPolicy);
-    await expect(assetRow).toContainText('in force');
-    await expect(assetRow).toContainText('under agency');
-  });
+    test('Verify adding Pension - Occupational', async ({ app, page }) => {
+      const ownerTag = `e2e-${stamp()}`;
+      const isaPolicyName = `ISA-${ownerTag}`;
+      const seed = getSeed();
+      const newPolicy = policyNumber();
+      const provider = 'Aviva';
 
-  test('Verify adding Pension - Occupational', async ({ app }) => {
-    const ownerTag = `e2e-${stamp()}`;
-    const isaPolicyName = `ISA-${ownerTag}`;
-    const seed = getSeed();
-    const newPolicy = policyNumber();
-    const provider = 'Aviva';
+      await app.actions.header.searchForAccount(seed[accountNameKey]);
 
-    await app.actions.header.searchForAccount(seed.accountSurname);
-    await app.actions.header.openFinancesTab();
-    await app.pages.finance.addAssetButton().click();
-    await app.actions.assetModal.addAssetOverview('pension');
-    await app.actions.assetModal.addAssetSubType('Occupational');
-    await app.actions.assetModal.addPensionType('S.32');
-    await app.actions.assetModal.addAssetAgencyStatus('under agency');
+      await app.actions.header.openFinancesTab();
+      await app.pages.finance.addAssetButton().click();
+      await app.actions.assetModal.addAssetOverview('pension');
+      await app.actions.assetModal.addAssetSubType('Occupational');
+      await app.actions.assetModal.addPensionType('S.32');
+      await app.actions.assetModal.addAssetAgencyStatus('under agency');
 
-    await app.actions.assetModal.addAssetPolicyDetails(
-      isaPolicyName,
-      provider,
-      newPolicy,
-      'in force'
-    );
+      await app.actions.assetModal.addAssetPolicyDetails(
+        isaPolicyName,
+        provider,
+        newPolicy,
+        'in force'
+      );
 
-    await app.actions.assetModal.saveAsset();
+      await app.actions.assetModal.saveAsset();
 
-    const assetRow = app.pages.finance.assetRowByName(isaPolicyName);
-    await expect(assetRow).toContainText(provider);
-    await expect(assetRow).toContainText('pension');
-    await expect(assetRow).toContainText('occupational');
-    await expect(assetRow).toContainText(newPolicy);
-    await expect(assetRow).toContainText('in force');
-    await expect(assetRow).toContainText('under agency');
+      try {
+        await expect(
+          page.getByText('Asset has been saved successfully', { exact: true }).first()
+        ).toBeVisible();
+      } catch {
+        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+        await page.waitForLoadState('networkidle');
+      }
+
+      const assetRow = app.pages.finance.assetRowByName(isaPolicyName);
+      await expect(assetRow).toContainText(provider);
+      await expect(assetRow).toContainText('pension');
+      await expect(assetRow).toContainText('occupational');
+      await expect(assetRow).toContainText(newPolicy);
+      await expect(assetRow).toContainText('in force');
+      await expect(assetRow).toContainText('under agency');
+    });
   });
 });
