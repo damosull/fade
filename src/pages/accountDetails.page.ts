@@ -499,6 +499,14 @@ export class AccountDetailsPage {
   addEmploymentButton() {
     return this.employmentDetailsSection().getByRole('button', { name: 'Add employment' });
   }
+
+  amlCheckSection() {
+    return this.page.locator('div.border.border-green.border-l-8').filter({ hasText: 'AML Check' });
+  }
+
+  runNewAmlCheckButton() {
+    return this.amlCheckSection().getByRole('button', { name: 'Run new AML check' });
+  }
 }
 
 export default AccountDetailsPage;

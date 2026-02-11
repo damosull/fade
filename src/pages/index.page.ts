@@ -10,3 +10,4 @@ export { default as SigninPage } from './signin.page';
 export { default as AssetModalPage } from './assetModal.page';
 export { default as AccountDetailsPage } from './accountDetails.page';
 export { default as AddEmploymentModalPage } from './addEmploymentModal.page';
+export { default as RunNewAmlCheckModalPage } from './runNewAmlCheckModal.page';

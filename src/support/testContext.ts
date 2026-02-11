@@ -24,6 +24,7 @@ const actionConstructors = {
   assetModal: actions.AssetModalActions,
   accountDetails: actions.AccountDetailsActions,
   addEmploymentModal: actions.AddEmploymentModalActions,
+  runNewAmlCheckModal: actions.RunNewAmlCheckModalActions,
 } as const;
 
 /**
@@ -44,6 +45,7 @@ const pageConstructors = {
   assetModal: pages.AssetModalPage,
   accountDetails: pages.AccountDetailsPage,
   addEmploymentModal: pages.AddEmploymentModalPage,
+  runNewAmlCheckModal: pages.RunNewAmlCheckModalPage,
 } as const;
 
 /**
