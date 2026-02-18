@@ -142,9 +142,25 @@ export function findServiceCaseLink(page: Page, selectServiceCase: string): Loca
   return page.locator('a[href*="/serviceCases/"]').getByText(new RegExp(escaped, 'i'));
 }
 
+const MONTH_NAMES = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
 /**
  * Select a date relative to today in a React Datepicker that uses
  * aria-labels like: "Choose Friday, November 7th, 2025".
+ * Navigates to the target month/year if the picker opens on a different month.
  */
 export async function selectDateByOffset(
   page: Page,
@@ -159,26 +175,30 @@ export async function selectDateByOffset(
   const year = date.getFullYear();
 
   await datePickerDropdown.click();
-  await page.locator('.react-datepicker').waitFor();
+  const picker = page.locator('.react-datepicker');
+  await picker.waitFor();
+
+  const nextBtn = picker.getByRole('button', { name: 'Next Month' });
+  const prevBtn = picker.getByRole('button', { name: 'Previous Month' });
+  const currentMonthEl = picker.locator('.react-datepicker__current-month');
+
+  for (let i = 0; i < 24; i++) {
+    const headerText = await currentMonthEl.innerText();
+    const [headerMonth, headerYearStr] = headerText.trim().split(' ');
+    const headerYear = parseInt(headerYearStr ?? '0', 10);
+    const headerMonthIndex = MONTH_NAMES.indexOf(headerMonth);
+    if (headerMonthIndex === -1) break;
+    if (headerYear === year && headerMonthIndex === month) break;
+    if (headerYear < year || (headerYear === year && headerMonthIndex < month)) {
+      await nextBtn.click();
+    } else {
+      await prevBtn.click();
+    }
+    await picker.locator('.react-datepicker__current-month').waitFor({ state: 'visible' });
+  }
 
   const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  const monthNames = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-
-  const dayName = dayNames[date.getDay()];
-  const monthName = monthNames[month];
+  const monthName = MONTH_NAMES[month];
   const daySuffix =
     day % 10 === 1 && day !== 11
       ? 'st'
@@ -188,8 +208,9 @@ export async function selectDateByOffset(
           ? 'rd'
           : 'th';
 
+  const dayName = dayNames[date.getDay()];
   const formatted = `Choose ${dayName}, ${monthName} ${day}${daySuffix}, ${year}`;
-  const dateCell = page.locator(`.react-datepicker__day[aria-label="${formatted}"]`);
+  const dateCell = picker.locator(`.react-datepicker__day[aria-label="${formatted}"]`);
   await dateCell.waitFor({ state: 'visible', timeout: 120000 });
   await dateCell.click();
 }

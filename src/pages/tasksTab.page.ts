@@ -54,6 +54,42 @@ export class TasksTabPage {
   taskReferenceColumn(row: Locator) {
     return row.locator('td').nth(6);
   }
+
+  /** Container for the expanded inline task edit form (after clicking Type cell). Scoped to Tasks table. */
+  expandedTaskForm() {
+    return this.tasksTable().getByRole('group', { name: 'New Task' });
+  }
+
+  expandedTaskNameInput() {
+    return this.expandedTaskForm().getByRole('textbox', { name: 'Name' });
+  }
+
+  expandedTaskTypeDropdown() {
+    return this.expandedTaskForm()
+      .locator('label')
+      .filter({ hasText: 'Type' })
+      .locator('[role="combobox"]');
+  }
+
+  expandedTaskDueDateDropdown() {
+    return this.expandedTaskForm()
+      .locator('div')
+      .filter({ hasText: /^Due Date/ })
+      .locator('svg, img')
+      .first();
+  }
+
+  expandedTaskAssignToDropdown() {
+    return this.expandedTaskForm()
+      .locator('label')
+      .filter({ hasText: 'Assign to' })
+      .locator('[role="combobox"]');
+  }
+
+  /** Save is outside the "New Task" fieldset; scope to the form in the expanded row. */
+  expandedTaskSaveButton() {
+    return this.tasksTable().locator('form').getByRole('button', { name: 'Save' });
+  }
 }
 
 export default TasksTabPage;
