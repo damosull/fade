@@ -50,6 +50,14 @@ export class CommunicationTabPage {
     return row.locator('td').nth(3);
   }
 
+  communicationRowDeleteButton(row: Locator) {
+    return row.locator('td').last().locator('button');
+  }
+
+  communicationDataRows() {
+    return this.communicationsTable().locator('tbody tr:has(td:last-of-type button)');
+  }
+
   /** Container for the expanded inline communication edit form (after clicking Type cell). Scoped to Communications table. */
   expandedCommunicationForm() {
     return this.communicationsTable().locator('form');

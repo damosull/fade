@@ -70,6 +70,18 @@ export class CommunicationTabActions {
   async saveExpandedCommunication(): Promise<void> {
     await this.view.expandedSaveButton().click();
   }
+
+  async deleteCommunicationRow(
+    type: string,
+    direction: string,
+    categories: string,
+    dateFormatted: string
+  ): Promise<void> {
+    const row = this.view.communicationRowMatching(type, direction, categories, dateFormatted);
+    await expect(row).toBeVisible();
+    await row.scrollIntoViewIfNeeded();
+    await this.view.communicationRowDeleteButton(row).click();
+  }
 }
 
 export default CommunicationTabActions;

@@ -148,5 +148,58 @@ selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, acc
         dateFormatted
       );
     });
+
+    test('Delete Communication and Validate', async ({ app, page }) => {
+      const seed = getSeed();
+
+      const dueDate = new Date();
+      dueDate.setDate(dueDate.getDate() + 0);
+      const day = String(dueDate.getDate()).padStart(2, '0');
+      const month = String(dueDate.getMonth() + 1).padStart(2, '0');
+      const year = dueDate.getFullYear();
+      const dateFormatted = `${day}/${month}/${year}`;
+
+      await app.actions.header.searchForAccount(seed[accountNameKey]);
+
+      await app.actions.header.openCommunicationTab();
+
+      await app.pages.communication.addCommunicationButton().click();
+
+      await app.actions.addCommunicationModal.addCommunication({
+        type: COMMUNICATION_TYPE,
+        direction: COMMUNICATION_DIRECTION,
+        categories: COMMUNICATION_CATEGORIES,
+        dateOffset: 0,
+      });
+
+      try {
+        await expect(
+          page.getByText('Communication saved successfully', { exact: true }).first()
+        ).toBeVisible();
+      } catch {
+        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+        await page.waitForLoadState('networkidle');
+      }
+
+      await expect(
+        app.pages.communication.communicationRowMatching(
+          COMMUNICATION_TYPE,
+          COMMUNICATION_DIRECTION,
+          COMMUNICATION_CATEGORIES,
+          dateFormatted
+        )
+      ).toBeVisible();
+
+      const countBefore = await app.pages.communication.communicationDataRows().count();
+
+      await app.actions.communication.deleteCommunicationRow(
+        COMMUNICATION_TYPE,
+        COMMUNICATION_DIRECTION,
+        COMMUNICATION_CATEGORIES,
+        dateFormatted
+      );
+
+      await expect(app.pages.communication.communicationDataRows()).toHaveCount(countBefore - 1);
+    });
   });
 });
