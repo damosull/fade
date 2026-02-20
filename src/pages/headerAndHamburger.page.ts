@@ -110,6 +110,15 @@ export class HeaderAndHamburgerPage {
   resultsDropdown() {
     return this.page.locator('div.absolute.overflow-y-scroll');
   }
+
+  /**
+   * First account result link that contains the search text.
+   * Use this instead of relying on resultsDropdown() so we wait for the actual
+   * clickable result and avoid ambiguity when multiple dropdowns exist.
+   */
+  accountSearchResultLink(search: string) {
+    return this.page.locator('a[href^="/accounts/"]').filter({ hasText: search }).first();
+  }
 }
 
 export default HeaderAndHamburgerPage;

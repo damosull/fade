@@ -49,6 +49,87 @@ export class CommunicationTabPage {
   communicationDateColumn(row: Locator) {
     return row.locator('td').nth(3);
   }
+
+  /** Container for the expanded inline communication edit form (after clicking Type cell). Scoped to Communications table. */
+  expandedCommunicationForm() {
+    return this.communicationsTable().locator('form');
+  }
+
+  expandedTypeDropdown() {
+    return this.expandedCommunicationForm()
+      .locator('fieldset')
+      .filter({ hasText: 'Summary' })
+      .locator('label')
+      .filter({ hasText: 'Type' })
+      .locator('[role="combobox"]');
+  }
+
+  expandedDirectionDropdown() {
+    return this.expandedCommunicationForm()
+      .locator('fieldset')
+      .filter({ hasText: 'Summary' })
+      .locator('label')
+      .filter({ hasText: 'Direction' })
+      .locator('[role="combobox"]');
+  }
+
+  expandedCategoriesDropdown() {
+    return this.expandedCommunicationForm()
+      .locator('fieldset')
+      .filter({ hasText: 'Summary' })
+      .locator('label')
+      .filter({ hasText: 'Categories' })
+      .locator('[role="combobox"]');
+  }
+
+  expandedDateDropdown() {
+    return this.expandedCommunicationForm()
+      .locator('fieldset')
+      .filter({ hasText: 'Summary' })
+      .locator('.react-datepicker__calendar-icon')
+      .first();
+  }
+
+  expandedAttendeeTypeDropdown() {
+    return this.expandedCommunicationForm()
+      .locator('fieldset')
+      .filter({ hasText: 'Attendees' })
+      .locator('.grid')
+      .locator('label')
+      .filter({ hasText: 'Type' })
+      .locator('[role="combobox"]');
+  }
+
+  expandedSystemUserDropdown() {
+    return this.expandedCommunicationForm()
+      .locator('fieldset')
+      .filter({ hasText: 'Attendees' })
+      .locator('.grid')
+      .locator('[role="combobox"]')
+      .nth(1);
+  }
+
+  expandedAddAttendeeButton() {
+    return this.expandedCommunicationForm()
+      .locator('fieldset')
+      .filter({ hasText: 'Attendees' })
+      .getByRole('button', { name: 'Add attendee' });
+  }
+
+  expandedAttendeesTable() {
+    return this.expandedCommunicationForm()
+      .locator('fieldset')
+      .filter({ hasText: 'Attendees' })
+      .locator('table');
+  }
+
+  expandedAttendeesTableRows() {
+    return this.expandedAttendeesTable().locator('tbody tr');
+  }
+
+  expandedSaveButton() {
+    return this.expandedCommunicationForm().getByRole('button', { name: 'Save' });
+  }
 }
 
 export default CommunicationTabPage;

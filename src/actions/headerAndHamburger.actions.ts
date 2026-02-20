@@ -16,14 +16,7 @@ export class HeaderAndHamburgerActions {
     await this.view.searchBox().click();
     await this.view.searchBox().fill(search);
 
-    await expect(this.view.resultsDropdown()).toBeVisible({ timeout: SHORT_WAIT });
-
-    const result = this.view
-      .resultsDropdown()
-      .locator('a[href^="/accounts/"]')
-      .filter({ hasText: search })
-      .first();
-
+    const result = this.view.accountSearchResultLink(search);
     await expect(result).toBeVisible({ timeout: SHORT_WAIT });
     await result.click();
 
