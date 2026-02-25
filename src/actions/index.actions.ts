@@ -15,3 +15,5 @@ export { default as AddEmploymentModalActions } from './addEmploymentModal.actio
 export { default as ContributionModalActions } from './contributionModal.actions';
 export { default as RunNewAmlCheckModalActions } from './runNewAmlCheckModal.actions';
 export { default as TasksTabActions } from './tasksTab.actions';
+export { default as CommunicationTabActions } from './communicationTab.actions';
+export { default as AddCommunicationModalActions } from './addCommunicationModal.actions';

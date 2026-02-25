@@ -29,6 +29,8 @@ const actionConstructors = {
   contributionModal: actions.ContributionModalActions,
   runNewAmlCheckModal: actions.RunNewAmlCheckModalActions,
   tasks: actions.TasksTabActions,
+  communication: actions.CommunicationTabActions,
+  addCommunicationModal: actions.AddCommunicationModalActions,
 } as const;
 
 /**
@@ -54,6 +56,8 @@ const pageConstructors = {
   contributionModal: pages.ContributionModalPage,
   runNewAmlCheckModal: pages.RunNewAmlCheckModalPage,
   tasks: pages.TasksTabPage,
+  communication: pages.CommunicationTabPage,
+  addCommunicationModal: pages.AddCommunicationModalPage,
 } as const;
 
 /**
