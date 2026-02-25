@@ -24,6 +24,7 @@ test.describe.serial('Fade seeded flows', () => {
     introducerAdviserName: '',
     introducerFirmName: '',
     accountSurname: '',
+    accountNoAdviserSurname: '',
     isaPolicyName: '',
     giaPolicyName: '',
     protectionPolicyNumber: '',
@@ -59,9 +60,9 @@ test.describe.serial('Fade seeded flows', () => {
       await app.actions.compliance.compliancePageHeading();
       console.log('[seed] ✅ Compliance heading present.');
       console.log('[seed] Waiting for Add Introducer button…');
-      await expect(app.pages.compliance.addIntroducerButton()).toBeVisible({ timeout: 120000 });
+      await expect(app.pages.compliance.addIntroducerButton()).toBeVisible();
       await app.pages.compliance.addIntroducerButton().scrollIntoViewIfNeeded();
-      await expect(app.pages.compliance.addIntroducerButton()).toBeEnabled({ timeout: 120000 });
+      await expect(app.pages.compliance.addIntroducerButton()).toBeEnabled();
       console.log('[seed] ✅ Add Introducer button is visible & enabled.');
     });
 
@@ -91,7 +92,7 @@ test.describe.serial('Fade seeded flows', () => {
       try {
         await expect(
           page.getByText('Introducer fee splits created successfully', { exact: false }).first()
-        ).toBeVisible({ timeout: 40000 });
+        ).toBeVisible();
       } catch {
         console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
         await page.waitForLoadState('networkidle');
@@ -101,9 +102,9 @@ test.describe.serial('Fade seeded flows', () => {
 
     await test.step('Create Firm introducer', async () => {
       console.log('[seed] Preparing to add Firm introducer…');
-      await expect(app.pages.compliance.addIntroducerButton()).toBeVisible({ timeout: 120000 });
+      await expect(app.pages.compliance.addIntroducerButton()).toBeVisible();
       await app.pages.compliance.addIntroducerButton().scrollIntoViewIfNeeded();
-      await expect(app.pages.compliance.addIntroducerButton()).toBeEnabled({ timeout: 120000 });
+      await expect(app.pages.compliance.addIntroducerButton()).toBeEnabled();
       await app.actions.compliance.clickAddIntroducerButton();
       console.log('[seed] ✅ Add Introducer modal opened (Firm).');
 
@@ -126,7 +127,7 @@ test.describe.serial('Fade seeded flows', () => {
       try {
         await expect(
           page.getByText('Introducer fee splits created successfully', { exact: false }).first()
-        ).toBeVisible({ timeout: 20_000 });
+        ).toBeVisible();
       } catch {
         console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
         await page.waitForLoadState('networkidle');
@@ -157,7 +158,7 @@ test.describe.serial('Fade seeded flows', () => {
       try {
         await expect(
           page.getByText('The Individual has been created', { exact: true }).first()
-        ).toBeVisible({ timeout: 20_000 });
+        ).toBeVisible();
       } catch {
         console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
         await page.waitForLoadState('networkidle');
@@ -186,7 +187,7 @@ test.describe.serial('Fade seeded flows', () => {
       try {
         await expect(
           page.getByText('Asset has been saved successfully', { exact: true }).first()
-        ).toBeVisible({ timeout: 20_000 });
+        ).toBeVisible();
       } catch {
         console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
         await page.waitForLoadState('networkidle');
@@ -194,9 +195,7 @@ test.describe.serial('Fade seeded flows', () => {
       console.log('[seed] ✅ ISA asset saved.');
 
       await app.pages.assetModal.addValuationButton().first().scrollIntoViewIfNeeded();
-      await expect(app.pages.assetModal.addValuationButton().first()).toBeVisible({
-        timeout: 20_000,
-      });
+      await expect(app.pages.assetModal.addValuationButton().first()).toBeVisible();
       await expect(app.pages.assetModal.addValuationButton().first()).toBeEnabled();
       await app.pages.assetModal.addValuationButton().first().click();
       await app.actions.assetModal.addAssetValuation('2000000');
@@ -204,7 +203,7 @@ test.describe.serial('Fade seeded flows', () => {
       try {
         await expect(
           page.getByText('Valuation saved successfully', { exact: true }).first()
-        ).toBeVisible({ timeout: 20_000 });
+        ).toBeVisible();
       } catch {
         console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
         await page.waitForLoadState('networkidle');
@@ -229,7 +228,7 @@ test.describe.serial('Fade seeded flows', () => {
       try {
         await expect(
           page.getByText('Asset has been saved successfully', { exact: true }).first()
-        ).toBeVisible({ timeout: 20_000 });
+        ).toBeVisible();
       } catch {
         console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
         await page.waitForLoadState('networkidle');
@@ -237,9 +236,7 @@ test.describe.serial('Fade seeded flows', () => {
       console.log('[seed] ✅ GIA asset saved.');
 
       await app.pages.assetModal.addValuationButton().last().scrollIntoViewIfNeeded();
-      await expect(app.pages.assetModal.addValuationButton().last()).toBeVisible({
-        timeout: 20_000,
-      });
+      await expect(app.pages.assetModal.addValuationButton().last()).toBeVisible();
       await expect(app.pages.assetModal.addValuationButton().last()).toBeEnabled();
       await app.pages.assetModal.addValuationButton().last().click();
       await app.actions.assetModal.addAssetValuation('5000000');
@@ -247,7 +244,7 @@ test.describe.serial('Fade seeded flows', () => {
       try {
         await expect(
           page.getByText('Valuation saved successfully', { exact: true }).first()
-        ).toBeVisible({ timeout: 20_000 });
+        ).toBeVisible();
       } catch {
         console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
         await page.waitForLoadState('networkidle');
@@ -272,7 +269,7 @@ test.describe.serial('Fade seeded flows', () => {
       try {
         await expect(
           page.getByText('Protection policy has been saved successfully', { exact: false }).first()
-        ).toBeVisible({ timeout: 20_000 });
+        ).toBeVisible();
       } catch {
         console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
         await page.waitForLoadState('networkidle');
@@ -281,6 +278,78 @@ test.describe.serial('Fade seeded flows', () => {
     });
 
     console.log(`[seed] ✅ Individual account creation completed: ${accountSurname}`);
+  });
+
+  test('Individual account + Asset without an adviser', async ({ app, page }) => {
+    const ownerTag = `e2e-${stamp()}`;
+    console.log(`[seed] Using ownerTag: ${ownerTag}`);
+    console.log('[seed] Current URL:', page.url());
+
+    let accountNoAdviserSurname = `RecNoAdv-${ownerTag}`;
+
+    await test.step('Create Individual account', async () => {
+      seedData.accountNoAdviserSurname = accountNoAdviserSurname;
+      console.log('[seed] Creating Individual account:', accountNoAdviserSurname);
+      await app.actions.account.createAccount(
+        'Account',
+        'Individual',
+        'Test User Without Adviser',
+        accountNoAdviserSurname,
+        undefined,
+        `test${ownerTag}@test.co.uk`,
+        'personal',
+        undefined,
+        'professional introducer',
+        '', // use the actual created firm
+        undefined
+      );
+      console.log('[seed] ✅ Account details entered.');
+      await app.actions.account.saveNewAccount();
+      console.log('[seed] ✅ Individual account save clicked.');
+      try {
+        await expect(
+          page.getByText('The Individual has been created', { exact: true }).first()
+        ).toBeVisible();
+      } catch {
+        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+        await page.waitForLoadState('networkidle');
+      }
+      console.log(
+        `[seed] ✅ Individual account without adviser created: ${accountNoAdviserSurname}`
+      );
+    });
+
+    await test.step('Create ISA for Individual account without adviser', async () => {
+      console.log('[seed] Navigating to Finances tab…');
+      await app.actions.header.openFinancesTab();
+      console.log('[seed] ✅ Finances tab open.');
+
+      let isaPolicyName = `ISA-${ownerTag}`;
+      console.log('[seed] Adding ISA asset:', isaPolicyName);
+      await app.pages.finance.addAssetButton().click();
+      await app.actions.assetModal.addAssetOverview('ISA');
+      await app.actions.assetModal.addAssetAgencyStatus('under agency');
+      await app.actions.assetModal.addAssetPolicyDetails(
+        isaPolicyName,
+        'Aviva',
+        policyNumber(),
+        'in force'
+      );
+      await app.actions.assetModal.saveAsset();
+      try {
+        await expect(
+          page.getByText('Asset has been saved successfully', { exact: true }).first()
+        ).toBeVisible();
+      } catch {
+        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+        await page.waitForLoadState('networkidle');
+      }
+      console.log('[seed] ✅ ISA asset saved.');
+    });
+
+    console.log(
+      `[seed] ✅ Individual account without adviser creation completed: ${accountNoAdviserSurname}`
+    );
   });
 
   test('Trust account creation', async ({ app, page }) => {
@@ -313,7 +382,7 @@ test.describe.serial('Fade seeded flows', () => {
     try {
       await expect(
         page.getByText('The Trust has been created', { exact: true }).first()
-      ).toBeVisible({ timeout: 20_000 });
+      ).toBeVisible();
     } catch {
       console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
       await page.waitForLoadState('networkidle');
@@ -351,7 +420,7 @@ test.describe.serial('Fade seeded flows', () => {
     try {
       await expect(
         page.getByText('The Corporation has been created', { exact: true }).first()
-      ).toBeVisible({ timeout: 20_000 });
+      ).toBeVisible();
     } catch {
       console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
       await page.waitForLoadState('networkidle');

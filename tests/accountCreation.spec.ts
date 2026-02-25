@@ -15,7 +15,7 @@ test.beforeEach(async ({ page }, testInfo) => {
 
 // Accounts without service case are covered in seed.spec.ts
 test.describe('Account Creation with Service Case', () => {
-  test('Create Individual Account & Service Case', async ({ app, page }) => {
+  test('Create Individual Account & Service Case @individual', async ({ app, page }) => {
     test.slow();
     const seed = getSeed();
 
@@ -47,7 +47,7 @@ test.describe('Account Creation with Service Case', () => {
       await page.waitForLoadState('networkidle');
     }
 
-    await expect(app.pages.account.modal()).not.toBeVisible({ timeout: 10_000 });
+    await expect(app.pages.account.modal()).toBeHidden();
     await expect(page).toHaveURL(/\/accounts\/\d+$/);
     await expect(app.pages.accountDetails.detailsTab()).toBeVisible();
     await expect(
@@ -59,7 +59,7 @@ test.describe('Account Creation with Service Case', () => {
     await expect(app.pages.accountDetails.getEmailLink(userEmail)).toHaveText(userEmail);
   });
 
-  test('Create Trust Account & Service Case', async ({ app, page }) => {
+  test('Create Trust Account & Service Case @trust', async ({ app, page }) => {
     test.slow();
     const seed = getSeed();
 
@@ -90,7 +90,7 @@ test.describe('Account Creation with Service Case', () => {
       await page.waitForLoadState('networkidle');
     }
 
-    await expect(app.pages.account.modal()).not.toBeVisible({ timeout: 10_000 });
+    await expect(app.pages.account.modal()).toBeHidden();
     await expect(page).toHaveURL(/\/accounts\/\d+$/);
     await expect(app.pages.accountDetails.detailsTab()).toBeVisible();
     await expect(app.pages.accountDetails.getTrustNameHeading(userTrustName)).toBeVisible();
@@ -100,7 +100,7 @@ test.describe('Account Creation with Service Case', () => {
     await expect(app.pages.accountDetails.getEmailLink(userEmail)).toHaveText(userEmail);
   });
 
-  test('Create Corporation Account & Service Case', async ({ app, page }) => {
+  test('Create Corporation Account & Service Case @corporation', async ({ app, page }) => {
     test.slow();
     const seed = getSeed();
 
@@ -131,7 +131,7 @@ test.describe('Account Creation with Service Case', () => {
       await page.waitForLoadState('networkidle');
     }
 
-    await expect(app.pages.account.modal()).not.toBeVisible({ timeout: 10_000 });
+    await expect(app.pages.account.modal()).toBeHidden();
     await expect(page).toHaveURL(/\/accounts\/\d+$/);
     await expect(app.pages.accountDetails.detailsTab()).toBeVisible();
     await expect(app.pages.accountDetails.getTrustNameHeading(userCorporationName)).toBeVisible();
