@@ -2,6 +2,7 @@ export { default as HeaderAndHamburgerActions } from './headerAndHamburger.actio
 export { default as FinanceTabActions } from './financeTab.actions';
 export { default as AccountActions } from './account.actions';
 export { default as AddPolicyModalActions } from './addPolicyModal.actions';
+export { default as AddTaskModalActions } from './addTaskModal.actions';
 export { default as FeesTabActions } from './feesTab.actions';
 export { default as ComplianceActions } from './compliance.actions';
 export { default as ProviderActions } from './providerPage.actions';
@@ -11,5 +12,6 @@ export { default as AssetModalActions } from './assetModal.actions';
 export { default as AccountDetailsActions } from './accountDetails.actions';
 export { default as WithdrawalModalActions } from './withdrawlModal.actions';
 export { default as AddEmploymentModalActions } from './addEmploymentModal.actions';
-export { default as RunNewAmlCheckModalActions } from './runNewAmlCheckModal.actions';
 export { default as ContributionModalActions } from './contributionModal.actions';
+export { default as RunNewAmlCheckModalActions } from './runNewAmlCheckModal.actions';
+export { default as TasksTabActions } from './tasksTab.actions';

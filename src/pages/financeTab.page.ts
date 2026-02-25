@@ -171,6 +171,11 @@ export class FinanceTabPage {
     const formattedAmount = `£${amount.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     return this.contributionsSection().locator('tr').filter({ hasText: formattedAmount });
   }
+
+  async valuationButtonForAsset(assetName: string) {
+    const row = await this.assetRowByName(assetName);
+    return row.getByRole('button', { name: 'Valuations' });
+  }
 }
 
 export default FinanceTabPage;

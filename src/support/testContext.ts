@@ -16,6 +16,7 @@ const actionConstructors = {
   finance: actions.FinanceTabActions,
   account: actions.AccountActions,
   addPolicy: actions.AddPolicyModalActions,
+  addTaskModal: actions.AddTaskModalActions,
   fees: actions.FeesTabActions,
   compliance: actions.ComplianceActions,
   provider: actions.ProviderActions,
@@ -25,8 +26,9 @@ const actionConstructors = {
   accountDetails: actions.AccountDetailsActions,
   withdrawalModal: actions.WithdrawalModalActions,
   addEmploymentModal: actions.AddEmploymentModalActions,
-  runNewAmlCheckModal: actions.RunNewAmlCheckModalActions,
   contributionModal: actions.ContributionModalActions,
+  runNewAmlCheckModal: actions.RunNewAmlCheckModalActions,
+  tasks: actions.TasksTabActions,
 } as const;
 
 /**
@@ -39,6 +41,7 @@ const pageConstructors = {
   finance: pages.FinanceTabPage,
   account: pages.AccountPage,
   addPolicy: pages.AddPolicyModalPage,
+  addTaskModal: pages.AddTaskModalPage,
   fees: pages.FeesTabPage,
   compliance: pages.CompliancePage,
   provider: pages.ProviderPage,
@@ -48,8 +51,9 @@ const pageConstructors = {
   accountDetails: pages.AccountDetailsPage,
   withdrawalModal: pages.WithdrawalModalPage,
   addEmploymentModal: pages.AddEmploymentModalPage,
-  runNewAmlCheckModal: pages.RunNewAmlCheckModalPage,
   contributionModal: pages.ContributionModalPage,
+  runNewAmlCheckModal: pages.RunNewAmlCheckModalPage,
+  tasks: pages.TasksTabPage,
 } as const;
 
 /**
