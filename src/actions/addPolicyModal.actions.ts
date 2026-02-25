@@ -19,7 +19,7 @@ export class AddPolicyModalActions {
     agencyStatusSelect: string,
     adviceTypeSelect: string
   ): Promise<void> {
-    await expect(this.view.addPolicyHeading()).toBeVisible({ timeout: 5000 });
+    await expect(this.view.addPolicyHeading()).toBeVisible();
 
     await this.view.policyNumber().fill(policyNumber);
 

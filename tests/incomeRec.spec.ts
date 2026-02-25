@@ -9,7 +9,7 @@ test.beforeEach(async ({ page }, testInfo) => {
   await navigateToHome(page, process.env.CI ? testInfo.project.name : 'chromium');
 });
 
-test.describe('Fade seeded flows', () => {
+test.describe('Fade seeded flows @individual', () => {
   test('Introducers: seeded adviser + firm exist', async ({ app, page }) => {
     const seed = getSeed();
 
@@ -44,7 +44,7 @@ test.describe('Fade seeded flows', () => {
     try {
       await expect(
         page.getByText('Introducer fee splits created successfully', { exact: true }).first()
-      ).toBeVisible({ timeout: 20_000 });
+      ).toBeVisible();
     } catch {
       console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
       await page.waitForLoadState('networkidle');
@@ -63,9 +63,7 @@ test.describe('Fade seeded flows', () => {
     await expect(page.getByText(seed.giaPolicyName)).toBeVisible();
 
     try {
-      await expect(page.getByText('Valuation saved successfully').first()).not.toBeVisible({
-        timeout: 1000,
-      });
+      await expect(page.getByText('Valuation saved successfully').first()).toBeHidden();
     } catch {
       console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
       await page.waitForLoadState('networkidle');
@@ -119,9 +117,7 @@ test.describe('Fade seeded flows', () => {
     await app.actions.header.openFinancesTab();
 
     await page.getByRole('heading', { name: 'protection policies' }).scrollIntoViewIfNeeded();
-    await expect(page.getByRole('heading', { name: 'protection policies' })).toBeVisible({
-      timeout: 5000,
-    });
+    await expect(page.getByRole('heading', { name: 'protection policies' })).toBeVisible();
 
     await app.pages.finance.addPolicyButton().click();
 

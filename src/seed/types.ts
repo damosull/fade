@@ -3,6 +3,7 @@ export type SeedData = {
   introducerAdviserName: string;
   introducerFirmName: string;
   accountSurname: string;
+  accountNoAdviserSurname: string;
   isaPolicyName: string;
   giaPolicyName: string;
   protectionPolicyNumber: string;

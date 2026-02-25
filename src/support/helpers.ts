@@ -1,14 +1,9 @@
 import { type Locator, type Page, expect } from '@playwright/test';
 
 /**
- * Standard wait time for most element visibility checks.
- */
-export const SHORT_WAIT = 20000;
-
-/**
  * Clicks an element after confirming it’s visible.
  */
-export async function clickWhenVisible(locator: Locator, timeout = SHORT_WAIT): Promise<void> {
+export async function clickWhenVisible(locator: Locator, timeout?: number): Promise<void> {
   await expect(locator).toBeVisible({ timeout });
   await locator.click();
 }
@@ -222,6 +217,10 @@ export const ACCOUNT_TYPES = {
   Individual: { accountType: 'Individual', accountNameKey: 'accountSurname' as const },
   Trust: { accountType: 'Trust', accountNameKey: 'trustAccountName' as const },
   Corporation: { accountType: 'Corporation', accountNameKey: 'corporationAccountName' as const },
+  IndividualNoAdviser: {
+    accountType: 'Individual',
+    accountNameKey: 'accountNoAdviserSurname' as const,
+  },
 } as const;
 
 export type AccountTypeKey = keyof typeof ACCOUNT_TYPES;

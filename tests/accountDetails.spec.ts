@@ -10,143 +10,142 @@ test.beforeEach(async ({ page }, testInfo) => {
 });
 
 selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, accountNameKey }) => {
-  test.describe(`Account Details - ${accountType}`, () => {
-    test('Details Tab - Updating Personal Details Section', async ({ app, page }) => {
-      if (accountType !== 'Individual') {
-        console.log(`Skipping test: Only for Individual accounts`);
-        return;
-      }
+  const suiteTag = `@${accountType.toLowerCase()}`;
+  const isIndividual = accountType === 'Individual';
+  const isTrust = accountType === 'Trust';
+  const isCorporation = accountType === 'Corporation';
+  test.describe(`Account Details - ${accountType} ${suiteTag}`, () => {
+    if (isIndividual) {
+      test('Details Tab - Updating Personal Details Section', async ({ app, page }) => {
+        const seed = getSeed();
+        const middleNames = `MiddleName-${stamp()}`;
 
-      const seed = getSeed();
-      const middleNames = `MiddleName-${stamp()}`;
+        await app.actions.header.searchForAccount(seed[accountNameKey]);
 
-      await app.actions.header.searchForAccount(seed[accountNameKey]);
+        await app.pages.accountDetails.viewMoreButton().click();
 
-      await app.pages.accountDetails.viewMoreButton().click();
+        await app.actions.accountDetails.fillMiddleNames(middleNames);
+        await app.actions.accountDetails.selectMaritalStatus('single');
+        await app.actions.accountDetails.selectEmploymentStatus('self employed');
+        await app.actions.accountDetails.selectNationality(
+          'United Kingdom of Great Britain and Northern Ireland'
+        );
+        await app.actions.accountDetails.selectInGoodHealth('yes');
+        await app.actions.accountDetails.checkHasWill();
 
-      await app.actions.accountDetails.fillMiddleNames(middleNames);
-      await app.actions.accountDetails.selectMaritalStatus('single');
-      await app.actions.accountDetails.selectEmploymentStatus('self employed');
-      await app.actions.accountDetails.selectNationality(
-        'United Kingdom of Great Britain and Northern Ireland'
-      );
-      await app.actions.accountDetails.selectInGoodHealth('yes');
-      await app.actions.accountDetails.checkHasWill();
+        const response =
+          await app.actions.accountDetails.clickPersonalDetailsSaveAndWaitForResponse();
+        expect(response.status()).toBe(200);
 
-      const response =
-        await app.actions.accountDetails.clickPersonalDetailsSaveAndWaitForResponse();
-      expect(response.status()).toBe(200);
+        try {
+          await expect(
+            page.getByText('Account has been updated!', { exact: true }).first()
+          ).toBeVisible();
+        } catch {
+          console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+          await page.waitForLoadState('networkidle');
+        }
 
-      try {
-        await expect(
-          page.getByText('Account has been updated!', { exact: true }).first()
-        ).toBeVisible();
-      } catch {
-        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
-        await page.waitForLoadState('networkidle');
-      }
+        await page.reload();
+        await expect(page).toHaveURL(/\/accounts\/\d+$/);
+        await expect(app.pages.accountDetails.detailsTab()).toBeVisible();
+        await app.pages.accountDetails.viewMoreButton().click();
 
-      await page.reload();
-      await expect(page).toHaveURL(/\/accounts\/\d+$/);
-      await expect(app.pages.accountDetails.detailsTab()).toBeVisible();
-      await app.pages.accountDetails.viewMoreButton().click();
+        await expect(app.pages.accountDetails.middleNamesInput()).toHaveValue(middleNames);
+        await expect(app.pages.accountDetails.maritalStatusLabel()).toContainText('single');
+        await expect(app.pages.accountDetails.employmentStatusLabel()).toContainText(
+          'self employed'
+        );
+        await expect(app.pages.accountDetails.nationalityLabel()).toContainText('United Kingdom');
+        await expect(app.pages.accountDetails.inGoodHealthLabel()).toContainText('yes');
+        await expect(app.pages.accountDetails.hasWillCheckbox()).toBeChecked();
+      });
+    }
 
-      await expect(app.pages.accountDetails.middleNamesInput()).toHaveValue(middleNames);
-      await expect(app.pages.accountDetails.maritalStatusLabel()).toContainText('single');
-      await expect(app.pages.accountDetails.employmentStatusLabel()).toContainText('self employed');
-      await expect(app.pages.accountDetails.nationalityLabel()).toContainText('United Kingdom');
-      await expect(app.pages.accountDetails.inGoodHealthLabel()).toContainText('yes');
-      await expect(app.pages.accountDetails.hasWillCheckbox()).toBeChecked();
-    });
+    if (isCorporation) {
+      test('Details Tab - Updating Corporation Account Details Section', async ({ app, page }) => {
+        const seed = getSeed();
+        const corporationNumber = `${Math.floor(10000000 + Math.random() * 90000000)}`;
+        const corporationDescription = `Test Corporation - ${stamp()}`;
+        const lei = `LEI${stamp().replace(/\D/g, '').slice(-17)}`;
+        const salutation = `Dear Stakeholders - ${stamp().slice(-10)}`;
 
-    test('Details Tab - Updating Corporation Account Details Section', async ({ app, page }) => {
-      if (accountType !== 'Corporation') {
-        console.log(`Skipping test: Only for Corporation accounts`);
-        return;
-      }
+        await app.actions.header.searchForAccount(seed[accountNameKey]);
 
-      const seed = getSeed();
-      const corporationNumber = `${Math.floor(10000000 + Math.random() * 90000000)}`;
-      const corporationDescription = `Test Corporation - ${stamp()}`;
-      const lei = `LEI${stamp().replace(/\D/g, '').slice(-17)}`;
-      const salutation = `Dear Stakeholders - ${stamp().slice(-10)}`;
+        await app.actions.accountDetails.fillCorporationNumber(corporationNumber);
+        await app.actions.accountDetails.fillCorporationDescription(corporationDescription);
+        await app.actions.accountDetails.fillLEI(lei);
+        await app.actions.accountDetails.fillLEIExpiryDate('31/12/2026');
+        await app.actions.accountDetails.fillSalutation(salutation);
+        await app.actions.accountDetails.fillFinancialYearEndDate('31/03/2025');
+        await app.actions.accountDetails.selectCompanyType('private limited company');
 
-      await app.actions.header.searchForAccount(seed[accountNameKey]);
+        const response =
+          await app.actions.accountDetails.clickCorporationDetailsSaveAndWaitForResponse();
+        expect(response.status()).toBe(200);
 
-      await app.actions.accountDetails.fillCorporationNumber(corporationNumber);
-      await app.actions.accountDetails.fillCorporationDescription(corporationDescription);
-      await app.actions.accountDetails.fillLEI(lei);
-      await app.actions.accountDetails.fillLEIExpiryDate('31/12/2026');
-      await app.actions.accountDetails.fillSalutation(salutation);
-      await app.actions.accountDetails.fillFinancialYearEndDate('31/03/2025');
-      await app.actions.accountDetails.selectCompanyType('private limited company');
+        try {
+          await expect(
+            page.getByText('Account has been updated!', { exact: true }).first()
+          ).toBeVisible();
+        } catch {
+          console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+          await page.waitForLoadState('networkidle');
+        }
 
-      const response =
-        await app.actions.accountDetails.clickCorporationDetailsSaveAndWaitForResponse();
-      expect(response.status()).toBe(200);
+        await page.reload();
+        await expect(page).toHaveURL(/\/accounts\/\d+$/);
+        await expect(app.pages.accountDetails.detailsTab()).toBeVisible();
 
-      try {
-        await expect(
-          page.getByText('Account has been updated!', { exact: true }).first()
-        ).toBeVisible();
-      } catch {
-        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
-        await page.waitForLoadState('networkidle');
-      }
+        await expect(app.pages.accountDetails.corporationNumberInput()).toHaveValue(
+          corporationNumber
+        );
+        await expect(app.pages.accountDetails.corporationDescriptionInput()).toHaveValue(
+          corporationDescription
+        );
+        await expect(app.pages.accountDetails.leiInput()).toHaveValue(lei);
+        await expect(app.pages.accountDetails.salutationInput()).toHaveValue(salutation);
+      });
+    }
 
-      await page.reload();
-      await expect(page).toHaveURL(/\/accounts\/\d+$/);
-      await expect(app.pages.accountDetails.detailsTab()).toBeVisible();
+    if (isTrust) {
+      test('Details Tab - Updating Trust Account Details Section', async ({ app, page }) => {
+        const seed = getSeed();
+        const trustDescription = `Test Trust - ${stamp()}`;
+        const lei = `LEI${stamp().replace(/\D/g, '').slice(-17)}`;
+        const salutation = `Dear Trustees - ${stamp().slice(-10)}`;
 
-      await expect(app.pages.accountDetails.corporationNumberInput()).toHaveValue(
-        corporationNumber
-      );
-      await expect(app.pages.accountDetails.corporationDescriptionInput()).toHaveValue(
-        corporationDescription
-      );
-      await expect(app.pages.accountDetails.leiInput()).toHaveValue(lei);
-      await expect(app.pages.accountDetails.salutationInput()).toHaveValue(salutation);
-    });
+        await app.actions.header.searchForAccount(seed[accountNameKey]);
 
-    test('Details Tab - Updating Trust Account Details Section', async ({ app, page }) => {
-      if (accountType !== 'Trust') {
-        console.log(`Skipping test: Only for Trust accounts`);
-        return;
-      }
+        await app.actions.accountDetails.fillTrustDescription(trustDescription);
+        await app.actions.accountDetails.fillLEI(lei);
+        await app.actions.accountDetails.fillLEIExpiryDate('31/12/2026');
+        await app.actions.accountDetails.fillSalutation(salutation);
+        await app.actions.accountDetails.selectTrustType('discretionary');
 
-      const seed = getSeed();
-      const trustDescription = `Test Trust - ${stamp()}`;
-      const lei = `LEI${stamp().replace(/\D/g, '').slice(-17)}`;
-      const salutation = `Dear Trustees - ${stamp().slice(-10)}`;
+        const response = await app.actions.accountDetails.clickTrustDetailsSaveAndWaitForResponse();
+        expect(response.status()).toBe(200);
 
-      await app.actions.header.searchForAccount(seed[accountNameKey]);
+        try {
+          await expect(
+            page.getByText('Account has been updated!', { exact: true }).first()
+          ).toBeVisible();
+        } catch {
+          console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+          await page.waitForLoadState('networkidle');
+        }
 
-      await app.actions.accountDetails.fillTrustDescription(trustDescription);
-      await app.actions.accountDetails.fillLEI(lei);
-      await app.actions.accountDetails.fillLEIExpiryDate('31/12/2026');
-      await app.actions.accountDetails.fillSalutation(salutation);
-      await app.actions.accountDetails.selectTrustType('discretionary');
+        await page.reload();
+        await expect(page).toHaveURL(/\/accounts\/\d+$/);
+        await expect(app.pages.accountDetails.detailsTab()).toBeVisible();
 
-      const response = await app.actions.accountDetails.clickTrustDetailsSaveAndWaitForResponse();
-      expect(response.status()).toBe(200);
-
-      try {
-        await expect(
-          page.getByText('Account has been updated!', { exact: true }).first()
-        ).toBeVisible();
-      } catch {
-        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
-        await page.waitForLoadState('networkidle');
-      }
-
-      await page.reload();
-      await expect(page).toHaveURL(/\/accounts\/\d+$/);
-      await expect(app.pages.accountDetails.detailsTab()).toBeVisible();
-
-      await expect(app.pages.accountDetails.trustDescriptionInput()).toHaveValue(trustDescription);
-      await expect(app.pages.accountDetails.leiInput()).toHaveValue(lei);
-      await expect(app.pages.accountDetails.salutationInput()).toHaveValue(salutation);
-    });
+        await expect(app.pages.accountDetails.trustDescriptionInput()).toHaveValue(
+          trustDescription
+        );
+        await expect(app.pages.accountDetails.leiInput()).toHaveValue(lei);
+        await expect(app.pages.accountDetails.salutationInput()).toHaveValue(salutation);
+      });
+    }
 
     test('Details Tab - Adding Address', async ({ app, page }) => {
       const seed = getSeed();
@@ -275,36 +274,33 @@ selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, acc
       ).toContainText(correspondenceType);
     });
 
-    test('Details Tab - Adding Relationship', async ({ app, page }) => {
-      if (accountType !== 'Individual') {
-        console.log(`Skipping test: Only for Individual accounts`);
-        return;
-      }
+    if (isIndividual) {
+      test('Details Tab - Adding Relationship', async ({ app, page }) => {
+        const seed = getSeed();
 
-      const seed = getSeed();
+        await app.actions.header.searchForAccount(seed[accountNameKey]);
 
-      await app.actions.header.searchForAccount(seed[accountNameKey]);
+        const accountName = await app.actions.accountDetails.addRelationship(
+          'michael test',
+          'spouse'
+        );
 
-      const accountName = await app.actions.accountDetails.addRelationship(
-        'michael test',
-        'spouse'
-      );
+        try {
+          await expect(
+            page.getByText('Relationship added successfully', { exact: true }).first()
+          ).toBeVisible();
+        } catch {
+          console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+          await page.waitForLoadState('networkidle');
+        }
 
-      try {
+        await app.actions.accountDetails.expandRelationshipsIfMoreThanFive();
+
         await expect(
-          page.getByText('Relationship added successfully', { exact: true }).first()
-        ).toBeVisible();
-      } catch {
-        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
-        await page.waitForLoadState('networkidle');
-      }
-
-      await app.actions.accountDetails.expandRelationshipsIfMoreThanFive();
-
-      await expect(
-        app.pages.accountDetails.relationshipsRowByAccountName(accountName, 'spouse')
-      ).toContainText(seed.accountSurname);
-    });
+          app.pages.accountDetails.relationshipsRowByAccountName(accountName, 'spouse')
+        ).toContainText(seed.accountSurname);
+      });
+    }
 
     test('Details Tab - Updating Marketing Preferences section', async ({ app, page }) => {
       const seed = getSeed();
@@ -328,66 +324,60 @@ selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, acc
       }
     });
 
-    test('Details Tab - Adding a new Beneficiary section', async ({ app, page }) => {
-      if (accountType !== 'Trust') {
-        console.log(`Skipping test: Only for Trust accounts`);
-        return;
-      }
+    if (isTrust) {
+      test('Details Tab - Adding a new Beneficiary section', async ({ app, page }) => {
+        const seed = getSeed();
+        const beneficiaryName = `Test Beneficiary - ${stamp()}`;
+        const beneficiaryDescription = 'Beneficiary Test Description';
 
-      const seed = getSeed();
-      const beneficiaryName = `Test Beneficiary - ${stamp()}`;
-      const beneficiaryDescription = 'Beneficiary Test Description';
+        await app.actions.header.searchForAccount(seed[accountNameKey]);
 
-      await app.actions.header.searchForAccount(seed[accountNameKey]);
+        await app.actions.accountDetails.waitForBeneficiariesToLoad();
 
-      await app.actions.accountDetails.waitForBeneficiariesToLoad();
+        await app.actions.accountDetails.addBeneficiary(beneficiaryName, beneficiaryDescription);
 
-      await app.actions.accountDetails.addBeneficiary(beneficiaryName, beneficiaryDescription);
+        try {
+          await expect(
+            page.getByText('Beneficiary saved successfully', { exact: true }).first()
+          ).toBeVisible();
+        } catch {
+          console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+          await page.waitForLoadState('networkidle');
+        }
 
-      try {
+        await app.actions.accountDetails.expandBeneficiariesIfMoreThanFive();
+
         await expect(
-          page.getByText('Beneficiary saved successfully', { exact: true }).first()
+          app.pages.accountDetails.beneficiariesSection().getByText(beneficiaryName)
         ).toBeVisible();
-      } catch {
-        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
-        await page.waitForLoadState('networkidle');
-      }
+      });
+    }
 
-      await app.actions.accountDetails.expandBeneficiariesIfMoreThanFive();
+    if (isCorporation) {
+      test('Details Tab - Updating the Directors section', async ({ app, page }) => {
+        const seed = getSeed();
+        const userCorporationName = seed[accountNameKey];
 
-      await expect(
-        app.pages.accountDetails.beneficiariesSection().getByText(beneficiaryName)
-      ).toBeVisible();
-    });
+        await app.actions.header.searchForAccount(userCorporationName);
 
-    test('Details Tab - Updating the Directors section', async ({ app, page }) => {
-      if (accountType !== 'Corporation') {
-        console.log(`Skipping test: Only for Corporation accounts`);
-        return;
-      }
+        const accountName = await app.actions.accountDetails.addDirector('michael test', 'partner');
 
-      const seed = getSeed();
-      const userCorporationName = seed[accountNameKey];
+        try {
+          await expect(
+            page.getByText('Relationship added successfully', { exact: true }).first()
+          ).toBeVisible();
+        } catch {
+          console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+          await page.waitForLoadState('networkidle');
+        }
 
-      await app.actions.header.searchForAccount(userCorporationName);
+        await app.actions.accountDetails.expandDirectorsIfMoreThanFive();
 
-      const accountName = await app.actions.accountDetails.addDirector('michael test', 'partner');
-
-      try {
         await expect(
-          page.getByText('Relationship added successfully', { exact: true }).first()
-        ).toBeVisible();
-      } catch {
-        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
-        await page.waitForLoadState('networkidle');
-      }
-
-      await app.actions.accountDetails.expandDirectorsIfMoreThanFive();
-
-      await expect(
-        app.pages.accountDetails.relationshipsRowByAccountName(accountName, 'partner')
-      ).toContainText(userCorporationName);
-    });
+          app.pages.accountDetails.relationshipsRowByAccountName(accountName, 'partner')
+        ).toContainText(userCorporationName);
+      });
+    }
 
     test('Details Tab - Updating Service details section', async ({ app, page }) => {
       const seed = getSeed();
@@ -449,75 +439,69 @@ selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, acc
       await expect(app.pages.accountDetails.ongoingFeeSplit()).toHaveValue(ongoingFeeSplit);
     });
 
-    test('Details Tab - Updating Employment details section', async ({ app, page }) => {
-      if (accountType !== 'Individual') {
-        console.log(`Skipping test: Only for Individual accounts`);
-        return;
-      }
+    if (isIndividual) {
+      test('Details Tab - Updating Employment details section', async ({ app, page }) => {
+        const seed = getSeed();
+        const employerName = `Employer-${stamp()}`;
+        const jobTitle = `JobTitle-${stamp()}`;
+        const employmentStatus = 'self employed';
+        const typeOfEmployment = 'self employed';
 
-      const seed = getSeed();
-      const employerName = `Employer-${stamp()}`;
-      const jobTitle = `JobTitle-${stamp()}`;
-      const employmentStatus = 'self employed';
-      const typeOfEmployment = 'self employed';
+        await app.actions.header.searchForAccount(seed[accountNameKey]);
 
-      await app.actions.header.searchForAccount(seed[accountNameKey]);
+        await app.pages.accountDetails.addEmploymentButton().click();
+        await app.actions.addEmploymentModal.addEmploymentDetails(
+          employerName,
+          jobTitle,
+          employmentStatus,
+          typeOfEmployment
+        );
 
-      await app.pages.accountDetails.addEmploymentButton().click();
-      await app.actions.addEmploymentModal.addEmploymentDetails(
-        employerName,
-        jobTitle,
-        employmentStatus,
-        typeOfEmployment
-      );
+        try {
+          await expect(
+            page.getByText('Employment has been saved successfully', { exact: true }).first()
+          ).toBeVisible();
+        } catch {
+          console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+          await page.waitForLoadState('networkidle');
+        }
 
-      try {
+        await app.actions.accountDetails.expandEmploymentDetailsIfMoreThanFive();
         await expect(
-          page.getByText('Employment has been saved successfully', { exact: true }).first()
-        ).toBeVisible();
-      } catch {
-        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
-        await page.waitForLoadState('networkidle');
-      }
+          app.pages.accountDetails.employmentDetailsRowByEmployerName(employerName)
+        ).toContainText(jobTitle);
+      });
+    }
 
-      await app.actions.accountDetails.expandEmploymentDetailsIfMoreThanFive();
-      await expect(
-        app.pages.accountDetails.employmentDetailsRowByEmployerName(employerName)
-      ).toContainText(jobTitle);
-    });
+    if (isIndividual) {
+      test('Details Tab - Verify updating AML check section*', async ({ app, page }) => {
+        const seed = getSeed();
+        const proofOfId = 'passport';
+        const proofOfAddress = 'utility bill';
+        const isPoliticallyExposed = 'no';
+        const electronicCheckResult = 'pass';
+        const result = 'Passed';
 
-    test('Details Tab - Verify updating AML check section*', async ({ app, page }) => {
-      if (accountType !== 'Individual') {
-        console.log(`Skipping test: Only for Individual accounts`);
-        return;
-      }
+        await app.actions.header.searchForAccount(seed[accountNameKey]);
 
-      const seed = getSeed();
-      const proofOfId = 'passport';
-      const proofOfAddress = 'utility bill';
-      const isPoliticallyExposed = 'no';
-      const electronicCheckResult = 'pass';
-      const result = 'Passed';
+        await app.pages.accountDetails.runNewAmlCheckButton().click();
+        await app.actions.runNewAmlCheckModal.runNewAmlCheck(
+          proofOfId,
+          proofOfAddress,
+          isPoliticallyExposed,
+          electronicCheckResult,
+          result
+        );
 
-      await app.actions.header.searchForAccount(seed[accountNameKey]);
-
-      await app.pages.accountDetails.runNewAmlCheckButton().click();
-      await app.actions.runNewAmlCheckModal.runNewAmlCheck(
-        proofOfId,
-        proofOfAddress,
-        isPoliticallyExposed,
-        electronicCheckResult,
-        result
-      );
-
-      try {
-        await expect(
-          page.getByText('AML saved successfully', { exact: true }).first()
-        ).toBeVisible();
-      } catch {
-        console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
-        await page.waitForLoadState('networkidle');
-      }
-    });
+        try {
+          await expect(
+            page.getByText('AML saved successfully', { exact: true }).first()
+          ).toBeVisible();
+        } catch {
+          console.warn('[seed-ui] ⚠️ Success message not found, falling back to networkidle');
+          await page.waitForLoadState('networkidle');
+        }
+      });
+    }
   });
 });

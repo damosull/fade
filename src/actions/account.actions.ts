@@ -5,7 +5,6 @@ import {
   findServiceCaseLink,
   chooseDropdownOption,
 } from '../support/helpers';
-import { SHORT_WAIT } from '../support/helpers';
 
 export class IndividualActions {
   private readonly page: Page;
@@ -24,10 +23,10 @@ export class IndividualActions {
     name: string | undefined,
     email: string,
     emailTypeSelect: string,
-    adviserSelect: string,
+    adviserSelect: string | undefined,
     sourceTypeSelect: string,
     introducerSelect: string,
-    serviceCaseIndicativeValue?: string
+    serviceCaseIndicativeValue?: string | undefined
   ): Promise<void> {
     await this.view.createNewButton().click();
 
@@ -49,8 +48,10 @@ export class IndividualActions {
     await this.view.emailType().click();
     await chooseDropdownOption(this.page, emailTypeSelect);
 
-    await this.view.newAdviserDropdown().click();
-    await chooseDropdownOption(this.page, adviserSelect);
+    if (adviserSelect) {
+      await this.view.newAdviserDropdown().click();
+      await chooseDropdownOption(this.page, adviserSelect);
+    }
 
     await this.view.sourceType().click();
     await chooseDropdownOption(this.page, sourceTypeSelect);
@@ -74,22 +75,22 @@ export class IndividualActions {
   }
 
   async selectFirstAccount(): Promise<void> {
-    await expect(this.view.recentlyViewed()).toBeVisible({ timeout: SHORT_WAIT });
-    await expect(this.view.firstListItem()).toBeVisible({ timeout: SHORT_WAIT });
+    await expect(this.view.recentlyViewed()).toBeVisible();
+    await expect(this.view.firstListItem()).toBeVisible();
     await this.view.firstListItem().click();
     await this.view.viewMore().click();
   }
 
   async selectSpecificAccount(accountLinkText: string): Promise<void> {
-    await expect(this.view.recentlyViewed()).toBeVisible({ timeout: SHORT_WAIT });
+    await expect(this.view.recentlyViewed()).toBeVisible();
     const link = this.page.getByRole('link', { name: accountLinkText, exact: true });
-    await expect(link).toBeVisible({ timeout: SHORT_WAIT });
+    await expect(link).toBeVisible();
     await link.click();
     await this.view.viewMore().click();
   }
 
   async addSearchAddress(addressQuery: string, addressType: string = 'home'): Promise<void> {
-    await expect(this.view.addNewAddressButton()).toBeVisible({ timeout: SHORT_WAIT });
+    await expect(this.view.addNewAddressButton()).toBeVisible();
     await this.view.addNewAddressButton().click();
     await this.view.addressType().click();
     await this.view.addressTypeOption(addressType).click();
@@ -107,7 +108,7 @@ export class IndividualActions {
     addressType: string = 'home',
     useForCorrespondence: boolean = false
   ): Promise<void> {
-    await expect(this.view.addNewAddressButton()).toBeVisible({ timeout: SHORT_WAIT });
+    await expect(this.view.addNewAddressButton()).toBeVisible();
     await this.view.addNewAddressButton().click();
     await this.view.addressType().click();
     await this.view.addressTypeOption(addressType).click();
@@ -147,8 +148,8 @@ export class IndividualActions {
   }
 
   async sourceDetails(): Promise<void> {
-    await expect(this.view.initialFeeSplit()).toBeVisible({ timeout: SHORT_WAIT });
-    await expect(this.view.ongoingFeeSplit()).toBeVisible({ timeout: SHORT_WAIT });
+    await expect(this.view.initialFeeSplit()).toBeVisible();
+    await expect(this.view.ongoingFeeSplit()).toBeVisible();
     await this.view.sourceDetailSave().click();
   }
 
@@ -167,7 +168,7 @@ export class IndividualActions {
   async addIncomeDetails(addName: string, grossAmount: string, incomeType: string): Promise<void> {
     await this.view.selectEmployer().click();
     await this.view.addIncomeButton().click();
-    await expect(this.view.addIncomeHeading()).toBeVisible({ timeout: SHORT_WAIT });
+    await expect(this.view.addIncomeHeading()).toBeVisible();
     await this.view.incomeFrequency().click();
     await this.view.incomeFrequencySelect().click();
     await this.view.incomeTypeDropdown().click();
