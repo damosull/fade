@@ -1,7 +1,6 @@
 import { type Page, expect } from '@playwright/test';
 import IncomeReconciliationPage from '../pages/incomeReconciliation.page';
 import { chooseDropdownOption } from '../support/helpers';
-import { SHORT_WAIT } from '../support/helpers';
 
 export class IncomeReconciliationActions {
   private readonly page: Page;
@@ -13,9 +12,9 @@ export class IncomeReconciliationActions {
   }
 
   async verifyIncomeReconciliationHeadings(): Promise<void> {
-    await expect(this.view.incomeReconciliationHeading()).toBeVisible({ timeout: SHORT_WAIT });
-    await expect(this.view.unreconciledBankPaymentHeading()).toBeVisible({ timeout: SHORT_WAIT });
-    await expect(this.view.unmatchedHeadings()).toBeVisible({ timeout: SHORT_WAIT });
+    await expect(this.view.incomeReconciliationHeading()).toBeVisible();
+    await expect(this.view.unreconciledBankPaymentHeading()).toBeVisible();
+    await expect(this.view.unmatchedHeadings()).toBeVisible();
   }
 
   async selectUnreconciledBankPaymentType(type: string): Promise<void> {
@@ -29,9 +28,7 @@ export class IncomeReconciliationActions {
   }
 
   async selectMatchBankPaymentsProvider(provider: string): Promise<void> {
-    await expect(this.view.matchedBankPaymentsFeeExpectationHeading()).toBeVisible({
-      timeout: SHORT_WAIT,
-    });
+    await expect(this.view.matchedBankPaymentsFeeExpectationHeading()).toBeVisible();
     await this.view.matchBankPaymentsProviderDropdown().click();
     await chooseDropdownOption(this.page, provider);
   }
@@ -60,12 +57,12 @@ export class IncomeReconciliationActions {
     await chooseDropdownOption(this.page, provider);
 
     await this.view.addFeeStatementDetailButton().click();
-    await expect(this.view.createStatementButton()).toBeVisible({ timeout: SHORT_WAIT });
+    await expect(this.view.createStatementButton()).toBeVisible();
   }
 
   async uploadCsvFile(): Promise<void> {
     await this.view.unreconciledRecAddCsvButton().click();
-    await expect(this.view.unreconciledRecAddFile()).toBeVisible({ timeout: SHORT_WAIT });
+    await expect(this.view.unreconciledRecAddFile()).toBeVisible();
   }
 }
 

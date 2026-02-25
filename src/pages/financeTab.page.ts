@@ -1,10 +1,24 @@
-import { type Page } from '@playwright/test';
+import { expect, type Page } from '@playwright/test';
 
 export class FinanceTabPage {
   readonly page: Page;
 
   constructor(page: Page) {
     this.page = page;
+  }
+
+  assetsNoDataRow() {
+    return this.assetsSection()
+      .locator('tbody tr')
+      .filter({ hasText: /there is no data to display/i });
+  }
+
+  assetsTableRows() {
+    return this.assetsSection().locator('tbody tr');
+  }
+
+  assetsPerPageOptions() {
+    return this.assetsPerPageSelect().locator('option');
   }
 
   assetsHeading() {
@@ -93,6 +107,14 @@ export class FinanceTabPage {
     return this.page.getByText('Withdrawals');
   }
 
+  addWithdrawalButton() {
+    return this.page.getByRole('button', { name: 'Add Withdrawal' });
+  }
+
+  addFeeButton() {
+    return this.page.getByRole('button', { name: 'Add Fee' });
+  }
+
   investmentDetailHeading() {
     return this.page.getByText('Investment Details');
   }
@@ -113,8 +135,41 @@ export class FinanceTabPage {
     return this.page.locator('#assets');
   }
 
-  assetRowByName(name: string) {
-    return this.assetsSection().locator('tr').filter({ hasText: name });
+  assetsPerPageSelect() {
+    return this.assetsSection().locator('tfoot select');
+  }
+
+  async assetRowByName(name: string) {
+    const row = this.assetsSection().locator('tbody tr').filter({ hasText: name });
+    await expect(row).toHaveCount(1);
+    return row;
+  }
+
+  async assetRowByIndex(index: number) {
+    return this.assetsSection().locator('tbody tr').nth(index);
+  }
+
+  withdrawalsSection() {
+    return this.page.getByRole('group', { name: 'Withdrawals' });
+  }
+
+  withdrawalRowByAmount(amount: number) {
+    const formattedAmount = new Intl.NumberFormat('en-GB', {
+      style: 'currency',
+      currency: 'GBP',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(amount);
+    return this.withdrawalsSection().locator('tr').filter({ hasText: formattedAmount });
+  }
+
+  contributionsSection() {
+    return this.page.getByRole('group', { name: 'Contributions' });
+  }
+
+  contributionRowByAmount(amount: number) {
+    const formattedAmount = `£${amount.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    return this.contributionsSection().locator('tr').filter({ hasText: formattedAmount });
   }
 }
 

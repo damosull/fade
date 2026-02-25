@@ -1,6 +1,5 @@
 import { type Page, expect } from '@playwright/test';
 import SigninPage from '../pages/signin.page';
-import { SHORT_WAIT } from '../support/helpers';
 
 export class SigninActions {
   private readonly page: Page;
@@ -12,7 +11,7 @@ export class SigninActions {
   }
 
   async loginToFade(email: string, password: string): Promise<void> {
-    await expect(this.view.microsoftSignInButton()).toBeVisible({ timeout: SHORT_WAIT });
+    await expect(this.view.microsoftSignInButton()).toBeVisible();
     await this.view.microsoftSignInButton().click();
 
     await this.view.emailTextBox().fill(email);
@@ -22,7 +21,7 @@ export class SigninActions {
     await this.view.passwordTextBox().fill(password);
     await this.view.signInButton().click();
 
-    await expect(this.view.yesButton()).toBeVisible({ timeout: SHORT_WAIT });
+    await expect(this.view.yesButton()).toBeVisible();
     await this.view.yesButton().click();
   }
 }

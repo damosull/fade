@@ -1,6 +1,6 @@
 import { type Page, expect } from '@playwright/test';
 import FeesTabPage from '../pages/feesTab.page';
-import { chooseDropdownOption, SHORT_WAIT } from '../support/helpers';
+import { chooseDropdownOption } from '../support/helpers';
 
 export class FeesTabActions {
   private readonly page: Page;
@@ -21,7 +21,7 @@ export class FeesTabActions {
     amount: string
   ): Promise<void> {
     await this.view.addFeeButton().click();
-    await expect(this.view.addFeeHeading()).toBeVisible({ timeout: SHORT_WAIT });
+    await expect(this.view.addFeeHeading()).toBeVisible();
 
     await this.view.addFeeTypeDropdown().click();
     await chooseDropdownOption(this.page, feeType);

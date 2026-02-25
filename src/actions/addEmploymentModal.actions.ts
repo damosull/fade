@@ -17,7 +17,7 @@ export class AddEmploymentModalActions {
     employmentStatus: string,
     typeOfEmployment: string
   ) {
-    await expect(this.view.addEmploymentHeading()).toBeVisible({ timeout: 5000 });
+    await expect(this.view.addEmploymentHeading()).toBeVisible();
 
     await this.view.employerName().fill(employerName);
     await this.view.jobTitle().fill(jobTitle);

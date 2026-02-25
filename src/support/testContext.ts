@@ -23,8 +23,10 @@ const actionConstructors = {
   signin: actions.SigninActions,
   assetModal: actions.AssetModalActions,
   accountDetails: actions.AccountDetailsActions,
+  withdrawalModal: actions.WithdrawalModalActions,
   addEmploymentModal: actions.AddEmploymentModalActions,
   runNewAmlCheckModal: actions.RunNewAmlCheckModalActions,
+  contributionModal: actions.ContributionModalActions,
 } as const;
 
 /**
@@ -44,8 +46,10 @@ const pageConstructors = {
   signin: pages.SigninPage,
   assetModal: pages.AssetModalPage,
   accountDetails: pages.AccountDetailsPage,
+  withdrawalModal: pages.WithdrawalModalPage,
   addEmploymentModal: pages.AddEmploymentModalPage,
   runNewAmlCheckModal: pages.RunNewAmlCheckModalPage,
+  contributionModal: pages.ContributionModalPage,
 } as const;
 
 /**
