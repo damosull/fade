@@ -18,7 +18,7 @@ export class RunNewAmlCheckModalActions {
     electronicCheckResult: string,
     result: string
   ) {
-    await expect(this.view.runNewAmlCheckHeading()).toBeVisible({ timeout: 5000 });
+    await expect(this.view.runNewAmlCheckHeading()).toBeVisible();
 
     await selectFromDropdown(this.page, this.view.proofOfIdDropdown(), proofOfId);
     await selectFromDropdown(this.page, this.view.proofOfAddressDropdown(), proofOfAddress);
@@ -36,7 +36,7 @@ export class RunNewAmlCheckModalActions {
       throw new Error(`Unsupported AML result: ${result}`);
     }
     await this.view.passedButton().click();
-    await expect(this.view.runNewAmlCheckHeading()).toBeHidden({ timeout: 5000 });
+    await expect(this.view.runNewAmlCheckHeading()).toBeHidden();
   }
 }
 

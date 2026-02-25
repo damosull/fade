@@ -10,8 +10,8 @@ export { default as IncomeReconciliationPage } from './incomeReconciliation.page
 export { default as SigninPage } from './signin.page';
 export { default as AssetModalPage } from './assetModal.page';
 export { default as AccountDetailsPage } from './accountDetails.page';
+export { default as WithdrawalModalPage } from './withdrawlModal.page';
 export { default as AddEmploymentModalPage } from './addEmploymentModal.page';
-export { default as WithdrawalModalPage } from './withdrawalModal.page';
 export { default as ContributionModalPage } from './contributionModal.page';
 export { default as RunNewAmlCheckModalPage } from './runNewAmlCheckModal.page';
 export { default as TasksTabPage } from './tasksTab.page';

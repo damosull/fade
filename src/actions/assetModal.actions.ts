@@ -12,7 +12,7 @@ export class AssetModalActions {
   }
 
   async addAssetOverview(selectAssetType: string) {
-    await expect(this.view.addAssetHeading()).toBeVisible({ timeout: 5000 });
+    await expect(this.view.addAssetHeading()).toBeVisible();
     await selectFromDropdown(this.page, this.view.assetTypeDropdown(), selectAssetType, true);
   }
 

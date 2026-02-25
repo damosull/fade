@@ -1,6 +1,6 @@
 import { type Page, expect } from '@playwright/test';
 import CompliancePage from '../pages/compliance.page';
-import { chooseDropdownOption, SHORT_WAIT } from '../support/helpers';
+import { chooseDropdownOption } from '../support/helpers';
 
 export class ComplianceActions {
   private readonly page: Page;
@@ -12,7 +12,7 @@ export class ComplianceActions {
   }
 
   async compliancePageHeading(): Promise<void> {
-    await expect(this.view.complianceHeading()).toBeVisible({ timeout: SHORT_WAIT });
+    await expect(this.view.complianceHeading()).toBeVisible();
   }
 
   async clickAddIntroducerButton(): Promise<void> {
@@ -20,7 +20,7 @@ export class ComplianceActions {
   }
 
   async addIntroducer(name: string, email: string, phone: string): Promise<void> {
-    await expect(this.view.addIntroducerHeading()).toBeVisible({ timeout: SHORT_WAIT });
+    await expect(this.view.addIntroducerHeading()).toBeVisible();
     await this.view.addIntroducerName().fill(name);
     await this.view.addIntroducerEmail().fill(email);
     await this.view.addIntroducerPhone().fill(phone);
@@ -38,7 +38,7 @@ export class ComplianceActions {
   }
 
   async addAdviser(adviserName: string): Promise<void> {
-    await expect(this.view.addAdviserDropdown()).toBeVisible({ timeout: SHORT_WAIT });
+    await expect(this.view.addAdviserDropdown()).toBeVisible();
     await this.view.addAdviserDropdown().click();
     await chooseDropdownOption(this.page, adviserName);
   }
@@ -48,7 +48,7 @@ export class ComplianceActions {
     accountNumber: string,
     sortCode: string
   ): Promise<void> {
-    await expect(this.view.bankDetailsHeading()).toBeVisible({ timeout: SHORT_WAIT });
+    await expect(this.view.bankDetailsHeading()).toBeVisible();
     await this.view.bankAccountName().fill(accountName);
     await this.view.bankAccountNumber().fill(accountNumber);
     await this.view.bankSortCode().fill(sortCode);

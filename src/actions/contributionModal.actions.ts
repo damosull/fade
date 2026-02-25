@@ -11,9 +11,9 @@ export class ContributionModalActions {
   }
 
   async addType(selectType: string) {
-    await expect(this.view.addContributionHeading()).toBeVisible({ timeout: 5000 });
+    await expect(this.view.addContributionHeading()).toBeVisible();
     await this.view.typeDropdown().click();
-    await this.view.selectTypeOption(selectType, true).click();
+    await this.view.selectTypeOption(selectType).click();
   }
 
   async selectFirstTransferredFrom() {
