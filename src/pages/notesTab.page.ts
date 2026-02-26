@@ -23,8 +23,44 @@ export class NotesTabPage {
     return this.notesTable().locator('tbody tr');
   }
 
+  notesViewMoreButton() {
+    return this.notesTable().getByRole('button', { name: 'View more' });
+  }
+
+  notesViewLessButton() {
+    return this.notesTable().getByRole('button', { name: 'View less' });
+  }
+
+  noteRowByName(name: string) {
+    return this.notesTable().locator('tbody tr').filter({ hasText: name });
+  }
+
+  noteTypeColumn(row: Locator) {
+    return row.locator('td').nth(0);
+  }
+
   noteRowByText(noteText: string) {
-    return this.page.locator('table tbody tr').filter({ hasText: noteText });
+    return this.notesTable().locator('tbody tr').filter({ hasText: noteText });
+  }
+
+  /** Expanded note row (the table row that contains Save and the note editor). */
+  expandedNoteRow() {
+    return this.notesTable()
+      .locator('tr')
+      .filter({ has: this.page.getByRole('button', { name: 'Save' }) });
+  }
+
+  /** The "Note / Click to edit" button in the expanded row. */
+  expandedNoteContentTrigger() {
+    return this.expandedNoteRow().getByRole('button', { name: /Note Click to edit/ });
+  }
+
+  expandedNoteImportantCheckbox() {
+    return this.expandedNoteRow().getByRole('checkbox', { name: 'Important' });
+  }
+
+  expandedNoteSaveButton() {
+    return this.notesTable().getByRole('button', { name: 'Save' });
   }
 
   noteContentColumn(row: Locator) {

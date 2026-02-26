@@ -32,6 +32,7 @@ const actionConstructors = {
   communication: actions.CommunicationTabActions,
   addCommunicationModal: actions.AddCommunicationModalActions,
   addNoteModal: actions.AddNoteModalActions,
+  notes: actions.NotesTabActions,
 } as const;
 
 /**
