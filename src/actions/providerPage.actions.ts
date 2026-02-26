@@ -1,6 +1,6 @@
 import { type Page, expect } from '@playwright/test';
 import ProviderPage from '../pages/providerPage.page';
-import { chooseDropdownOption, SHORT_WAIT } from '../support/helpers';
+import { chooseDropdownOption } from '../support/helpers';
 
 export class ProviderActions {
   private readonly page: Page;
@@ -12,13 +12,13 @@ export class ProviderActions {
   }
 
   async assertProviderPage(): Promise<void> {
-    await expect(this.view.providerHeading()).toBeVisible({ timeout: SHORT_WAIT });
-    await expect(this.view.providerSearchHeading()).toBeVisible({ timeout: SHORT_WAIT });
+    await expect(this.view.providerHeading()).toBeVisible();
+    await expect(this.view.providerSearchHeading()).toBeVisible();
   }
 
   async addNewProvider(name: string): Promise<void> {
     await this.view.providerAddButton().click();
-    await expect(this.view.addProviderHeading()).toBeVisible({ timeout: SHORT_WAIT });
+    await expect(this.view.addProviderHeading()).toBeVisible();
     await this.view.addProviderName().fill(name);
     await this.view.saveAddProviderButton().click();
     await expect(this.view.addProviderHeading()).toBeHidden();
@@ -50,7 +50,7 @@ export class ProviderActions {
   }
 
   async createBankPaymentRef(ref: string): Promise<void> {
-    await expect(this.view.bankPaymentRefHeading()).toBeVisible({ timeout: SHORT_WAIT });
+    await expect(this.view.bankPaymentRefHeading()).toBeVisible();
     await this.view.bankPaymentRef().fill(ref);
     await this.view.addBankPaymentRefButton().click();
   }

@@ -1,6 +1,5 @@
 import { type Page, expect } from '@playwright/test';
 import HeaderAndHamburgerPage from '../pages/headerAndHamburger.page';
-import { SHORT_WAIT } from '../support/helpers';
 
 export class HeaderAndHamburgerActions {
   private readonly page: Page;
@@ -12,12 +11,19 @@ export class HeaderAndHamburgerActions {
   }
 
   async searchForAccount(search: string) {
-    await expect(this.view.searchBox()).toBeVisible({ timeout: SHORT_WAIT });
+    await expect(this.view.searchBox()).toBeVisible();
     await this.view.searchBox().click();
     await this.view.searchBox().fill(search);
 
-    const result = this.view.accountSearchResultLink(search);
-    await expect(result).toBeVisible({ timeout: SHORT_WAIT });
+    await expect(this.view.resultsDropdown()).toBeVisible();
+
+    const result = this.view
+      .resultsDropdown()
+      .locator('a[href^="/accounts/"]')
+      .filter({ hasText: search })
+      .first();
+
+    await expect(result).toBeVisible();
     await result.click();
 
     await expect(this.page).toHaveURL(/\/accounts\/\d+$/);

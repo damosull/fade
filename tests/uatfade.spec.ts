@@ -7,7 +7,7 @@ const makeEmail = () => `qatest${stamp()}@fadesystems.co.uk`;
 const makeSurname = () => `Surname${stamp()}`;
 const makeFirstName = () => `FirstName${stamp()}`;
 
-test.describe('Individual account creation & details', () => {
+test.describe('Individual account creation & details @individual', () => {
   test.beforeEach(async ({ page }, testInfo) => {
     await navigateToHome(page, process.env.CI ? testInfo.project.name : 'chromium');
   });

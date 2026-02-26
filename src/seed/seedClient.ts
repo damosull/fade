@@ -25,6 +25,6 @@ export function getSeed(): SeedData {
   const data = parsed?.data ?? parsed;
 
   if (!data) throw new Error('[seedClient] Invalid seeds.json — missing data key.');
-  console.log(`[seedClient] Loaded seed from ${seedsPath}`);
+
   return data as SeedData;
 }

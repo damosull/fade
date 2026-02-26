@@ -6,7 +6,6 @@ import { selectAccounts } from '../src/support/helpers';
 const COMMUNICATION_TYPE = 'call';
 const COMMUNICATION_DIRECTION = 'from client';
 const COMMUNICATION_CATEGORIES = 'general query';
-
 const UPDATED_COMMUNICATION_TYPE = 'email';
 const UPDATED_COMMUNICATION_DIRECTION = 'to client';
 
@@ -15,11 +14,11 @@ test.beforeEach(async ({ page }, testInfo) => {
 });
 
 selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, accountNameKey }) => {
-  test.describe(`Communication Tab - ${accountType}`, () => {
+  const suiteTag = `@${accountType.toLowerCase()}`;
+  test.describe(`Communication Tab - ${accountType} ${suiteTag}`, () => {
     test('Add Communication and Validate', async ({ app, page }) => {
       const seed = getSeed();
 
-      // Today's date in dd/mm/yyyy format (for validation)
       const dueDate = new Date();
       dueDate.setDate(dueDate.getDate() + 0);
       const day = String(dueDate.getDate()).padStart(2, '0');
@@ -106,17 +105,14 @@ selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, acc
         COMMUNICATION_CATEGORIES,
         dateFormatted
       );
-
       await app.actions.communication.updateExpandedCommunication({
         type: UPDATED_COMMUNICATION_TYPE,
         direction: UPDATED_COMMUNICATION_DIRECTION,
       });
-
       await app.actions.communication.addAttendeeToExpandedCommunication(
         'system user',
         'Test Administrator All Clients'
       );
-
       await app.actions.communication.saveExpandedCommunication();
 
       try {
