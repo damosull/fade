@@ -33,6 +33,7 @@ const actionConstructors = {
   addCommunicationModal: actions.AddCommunicationModalActions,
   addNoteModal: actions.AddNoteModalActions,
   addDocumentModal: actions.AddDocumentModalActions,
+  documentsTab: actions.DocumentsTabActions,
 } as const;
 
 /**

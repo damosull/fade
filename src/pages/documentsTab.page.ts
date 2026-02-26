@@ -30,6 +30,22 @@ export class DocumentsTabPage {
   docDateCreatedColumn(row: Locator) {
     return row.locator('td').nth(5);
   }
+
+  documentsTable() {
+    return this.page.locator('h2').filter({ hasText: 'Documents' }).locator('..').locator('table');
+  }
+
+  documentsRows() {
+    return this.documentsTable().locator('tbody tr');
+  }
+
+  documentsViewMoreButton() {
+    return this.documentsTable().getByRole('button', { name: 'View more' });
+  }
+
+  documentsViewLessButton() {
+    return this.documentsTable().getByRole('button', { name: 'View less' });
+  }
 }
 
 export default DocumentsTabPage;

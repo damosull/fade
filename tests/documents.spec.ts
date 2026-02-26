@@ -41,6 +41,9 @@ selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, acc
       });
 
       await expect(app.pages.addDocumentModal.header()).toBeHidden();
+
+      await app.actions.documentsTab.expandDocumentsIfMoreThanFive();
+
       const docRow = app.pages.documents.documentRowByText(docDescription);
       await expect(app.pages.documents.docLinkColumn(docRow)).toContainText(docURL);
       await expect(app.pages.documents.docTypeColumn(docRow)).toContainText(docType);
