@@ -20,3 +20,4 @@ export { default as AddCommunicationModalActions } from './addCommunicationModal
 export { default as AddNoteModalActions } from './addNoteModal.actions';
 export { default as AddDocumentModalActions } from './addDocumentModal.actions';
 export { default as DocumentsTabActions } from './DocumentsTab.action';
+export { default as NotesTabActions } from './notes.actions';

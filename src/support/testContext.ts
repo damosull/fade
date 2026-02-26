@@ -34,6 +34,7 @@ const actionConstructors = {
   addNoteModal: actions.AddNoteModalActions,
   addDocumentModal: actions.AddDocumentModalActions,
   documentsTab: actions.DocumentsTabActions,
+  notes: actions.NotesTabActions,
 } as const;
 
 /**

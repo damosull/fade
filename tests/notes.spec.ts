@@ -10,7 +10,9 @@ test.beforeEach(async ({ page }, testInfo) => {
 });
 
 selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, accountNameKey }) => {
-  test.describe(`Notes Tab - ${accountType}`, () => {
+  const suiteTag = `@${accountType.toLowerCase()}`;
+
+  test.describe(`Notes Tab - ${accountType} ${suiteTag}`, () => {
     test('Add Note and Validate', async ({ app }) => {
       const seed = getSeed();
       const noteText = `Test note ${stamp()}`;
@@ -39,6 +41,38 @@ selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, acc
       await expect(app.pages.notes.noteCreatedColumn(noteRow)).toContainText(todayFormatted);
 
       await expect(app.pages.notes.noteUpdatedColumn(noteRow)).toContainText(todayFormatted);
+    });
+
+    test('Edit Note and Validate', async ({ app, page }) => {
+      const seed = getSeed();
+      const noteText = `Task-Update-${stamp()}`;
+
+      await app.actions.header.searchForAccount(seed[accountNameKey]);
+      await app.actions.header.openNotesTab();
+      await app.pages.notes.addNoteButton().click();
+
+      await app.actions.addNoteModal.addNote(noteText);
+
+      try {
+        await expect(page.getByText('Note has been saved', { exact: true }).first()).toBeVisible();
+      } catch {
+        await page.waitForLoadState('networkidle');
+      }
+
+      await app.actions.notes.expandNoteRowByName(noteText);
+      await expect(app.pages.notes.expandedNoteContentTrigger()).toContainText(noteText);
+
+      const updatedNoteText = `Task-Update-Edited-${stamp()}`;
+      await app.actions.notes.updateExpandedNote(updatedNoteText);
+
+      try {
+        await expect(page.getByText('Note has been saved', { exact: true }).first()).toBeVisible();
+      } catch {
+        await page.waitForLoadState('networkidle');
+      }
+
+      const noteRow = app.pages.notes.noteRowByText(updatedNoteText);
+      await expect(app.pages.notes.noteContentColumn(noteRow)).toContainText(updatedNoteText);
     });
   });
 });
