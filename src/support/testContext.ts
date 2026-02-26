@@ -32,6 +32,7 @@ const actionConstructors = {
   communication: actions.CommunicationTabActions,
   addCommunicationModal: actions.AddCommunicationModalActions,
   addNoteModal: actions.AddNoteModalActions,
+  addDocumentModal: actions.AddDocumentModalActions,
 } as const;
 
 /**
@@ -61,6 +62,8 @@ const pageConstructors = {
   addCommunicationModal: pages.AddCommunicationModalPage,
   notes: pages.NotesTabPage,
   addNoteModal: pages.AddNoteModalPage,
+  documents: pages.documentsTab,
+  addDocumentModal: pages.AddDocumentModalPage,
 } as const;
 
 /**

@@ -19,3 +19,5 @@ export { default as CommunicationTabPage } from './communicationTab.page';
 export { default as AddCommunicationModalPage } from './addCommunicationModal.page';
 export { default as NotesTabPage } from './notesTab.page';
 export { default as AddNoteModalPage } from './addNoteModal.page';
+export { default as documentsTab } from './documentsTab.page';
+export { default as AddDocumentModalPage } from './addDocumentModalPage.page';
