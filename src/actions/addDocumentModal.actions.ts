@@ -11,10 +11,6 @@ export class AddDocumentModalActions {
     this.view = new AddDocumentModalPage(page);
   }
 
-  /**
-   * Fills Summary (Type, Direction, Categories, Date) and Attendees (Type = system user,
-   * System User = Test Superadmin, Add Attendee), then clicks Save.
-   */
   async addDocument(options: {
     type: string;
     subtype: string;
