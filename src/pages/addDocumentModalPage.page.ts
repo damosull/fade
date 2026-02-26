@@ -6,6 +6,7 @@ export class AddDocumentModalPage {
   constructor(page: Page) {
     this.page = page;
   }
+
   modal() {
     return this.page.locator('div[role="dialog"]');
   }

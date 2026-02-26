@@ -10,6 +10,7 @@ export class DocumentsTabPage {
   addDocumentButton() {
     return this.page.getByRole('button', { name: 'Add Document' });
   }
+
   documentRowByText(noteText: string) {
     return this.page.locator('table tbody tr').filter({ hasText: noteText });
   }
@@ -25,6 +26,7 @@ export class DocumentsTabPage {
   docSubTypeColumn(row: Locator) {
     return row.locator('td').nth(2);
   }
+
   docDateCreatedColumn(row: Locator) {
     return row.locator('td').nth(5);
   }
