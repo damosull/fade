@@ -100,5 +100,39 @@ selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, acc
         updatedDescription
       );
     });
+
+    test('Delete document and Validate', async ({ app }) => {
+      const seed = getSeed();
+      const docDescription = `Doc Desc ${stamp()}`;
+
+      const docType = 'research';
+      const docSubType = 'comparison';
+      const docURL = 'https://example.com/test-document';
+
+      await app.actions.header.searchForAccount(seed[accountNameKey]);
+      await app.actions.header.openDocumentsTab();
+      await app.pages.documents.addDocumentButton().click();
+
+      await expect(app.pages.addDocumentModal.header()).toBeVisible();
+
+      await app.actions.addDocumentModal.addDocument({
+        type: docType,
+        subtype: docSubType,
+        url: docURL,
+        description: docDescription,
+      });
+
+      await expect(app.pages.addDocumentModal.header()).toBeHidden();
+
+      await app.actions.documentsTab.expandDocumentsIfMoreThanFive();
+
+      await expect(app.pages.documents.documentRowByText(docDescription)).toBeVisible();
+
+      const countBefore = await app.pages.documents.documentDataRows().count();
+
+      await app.actions.documentsTab.deleteDocumentRow(docDescription);
+
+      await expect(app.pages.documents.documentDataRows()).toHaveCount(countBefore - 1);
+    });
   });
 });

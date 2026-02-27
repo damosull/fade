@@ -84,6 +84,17 @@ export class DocumentsTabPage {
   documentsViewLessButton() {
     return this.documentsTable().getByRole('button', { name: 'View less' });
   }
+
+  documentRowDeleteButton(row: Locator) {
+    return row.locator('td').last().locator('button');
+  }
+
+  /** Document data rows only (excludes expanded edit form row which has Save in last cell). */
+  documentDataRows() {
+    return this.documentsTable()
+      .locator('tbody tr:has(td:last-of-type button)')
+      .filter({ hasNot: this.documentsTable().getByRole('button', { name: 'Save' }) });
+  }
 }
 
 export default DocumentsTabPage;

@@ -19,8 +19,11 @@ export class DocumentsTabActions {
     const rowCount = await rows.count();
 
     if (rowCount >= 5) {
-      await this.view.documentsViewMoreButton().click();
-      await expect(this.view.documentsViewLessButton()).toBeVisible();
+      const viewMore = this.view.documentsViewMoreButton();
+      if ((await viewMore.count()) > 0) {
+        await viewMore.click();
+        await expect(this.view.documentsViewLessButton()).toBeVisible();
+      }
     } else {
       await expect(this.view.documentsViewMoreButton()).toHaveCount(0);
     }
@@ -43,6 +46,14 @@ export class DocumentsTabActions {
     await this.view.expandedDocumentRowURL().fill(options.url);
     await this.view.expandedDocumentRowDescription().fill(options.description);
     await this.view.expandedDocumentSaveButton().click();
+  }
+
+  async deleteDocumentRow(docDescription: string): Promise<void> {
+    await this.expandDocumentsIfMoreThanFive();
+    const row = this.view.documentRowByText(docDescription);
+    await expect(row).toBeVisible();
+    await row.scrollIntoViewIfNeeded();
+    await this.view.documentRowDeleteButton(row).click();
   }
 }
 
