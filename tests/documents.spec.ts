@@ -58,7 +58,11 @@ selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, acc
       const docType = 'research';
       const docSubType = 'comparison';
       const docURL = 'https://example.com/test-document';
-      const updatedDocumentSubType = 'illustration';
+
+      const updatedType = 'core documents';
+      const updatedSubtype = 'fact find';
+      const updatedURL = 'https://example.com/edited-doc';
+      const updatedDescription = `Edit ${Date.now().toString(36)}`;
 
       await app.actions.header.searchForAccount(seed[accountNameKey]);
       await app.actions.header.openDocumentsTab();
@@ -74,7 +78,12 @@ selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, acc
       });
 
       await app.actions.documentsTab.expandDocumentRowByText(docDescription);
-      await app.actions.documentsTab.updateExpandedDocumentSubType(updatedDocumentSubType);
+      await app.actions.documentsTab.updateExpandedDocument({
+        type: updatedType,
+        subtype: updatedSubtype,
+        url: updatedURL,
+        description: updatedDescription,
+      });
       try {
         await expect(
           page.getByText('Document has been saved', { exact: true }).first()
@@ -83,9 +92,12 @@ selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, acc
         await page.waitForLoadState('networkidle');
       }
 
-      const docRow = app.pages.documents.documentRowByText(docDescription);
-      await expect(app.pages.documents.docSubTypeColumn(docRow)).toContainText(
-        updatedDocumentSubType
+      const docRow = app.pages.documents.documentSummaryRowByText(updatedDescription);
+      await expect(app.pages.documents.docLinkColumn(docRow)).toContainText(updatedURL);
+      await expect(app.pages.documents.docTypeColumn(docRow)).toContainText(updatedType);
+      await expect(app.pages.documents.docSubTypeColumn(docRow)).toContainText(updatedSubtype);
+      await expect(app.pages.documents.docDescriptionColumn(docRow)).toContainText(
+        updatedDescription
       );
     });
   });

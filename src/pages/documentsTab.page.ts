@@ -15,20 +15,38 @@ export class DocumentsTabPage {
     return this.page.locator('table tbody tr').filter({ hasText: docText });
   }
 
+  /** Data row with given text, excluding the expanded form row (so column assertions apply). */
+  documentSummaryRowByText(docText: string) {
+    return this.documentsTable()
+      .locator('tbody tr')
+      .filter({ hasText: docText })
+      .filter({ hasNot: this.documentsTable().getByRole('button', { name: 'Save' }) });
+  }
+
   expandedDocumentRow() {
     return this.documentsTable()
       .locator('tr')
       .filter({ has: this.page.getByRole('button', { name: 'Save' }) });
   }
 
+  expandedDocumentRowType() {
+    return this.expandedDocumentRow().getByRole('combobox', { name: /^Type\*/i });
+  }
+
   expandedDocumentRowSubType() {
-    return this.documentsTable()
-      .locator('tr')
-      .getByRole('combobox', { name: /^Subtype\*/i });
+    return this.expandedDocumentRow().getByRole('combobox', { name: /^Subtype\*/i });
+  }
+
+  expandedDocumentRowURL() {
+    return this.expandedDocumentRow().getByRole('textbox', { name: /URL/i });
+  }
+
+  expandedDocumentRowDescription() {
+    return this.expandedDocumentRow().getByRole('textbox', { name: 'Description' });
   }
 
   expandedDocumentSaveButton() {
-    return this.documentsTable().getByRole('button', { name: 'Save' });
+    return this.expandedDocumentRow().getByRole('button', { name: 'Save' });
   }
 
   docLinkColumn(row: Locator) {
@@ -41,6 +59,10 @@ export class DocumentsTabPage {
 
   docSubTypeColumn(row: Locator) {
     return row.locator('td').nth(2);
+  }
+
+  docDescriptionColumn(row: Locator) {
+    return row.locator('td').nth(3);
   }
 
   docDateCreatedColumn(row: Locator) {

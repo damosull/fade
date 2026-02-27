@@ -32,8 +32,16 @@ export class DocumentsTabActions {
     await this.view.docLinkColumn(row).click();
   }
 
-  async updateExpandedDocumentSubType(subType: string): Promise<void> {
-    await selectFromDropdown(this.page, this.view.expandedDocumentRowSubType(), subType);
+  async updateExpandedDocument(options: {
+    type: string;
+    subtype: string;
+    url: string;
+    description: string;
+  }): Promise<void> {
+    await selectFromDropdown(this.page, this.view.expandedDocumentRowType(), options.type);
+    await selectFromDropdown(this.page, this.view.expandedDocumentRowSubType(), options.subtype);
+    await this.view.expandedDocumentRowURL().fill(options.url);
+    await this.view.expandedDocumentRowDescription().fill(options.description);
     await this.view.expandedDocumentSaveButton().click();
   }
 }
