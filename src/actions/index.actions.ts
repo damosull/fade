@@ -18,4 +18,6 @@ export { default as TasksTabActions } from './tasksTab.actions';
 export { default as CommunicationTabActions } from './communicationTab.actions';
 export { default as AddCommunicationModalActions } from './addCommunicationModal.actions';
 export { default as AddNoteModalActions } from './addNoteModal.actions';
+export { default as AddDocumentModalActions } from './addDocumentModal.actions';
+export { default as DocumentsTabActions } from './DocumentsTab.action';
 export { default as NotesTabActions } from './notes.actions';
