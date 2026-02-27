@@ -50,5 +50,43 @@ selectAccounts('Individual', 'Trust', 'Corporation').forEach(({ accountType, acc
       await expect(app.pages.documents.docSubTypeColumn(docRow)).toContainText(docSubType);
       await expect(app.pages.documents.docDateCreatedColumn(docRow)).toContainText(todayFormatted);
     });
+
+    test('Edit document and Validate', async ({ app, page }) => {
+      const seed = getSeed();
+      const docDescription = `Doc Desc ${stamp()}`;
+
+      const docType = 'research';
+      const docSubType = 'comparison';
+      const docURL = 'https://example.com/test-document';
+      const updatedDocumentSubType = 'illustration';
+
+      await app.actions.header.searchForAccount(seed[accountNameKey]);
+      await app.actions.header.openDocumentsTab();
+
+      await app.pages.documents.addDocumentButton().click();
+      await expect(app.pages.addDocumentModal.header()).toBeVisible();
+
+      await app.actions.addDocumentModal.addDocument({
+        type: docType,
+        subtype: docSubType,
+        url: docURL,
+        description: docDescription,
+      });
+
+      await app.actions.documentsTab.expandDocumentRowByText(docDescription);
+      await app.actions.documentsTab.updateExpandedDocumentSubType(updatedDocumentSubType);
+      try {
+        await expect(
+          page.getByText('Document has been saved', { exact: true }).first()
+        ).toBeVisible();
+      } catch {
+        await page.waitForLoadState('networkidle');
+      }
+
+      const docRow = app.pages.documents.documentRowByText(docDescription);
+      await expect(app.pages.documents.docSubTypeColumn(docRow)).toContainText(
+        updatedDocumentSubType
+      );
+    });
   });
 });

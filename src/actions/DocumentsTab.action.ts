@@ -1,5 +1,6 @@
 import { expect, type Page } from '@playwright/test';
 import DocumentsTabPage from '../pages/documentsTab.page';
+import { selectFromDropdown } from '../support/helpers';
 
 export class DocumentsTabActions {
   private readonly page: Page;
@@ -23,6 +24,17 @@ export class DocumentsTabActions {
     } else {
       await expect(this.view.documentsViewMoreButton()).toHaveCount(0);
     }
+  }
+
+  async expandDocumentRowByText(docDescription: string): Promise<void> {
+    await this.expandDocumentsIfMoreThanFive();
+    const row = this.view.documentRowByText(docDescription);
+    await this.view.docLinkColumn(row).click();
+  }
+
+  async updateExpandedDocumentSubType(subType: string): Promise<void> {
+    await selectFromDropdown(this.page, this.view.expandedDocumentRowSubType(), subType);
+    await this.view.expandedDocumentSaveButton().click();
   }
 }
 

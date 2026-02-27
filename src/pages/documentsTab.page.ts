@@ -11,8 +11,24 @@ export class DocumentsTabPage {
     return this.page.getByRole('button', { name: 'Add Document' });
   }
 
-  documentRowByText(noteText: string) {
-    return this.page.locator('table tbody tr').filter({ hasText: noteText });
+  documentRowByText(docText: string) {
+    return this.page.locator('table tbody tr').filter({ hasText: docText });
+  }
+
+  expandedDocumentRow() {
+    return this.documentsTable()
+      .locator('tr')
+      .filter({ has: this.page.getByRole('button', { name: 'Save' }) });
+  }
+
+  expandedDocumentRowSubType() {
+    return this.documentsTable()
+      .locator('tr')
+      .getByRole('combobox', { name: /^Subtype\*/i });
+  }
+
+  expandedDocumentSaveButton() {
+    return this.documentsTable().getByRole('button', { name: 'Save' });
   }
 
   docLinkColumn(row: Locator) {
